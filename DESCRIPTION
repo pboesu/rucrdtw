@@ -1,0 +1,19 @@
+Package: rucrdtw
+Type: Package
+Title: R Bindings for the UCR DTW Algorithm
+Version: 0.1
+Date: 2016-08-31
+Authors@R: c(person("Thanawin", "Rakthanmanon", role = "aut"),
+             person("Bilson", "Campana", role = "aut"),
+             person("Abdullah", "Mueen", role = "aut"),
+             person("Gustavo", "Batista", role = "aut"),
+             person("Eamonn", "Keogh", role = "aut"),
+             person("Philipp", "Boersch-Supan", email = "pboesu@gmail.com", role = c("aut", "cre")))
+Description: R bindings for functions from the UCR Suite, which enables ultrafast subsequence
+      search under both Dynamic Time Warping (DTW) and Euclidean Distance (ED). The algorithm is described in Rakthanmanon et al. 2012 SIGKDD.
+License: What license is it under?
+LazyData: TRUE
+LinkingTo: Rcpp
+Imports:
+    Rcpp
+RoxygenNote: 5.0.1
