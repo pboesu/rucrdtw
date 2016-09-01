@@ -22,6 +22,10 @@
 /***********************************************************************/
 
 #include <Rcpp.h>
+
+// Enable C++11 via this plugin (Rcpp 0.10.3 or later)
+// [[Rcpp::plugins(cpp11)]]
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -33,6 +37,13 @@
 #define dist(x,y) ((x-y)*(x-y))
 
 #define INF 1e20       //Pseudo Infitinte number for this code
+
+//dealing with the CRAN long long issue
+#if defined(__GNUC__) &&  defined(__LONG_LONG_MAX__)
+__extension__ typedef long long int rcpp_long_long_type;
+__extension__ typedef unsigned long long int rcpp_ulong_long_type;
+#define RCPP_HAS_LONG_LONG_TYPES
+#endif
 
 using namespace std;
 using namespace Rcpp;
@@ -742,10 +753,10 @@ Rcpp::List ucrdtw_ff(const char * data , const char * query, int qlength, double
   
   
   double d;
-  long long i , j;
+  rcpp_long_long_type i , j;
   double ex , ex2 , mean, std;
   int m=-1, r=-1;
-  long long loc = 0;
+  rcpp_long_long_type loc = 0;
   double t1,t2;
   int kim = 0,keogh = 0, keogh2 = 0;
   double dist=0, lb_kim=0, lb_k=0, lb_k2=0;
@@ -908,7 +919,7 @@ Rcpp::List ucrdtw_ff(const char * data , const char * query, int qlength, double
   ex = ex2 = 0;
   bool done = false;
   int it=0, ep=0, k=0;
-  long long I;    /// the starting index of the data in current chunk of size EPOCH
+  rcpp_long_long_type I;    /// the starting index of the data in current chunk of size EPOCH
   
   while(!done)
   {
@@ -1062,18 +1073,18 @@ Rcpp::List ucrdtw_ff(const char * data , const char * query, int qlength, double
   t2 = clock();
   printf("\n");
   
-  /// Note that loc and i are long long.
-  cout << "Location : " << loc << endl;
-  cout << "Distance : " << sqrt(bsf) << endl;
-  cout << "Data Scanned : " << i << endl;
-  cout << "Total Execution Time : " << (t2-t1)/CLOCKS_PER_SEC << " sec" << endl;
+  /// Note that loc and i are rcpp_long_long_type.
+  //cout << "Location : " << loc << endl;
+  //cout << "Distance : " << sqrt(bsf) << endl;
+  //cout << "Data Scanned : " << i << endl;
+  //cout << "Total Execution Time : " << (t2-t1)/CLOCKS_PER_SEC << " sec" << endl;
   
   /// printf is just easier for formating ;)
-  Rprintf("\n");
-  Rprintf("Pruned by LB_Kim    : %6.2f%%\n", ((double) kim / i)*100);
-  Rprintf("Pruned by LB_Keogh  : %6.2f%%\n", ((double) keogh / i)*100);
-  Rprintf("Pruned by LB_Keogh2 : %6.2f%%\n", ((double) keogh2 / i)*100);
-  Rprintf("DTW Calculation     : %6.2f%%\n", 100-(((double)kim+keogh+keogh2)/i*100));
+  //Rprintf("\n");
+  //Rprintf("Pruned by LB_Kim    : %6.2f%%\n", ((double) kim / i)*100);
+  //Rprintf("Pruned by LB_Keogh  : %6.2f%%\n", ((double) keogh / i)*100);
+  //Rprintf("Pruned by LB_Keogh2 : %6.2f%%\n", ((double) keogh2 / i)*100);
+  //Rprintf("DTW Calculation     : %6.2f%%\n", 100-(((double)kim+keogh+keogh2)/i*100));
   return Rcpp::List::create(Rcpp::Named("location") = loc,
                             Rcpp::Named("distance") = sqrt(bsf),
                             Rcpp::Named("exec_time")=(t2-t1)/CLOCKS_PER_SEC,
