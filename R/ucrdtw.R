@@ -8,6 +8,7 @@
 #'
 #' @useDynLib rucrdtw
 #' @importFrom Rcpp sourceCpp
+#' @export
 
 ucrdtw <- function(...){
   ucrdtw_ff(...)
