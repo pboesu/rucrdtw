@@ -1,6 +1,8 @@
 
 
-#' @title UC Riverside DTW Algorithm
+#' UC Riverside DTW Algorithm
+#'
+#' Description of this function
 #'
 #' @name ucrdtw
 #' @param ... arguments to appropriate ucrdtw method

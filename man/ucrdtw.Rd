@@ -9,4 +9,7 @@ ucrdtw(...)
 \arguments{
 \item{...}{arguments to appropriate ucrdtw method}
 }
+\description{
+Description of this function
+}
 
