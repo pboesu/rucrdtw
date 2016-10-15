@@ -17,3 +17,19 @@ ucrdtw_ff <- function(data, query, qlength, dtwwindow) {
     .Call('rucrdtw_ucrdtw_ff', PACKAGE = 'rucrdtw', data, query, qlength, dtwwindow)
 }
 
+#' UCR DTW Algorithm file-vector method
+#'
+#' This implementation of the UCR Suite command line utility, takes a data file as input and an R numeric vector for the query
+#'
+#' @name ucrdtw_fv
+#' @param data char path to data file
+#' @param query numeric vector containing the query
+#' @param qlength int length of query (n data points)
+#' @param dtwwindow double warping window size (as a proportion of query length)
+#' @useDynLib rucrdtw
+#' @importFrom Rcpp sourceCpp
+#' @export
+ucrdtw_fv <- function(data, query, qlength, dtwwindow) {
+    .Call('rucrdtw_ucrdtw_fv', PACKAGE = 'rucrdtw', data, query, qlength, dtwwindow)
+}
+
