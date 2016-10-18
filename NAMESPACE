@@ -3,5 +3,6 @@
 export(ucrdtw)
 export(ucrdtw_ff)
 export(ucrdtw_fv)
+export(ucrdtw_vv)
 importFrom(Rcpp,sourceCpp)
 useDynLib(rucrdtw)

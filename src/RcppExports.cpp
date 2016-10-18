@@ -33,3 +33,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// ucrdtw_vv
+Rcpp::List ucrdtw_vv(Rcpp::NumericVector data, Rcpp::NumericVector query, int qlength, double dtwwindow);
+RcppExport SEXP rucrdtw_ucrdtw_vv(SEXP dataSEXP, SEXP querySEXP, SEXP qlengthSEXP, SEXP dtwwindowSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type data(dataSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type query(querySEXP);
+    Rcpp::traits::input_parameter< int >::type qlength(qlengthSEXP);
+    Rcpp::traits::input_parameter< double >::type dtwwindow(dtwwindowSEXP);
+    rcpp_result_gen = Rcpp::wrap(ucrdtw_vv(data, query, qlength, dtwwindow));
+    return rcpp_result_gen;
+END_RCPP
+}
