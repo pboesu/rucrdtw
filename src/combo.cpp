@@ -1496,6 +1496,7 @@ Rcpp::List ucrdtw_vv(Rcpp::NumericVector data , Rcpp::NumericVector query, int q
   //Rprintf("DTW Calculation     : %6.2f%%\n", 100-(((double)kim+keogh+keogh2)/i*100));
   return Rcpp::List::create(Rcpp::Named("location") = loc,
                             Rcpp::Named("distance") = sqrt(bsf),
+                            Rcpp::Named("data_scanned") = i,
                             Rcpp::Named("exec_time")=(t2-t1)/CLOCKS_PER_SEC,
                             Rcpp::Named("prunedKim")=((double) kim / i)*100,
                             Rcpp::Named("prunedKeogh")=((double) keogh / i)*100,
