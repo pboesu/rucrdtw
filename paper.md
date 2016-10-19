@@ -19,7 +19,8 @@
   Dynamic time warping (DTW) provides a similarity measure based on a non-linear mapping between two time series [@berndt1994using].
   It is widely used in time series data mining applications for tasks such as classification, clustering, and anomaly detection.
   
-  The [UCR Suite](http://www.cs.ucr.edu/~eamonn/UCRsuite.html) [@rakthanmanon2012searching] is a collection of C++ programs for the purpose of finding a best match for a query in a large data set. The `rucrdtw` R package makes use of `Rcpp` [@Rcpp] to provide R bindings for functions from the UCR Suite.
+  The [UCR Suite](http://www.cs.ucr.edu/~eamonn/UCRsuite.html) [@rakthanmanon2012searching] is a collection of C++ programs for the purpose of finding a best match for a query in a large data set based on DTW distance. 
+  The `rucrdtw` R package makes use of `Rcpp` [@Rcpp] to provide R bindings for functions from the UCR Suite.
   
   # References
   
