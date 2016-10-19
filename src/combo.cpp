@@ -615,8 +615,8 @@ Rcpp::List ucrdtw_ff(const char * data , const char * query, int qlength, double
     {   lower_upper_lemire(buffer, ep, r, l_buff, u_buff);
 
       /// Just for printing a dot for approximate a million point. Not much accurate.
-      if (it%(1000000/(EPOCH-m+1))==0)
-        REprintf(".");
+      //if (it%(1000000/(EPOCH-m+1))==0)
+        //REprintf(".");
 
       /// Do main task here..
       ex=0; ex2=0;
@@ -734,27 +734,18 @@ Rcpp::List ucrdtw_ff(const char * data , const char * query, int qlength, double
   free(u_buff);
 
   t2 = clock();
-  Rprintf("\n");
+  //Rprintf("\n");
 
   /// Note that loc and i are rcpp_long_long_type.
-  //cout << "Location : " << loc << endl;
-  //cout << "Distance : " << sqrt(bsf) << endl;
-  //cout << "Data Scanned : " << i << endl;
-  //cout << "Total Execution Time : " << (t2-t1)/CLOCKS_PER_SEC << " sec" << endl;
-
-  /// printf is just easier for formating ;)
-  //Rprintf("\n");
-  //Rprintf("Pruned by LB_Kim    : %6.2f%%\n", ((double) kim / i)*100);
-  //Rprintf("Pruned by LB_Keogh  : %6.2f%%\n", ((double) keogh / i)*100);
-  //Rprintf("Pruned by LB_Keogh2 : %6.2f%%\n", ((double) keogh2 / i)*100);
-  //Rprintf("DTW Calculation     : %6.2f%%\n", 100-(((double)kim+keogh+keogh2)/i*100));
-  return Rcpp::List::create(Rcpp::Named("location") = loc,
-                            Rcpp::Named("distance") = sqrt(bsf),
-                            Rcpp::Named("exec_time")=(t2-t1)/CLOCKS_PER_SEC,
-                            Rcpp::Named("prunedKim")=((double) kim / i)*100,
-                            Rcpp::Named("prunedKeogh")=((double) keogh / i)*100,
-                            Rcpp::Named("prunedKeogh2")=((double) keogh2 / i)*100,
-                            Rcpp::Named("dtwCalc")=100-(((double)kim+keogh+keogh2)/i*100));
+  Rcpp::List out = Rcpp::List::create(Rcpp::Named("location") = loc + 1, //convert to R's 1-based indexing
+                                      Rcpp::Named("distance") = sqrt(bsf),
+                                      Rcpp::Named("exec_time")=(t2-t1)/CLOCKS_PER_SEC,
+                                      Rcpp::Named("prunedKim")=((double) kim / i)*100,
+                                      Rcpp::Named("prunedKeogh")=((double) keogh / i)*100,
+                                      Rcpp::Named("prunedKeogh2")=((double) keogh2 / i)*100,
+                                      Rcpp::Named("dtwCalc")=100-(((double)kim+keogh+keogh2)/i*100));
+  out.attr("class") = "ucrdtw";
+  return out;
 }
 
 /// Just the main function adapted for Rcpp export
@@ -984,8 +975,8 @@ Rcpp::List ucrdtw_fv(const char * data , Rcpp::NumericVector query, int qlength,
     {   lower_upper_lemire(buffer, ep, r, l_buff, u_buff);
 
       /// Just for printing a dot for approximate a million point. Not much accurate.
-      if (it%(1000000/(EPOCH-m+1))==0)
-        REprintf(".");
+      //if (it%(1000000/(EPOCH-m+1))==0)
+        //REprintf(".");
 
       /// Do main task here..
       ex=0; ex2=0;
@@ -1103,27 +1094,18 @@ Rcpp::List ucrdtw_fv(const char * data , Rcpp::NumericVector query, int qlength,
   free(u_buff);
 
   t2 = clock();
-  Rprintf("\n");
+  //Rprintf("\n");
 
   /// Note that loc and i are rcpp_long_long_type.
-  //cout << "Location : " << loc << endl;
-  //cout << "Distance : " << sqrt(bsf) << endl;
-  //cout << "Data Scanned : " << i << endl;
-  //cout << "Total Execution Time : " << (t2-t1)/CLOCKS_PER_SEC << " sec" << endl;
-
-  /// printf is just easier for formating ;)
-  //Rprintf("\n");
-  //Rprintf("Pruned by LB_Kim    : %6.2f%%\n", ((double) kim / i)*100);
-  //Rprintf("Pruned by LB_Keogh  : %6.2f%%\n", ((double) keogh / i)*100);
-  //Rprintf("Pruned by LB_Keogh2 : %6.2f%%\n", ((double) keogh2 / i)*100);
-  //Rprintf("DTW Calculation     : %6.2f%%\n", 100-(((double)kim+keogh+keogh2)/i*100));
-  return Rcpp::List::create(Rcpp::Named("location") = loc,
-                            Rcpp::Named("distance") = sqrt(bsf),
-                            Rcpp::Named("exec_time")=(t2-t1)/CLOCKS_PER_SEC,
-                            Rcpp::Named("prunedKim")=((double) kim / i)*100,
-                            Rcpp::Named("prunedKeogh")=((double) keogh / i)*100,
-                            Rcpp::Named("prunedKeogh2")=((double) keogh2 / i)*100,
-                            Rcpp::Named("dtwCalc")=100-(((double)kim+keogh+keogh2)/i*100));
+  Rcpp::List out = Rcpp::List::create(Rcpp::Named("location") = loc + 1, //convert to R's 1-based indexing
+                                      Rcpp::Named("distance") = sqrt(bsf),
+                                      Rcpp::Named("exec_time")=(t2-t1)/CLOCKS_PER_SEC,
+                                      Rcpp::Named("prunedKim")=((double) kim / i)*100,
+                                      Rcpp::Named("prunedKeogh")=((double) keogh / i)*100,
+                                      Rcpp::Named("prunedKeogh2")=((double) keogh2 / i)*100,
+                                      Rcpp::Named("dtwCalc")=100-(((double)kim+keogh+keogh2)/i*100));
+  out.attr("class") = "ucrdtw";
+  return out;
 }
 
 /// Just the main function adapted for Rcpp export
@@ -1347,7 +1329,7 @@ Rcpp::List ucrdtw_vv(Rcpp::NumericVector data , Rcpp::NumericVector query, int q
     {   //if (fscanf(fp,"%lf",&d) == EOF)
       if (((it)*(EPOCH-m+1) + ep) == data.size()-1) //this is always true
         break;
-      buffer[ep] = data[ep];
+      buffer[ep] = data[(it)*(EPOCH-m+1) + ep];
       ep++;
       //Rcout << ep << "\n";
     }
@@ -1480,26 +1462,16 @@ Rcpp::List ucrdtw_vv(Rcpp::NumericVector data , Rcpp::NumericVector query, int q
   free(u_buff);
 
   t2 = clock();
-  Rprintf("\n");
+  //Rprintf("\n");
 
   /// Note that loc and i are rcpp_long_long_type.
-  //cout << "Location : " << loc << endl;
-  //cout << "Distance : " << sqrt(bsf) << endl;
-  //cout << "Data Scanned : " << i << endl;
-  //cout << "Total Execution Time : " << (t2-t1)/CLOCKS_PER_SEC << " sec" << endl;
-
-  /// printf is just easier for formating ;)
-  //Rprintf("\n");
-  //Rprintf("Pruned by LB_Kim    : %6.2f%%\n", ((double) kim / i)*100);
-  //Rprintf("Pruned by LB_Keogh  : %6.2f%%\n", ((double) keogh / i)*100);
-  //Rprintf("Pruned by LB_Keogh2 : %6.2f%%\n", ((double) keogh2 / i)*100);
-  //Rprintf("DTW Calculation     : %6.2f%%\n", 100-(((double)kim+keogh+keogh2)/i*100));
-  return Rcpp::List::create(Rcpp::Named("location") = loc,
-                            Rcpp::Named("distance") = sqrt(bsf),
-                            Rcpp::Named("data_scanned") = i,
-                            Rcpp::Named("exec_time")=(t2-t1)/CLOCKS_PER_SEC,
-                            Rcpp::Named("prunedKim")=((double) kim / i)*100,
-                            Rcpp::Named("prunedKeogh")=((double) keogh / i)*100,
-                            Rcpp::Named("prunedKeogh2")=((double) keogh2 / i)*100,
-                            Rcpp::Named("dtwCalc")=100-(((double)kim+keogh+keogh2)/i*100));
+  Rcpp::List out = Rcpp::List::create(Rcpp::Named("location") = loc + 1, //convert to R's 1-based indexing
+                                      Rcpp::Named("distance") = sqrt(bsf),
+                                      Rcpp::Named("exec_time")=(t2-t1)/CLOCKS_PER_SEC,
+                                      Rcpp::Named("prunedKim")=((double) kim / i)*100,
+                                      Rcpp::Named("prunedKeogh")=((double) keogh / i)*100,
+                                      Rcpp::Named("prunedKeogh2")=((double) keogh2 / i)*100,
+                                      Rcpp::Named("dtwCalc")=100-(((double)kim+keogh+keogh2)/i*100));
+  out.attr("class") = "ucrdtw";
+  return out;
 }
