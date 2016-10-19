@@ -1327,7 +1327,7 @@ Rcpp::List ucrdtw_vv(Rcpp::NumericVector data , Rcpp::NumericVector query, int q
     ep=m-1;
     while(ep<EPOCH)
     {   //if (fscanf(fp,"%lf",&d) == EOF)
-      if (((it)*(EPOCH-m+1) + ep) == data.size()-1) //this is always true
+      if (((it)*(EPOCH-m+1) + ep) == data.size())
         break;
       buffer[ep] = data[(it)*(EPOCH-m+1) + ep];
       ep++;
