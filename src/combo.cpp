@@ -1114,7 +1114,7 @@ Rcpp::List ucrdtw_fv(const char * data , Rcpp::NumericVector query, int qlength,
 //' This implementation of the UCR Suite command line utility, takes an R numeric vector as data input and an R numeric vector for the query
 //'
 //' @name ucrdtw_vv
-//' @param datav numeric vector containing data
+//' @param data numeric vector containing data
 //' @param query numeric vector containing the query
 //' @param qlength int length of query (n data points)
 //' @param dtwwindow double warping window size (as a proportion of query length)

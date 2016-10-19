@@ -7,13 +7,13 @@
 ucrdtw_vv(data, query, qlength, dtwwindow)
 }
 \arguments{
+\item{data}{numeric vector containing data}
+
 \item{query}{numeric vector containing the query}
 
 \item{qlength}{int length of query (n data points)}
 
 \item{dtwwindow}{double warping window size (as a proportion of query length)}
-
-\item{datav}{numeric vector containing data}
 }
 \description{
 This implementation of the UCR Suite command line utility, takes an R numeric vector as data input and an R numeric vector for the query
