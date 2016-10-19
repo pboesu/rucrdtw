@@ -22,9 +22,6 @@ install:
   - if [ "$CXX" == "clang++" ]; then sudo apt-get install --allow-unauthenticated -qq clang-3.4; fi
   - if [ "$CXX" == "clang++" ]; then export CXX="clang++-3.4"; fi
 
-script:
-  - $CXX --version
-
 language: R
 sudo: true
 cache: packages
@@ -35,10 +32,6 @@ after_success:
   - Rscript -e 'covr::codecov()'
 matrix:
  include:
-   - os: osx
-     r: release
-   - os: osx
-     r: devel
    - os: linux
      r: release
    - os: linux
