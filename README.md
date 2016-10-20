@@ -2,6 +2,8 @@
 [![Travis-CI Build Status](https://travis-ci.org/pboesu/rucrdtw.svg?branch=master)](https://travis-ci.org/pboesu/rucrdtw)
 [![codecov](https://codecov.io/gh/pboesu/rucrdtw/branch/master/graph/badge.svg)](https://codecov.io/gh/pboesu/rucrdtw)
 
+R bindings for functions from the UCR Suite (Thanawin Rakthanmanon et al. 2012 SIGKDD), which enables ultrafast subsequence
+      search under both Dynamic Time Warping and Euclidean Distance.
 
 ## License
 COPYRIGHT 2012: Thanawin Rakthanmanon, Bilson Campana, Abdullah Mueen, Gustavo Batista and Eamonn Keogh. (UCR Suite source code)

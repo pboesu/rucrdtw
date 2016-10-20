@@ -9,8 +9,10 @@ Authors@R: c(person("Thanawin", "Rakthanmanon", role = "aut"),
              person("Gustavo", "Batista", role = "aut"),
              person("Eamonn", "Keogh", role = "aut"),
              person("Philipp", "Boersch-Supan", email = "pboesu@gmail.com", role = c("aut", "cre")))
-Description: R bindings for functions from the UCR Suite, which enables ultrafast subsequence
-      search under both Dynamic Time Warping (DTW) and Euclidean Distance (ED). The algorithm is described in Rakthanmanon et al. 2012 SIGKDD.
+BugReports: https://github.com/pboesu/rucrdtw/issues
+URL: https://github.com/pboesu/rucrdtw
+Description: R bindings for functions from the UCR Suite (Thanawin Rakthanmanon et al. 2012 SIGKDD), which enables ultrafast subsequence
+      search under both Dynamic Time Warping and Euclidean Distance.
 License: Apache License
 LazyData: TRUE
 LinkingTo: Rcpp
