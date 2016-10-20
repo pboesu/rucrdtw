@@ -14,13 +14,11 @@
 ---
 
   # Summary
-  Similarity search is the core step of many time series data mining approaches, and at the same time often the computational bottleneck. 
-  This is particularly true if computationally expensive similarity measures are employed.
-  Dynamic time warping (DTW) provides a similarity measure based on a non-linear mapping between two time series [@berndt1994using].
-  It is widely used in time series data mining applications for tasks such as classification, clustering, and anomaly detection.
+  Similarity search is a common task in time series data mining, and usually has a computational bottleneck in the step that calculates the similarity between the query and each data subsequence. 
+  This is particularly true for computationally expensive similarity measures such as dynamic time warping (DTW), which provides a similarity measure based on a non-linear mapping between two time series [@berndt1994using].
+  DTW is widely used in time series data mining applications for tasks such as classification, clustering, and anomaly detection.
   
-  The [UCR Suite](http://www.cs.ucr.edu/~eamonn/UCRsuite.html) [@rakthanmanon2012searching] is a collection of C++ programs for the purpose of finding a best match for a query in a large data set based on DTW distance. 
-  The `rucrdtw` R package makes use of `Rcpp` [@Rcpp] to provide R bindings for functions from the UCR Suite.
+  The `rucrdtw` R package makes use of `Rcpp` [@Rcpp] to provide R bindings for the [UCR Suite](http://www.cs.ucr.edu/~eamonn/UCRsuite.html) [@rakthanmanon2012searching], a collection of C++ algorithms which enables ultrafast subsequence search under both DTW and Euclidean Distance.
   
   # References
   
