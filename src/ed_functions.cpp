@@ -96,7 +96,7 @@ void error_ed(int id)
 //' @importFrom Rcpp sourceCpp
 //' @export
 // [[Rcpp::export]]
-void ucred_ff(const char * data , const char * query, int qlength)
+Rcpp::List ucred_ff(const char * data , const char * query, int qlength)
 {
   FILE *fp;              // the input file pointer
   FILE *qp;              // the query file pointer
@@ -218,8 +218,11 @@ void ucred_ff(const char * data , const char * query, int qlength)
   fclose(fp);
   //t2 = clock();
 
-  Rcout << "Location : " << loc << endl;
-  Rcout << "Distance : " << sqrt(bsf) << endl;
-  Rcout << "Data Scanned : " << i << endl;
+  //Rcout << "Location : " << loc << endl;
+  //Rcout << "Distance : " << sqrt(bsf) << endl;
   //Rcout << "Total Execution Time : " << (t2-t1)/CLOCKS_PER_SEC << " sec" << endl;
+  Rcpp::List out = Rcpp::List::create(Rcpp::Named("location") = loc + 1, // convert raw data location to R's 1-based indexing
+                                      Rcpp::Named("distance") = sqrt(bsf));
+  out.attr("class") = "ucred";
+  return out;
 }

@@ -13,7 +13,7 @@
 #' @importFrom Rcpp sourceCpp
 #' @export
 ucred_ff <- function(data, query, qlength) {
-    invisible(.Call('rucrdtw_ucred_ff', PACKAGE = 'rucrdtw', data, query, qlength))
+    .Call('rucrdtw_ucred_ff', PACKAGE = 'rucrdtw', data, query, qlength)
 }
 
 #' UCR DTW Algorithm file-file method

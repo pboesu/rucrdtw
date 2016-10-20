@@ -6,15 +6,16 @@
 using namespace Rcpp;
 
 // ucred_ff
-void ucred_ff(const char * data, const char * query, int qlength);
+Rcpp::List ucred_ff(const char * data, const char * query, int qlength);
 RcppExport SEXP rucrdtw_ucred_ff(SEXP dataSEXP, SEXP querySEXP, SEXP qlengthSEXP) {
 BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const char * >::type data(dataSEXP);
     Rcpp::traits::input_parameter< const char * >::type query(querySEXP);
     Rcpp::traits::input_parameter< int >::type qlength(qlengthSEXP);
-    ucred_ff(data, query, qlength);
-    return R_NilValue;
+    rcpp_result_gen = Rcpp::wrap(ucred_ff(data, query, qlength));
+    return rcpp_result_gen;
 END_RCPP
 }
 // ucrdtw_ff
