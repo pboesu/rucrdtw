@@ -1,39 +1,42 @@
 context("match time-series against itself")
 
 #get test data file locations
-dataf <- system.file("testdata/ref_nospacer.txt", package="rucrdtw")
-c1f <- system.file("testdata/c1.txt", package="rucrdtw")
-c144f <- system.file("testdata/c144.txt", package="rucrdtw")
+dataf <- system.file("extdata/col_sc.txt", package="rucrdtw")
+firstf <- system.file("extdata/first_sc.txt", package="rucrdtw")
+lastf <- system.file("extdata/last_sc.txt", package="rucrdtw")
+midf <- system.file("extdata/mid_sc.txt", package="rucrdtw")
+#load data
+data("synthetic_control")
+
+#get query length
+qlength <- length(synthetic_control[1,])
 
 test_that("ff method works", {
-  first = ucrdtw(dataf, c1f, 765, 0.05)
+  first = ucrdtw(dataf, firstf, qlength, 0.05)
   expect_equal(first$location, 1)
   expect_equal(first$distance, 0)
-  last = ucrdtw(dataf, c144f, 765, 0.05)
-  expect_equal(last$location, 109396)
+  last = ucrdtw(dataf, lastf, qlength, 0.05)
+  expect_equal(last$location, 36000-qlength+1)
   expect_equal(last$distance, 0)
 })
 
-#read in query vectors
-c1v <- read.table(c1f)$V1
-c144v <-  read.table(c144f)$V1
-#read in data vector
-datav <- read.table(dataf)$V1
 
 test_that("fv method works", {
-  first = ucrdtw_fv(dataf, c1v, length(c1v), 0.05)
-  expect_equal(first$location, 1)
-  expect_equal(first$distance, 0)
-  last = ucrdtw_fv(dataf, c144v, length(c144v), 0.05)
-  expect_equal(last$location, 109396)
-  expect_equal(last$distance, 0)
+    first = ucrdtw_fv(dataf, synthetic_control[1,], qlength, 0.05)
+    expect_equal(first$location, 1)
+    expect_equal(first$distance, 0)
+    last = ucrdtw_fv(dataf, synthetic_control[600,], qlength, 0.05)
+    expect_equal(last$location, 36000-qlength+1)
+    expect_equal(last$distance, 0)
 })
 
+#reshape data matrix to vector
+datav <- as.vector(t(synthetic_control))
 test_that("vv method works", {
-  first = ucrdtw_vv(datav, c1v,  length(c1v), 0.05)
+  first = ucrdtw_vv(datav, synthetic_control[1,], qlength, 0.05)
   expect_equal(first$location, 1)
   expect_equal(first$distance, 0)
-  last = ucrdtw_vv(datav, c144v,  length(c144v), 0.05)
-  expect_equal(last$location, 109396)
+  last = ucrdtw_vv(datav, synthetic_control[600,], qlength, 0.05)
+  expect_equal(last$location, 36000-qlength+1)
   expect_equal(last$distance, 0)
 })
