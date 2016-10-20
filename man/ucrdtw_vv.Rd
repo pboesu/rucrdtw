@@ -4,7 +4,7 @@
 \alias{ucrdtw_vv}
 \title{UCR DTW Algorithm vector-vector method}
 \usage{
-ucrdtw_vv(data, query, qlength, dtwwindow)
+ucrdtw_vv(data, query, qlength, dtwwindow, epoch = 100000L, skip = FALSE)
 }
 \arguments{
 \item{data}{numeric vector containing data}
@@ -14,6 +14,10 @@ ucrdtw_vv(data, query, qlength, dtwwindow)
 \item{qlength}{int length of query (n data points)}
 
 \item{dtwwindow}{double warping window size (as a proportion of query length)}
+
+\item{epoch}{int defaults to 1e5, should be \eqn{\le} 1e6. This is the size of the data chunk that is processed at once. All cumulative values in the algorithm will be restarted after \code{epoch} iterations to reduce floating point errors in these values.}
+
+\item{skip}{bool defaults to FALSE. If TRUE bound calculations and if necessary, distance calculations, are only performed on non-overlapping segments of the data (i.e. multiples of \code{qlength}). This is useful if \code{data} is a set of multiple reference time series, each of length \code{qlength}. The location returned when skipping is the index of the subsequence.}
 }
 \description{
 This implementation of the UCR Suite command line utility, takes an R numeric vector as data input and an R numeric vector for the query

@@ -1117,11 +1117,13 @@ Rcpp::List ucrdtw_fv(const char * data , Rcpp::NumericVector query, int qlength,
 //' @param query numeric vector containing the query
 //' @param qlength int length of query (n data points)
 //' @param dtwwindow double warping window size (as a proportion of query length)
+//' @param epoch int defaults to 1e5, should be \eqn{\le} 1e6. This is the size of the data chunk that is processed at once. All cumulative values in the algorithm will be restarted after \code{epoch} iterations to reduce floating point errors in these values.
+//' @param skip bool defaults to FALSE. If TRUE bound calculations and if necessary, distance calculations, are only performed on non-overlapping segments of the data (i.e. multiples of \code{qlength}). This is useful if \code{data} is a set of multiple reference time series, each of length \code{qlength}. The location returned when skipping is the index of the subsequence.
 //' @useDynLib rucrdtw
 //' @importFrom Rcpp sourceCpp
 //' @export
 // [[Rcpp::export]]
-Rcpp::List ucrdtw_vv(Rcpp::NumericVector data , Rcpp::NumericVector query, int qlength, double dtwwindow)
+Rcpp::List ucrdtw_vv(Rcpp::NumericVector data , Rcpp::NumericVector query, int qlength, double dtwwindow, int epoch = 100000, bool skip = false)
 {
   //FILE *fp;            /// data file pointer
   //FILE *qp;            /// query file pointer
@@ -1135,8 +1137,8 @@ Rcpp::List ucrdtw_vv(Rcpp::NumericVector data , Rcpp::NumericVector query, int q
   rcpp_long_long_type i , j;
   double ex , ex2 , mean, std;
   int m=-1, r=-1;
-  rcpp_long_long_type loc = 0;
-  double t1,t2;
+  rcpp_long_long_type loc = 0, loc2 = 0;
+  //double t1,t2;
   int kim = 0,keogh = 0, keogh2 = 0;
   double dist=0, lb_kim=0, lb_k=0, lb_k2=0;
   double *buffer, *u_buff, *l_buff;
@@ -1147,7 +1149,7 @@ Rcpp::List ucrdtw_vv(Rcpp::NumericVector data , Rcpp::NumericVector query, int q
 
 
   /// For every EPOCH points, all cummulative values, such as ex (sum), ex2 (sum square), will be restarted for reducing the floating point error.
-  int EPOCH = 100000;
+  int EPOCH = epoch;
 
   /// If not enough input, display an error.
   //if (argc<=3)
@@ -1174,7 +1176,7 @@ Rcpp::List ucrdtw_vv(Rcpp::NumericVector data , Rcpp::NumericVector query, int q
   //error(2);
 
   /// start the clock
-  t1 = clock();
+  //t1 = clock();
 
 
   /// malloc everything here
@@ -1374,6 +1376,11 @@ Rcpp::List ucrdtw_vv(Rcpp::NumericVector data , Rcpp::NumericVector query, int q
           /// the start location of the data in the current chunk
           I = i-(m-1);
 
+          //calculate current position in the data and only do bound calculations etc for non-overlapping sections of data
+          if (skip)
+            loc2 = (it)*(EPOCH-m+1) + i-m+1;
+          if (!skip || (skip & (loc2 % qlength == 0))){
+
           /// Use a constant lower bound to prune the obvious subsequence
           lb_kim = lb_kim_hierarchy(t, q, j, m, mean, std, bsf);
 
@@ -1426,6 +1433,7 @@ Rcpp::List ucrdtw_vv(Rcpp::NumericVector data , Rcpp::NumericVector query, int q
               keogh++;
           } else
             kim++;
+          }
 
           /// Reduce obsolute points from sum and sum square
           ex -= t[j];
@@ -1460,13 +1468,14 @@ Rcpp::List ucrdtw_vv(Rcpp::NumericVector data , Rcpp::NumericVector query, int q
   free(l_buff);
   free(u_buff);
 
-  t2 = clock();
+  //t2 = clock();
   //Rprintf("\n");
 
   /// Note that loc and i are rcpp_long_long_type.
-  Rcpp::List out = Rcpp::List::create(Rcpp::Named("location") = loc + 1, //convert to R's 1-based indexing
+  // convert location to
+  Rcpp::List out = Rcpp::List::create(Rcpp::Named("location") = (skip) ? (loc / qlength + 1) : (loc + 1), //loc is index of subsequence if skipping, otherwise convert raw data location to R's 1-based indexing
                                       Rcpp::Named("distance") = sqrt(bsf),
-                                      Rcpp::Named("exec_time")=(t2-t1)/CLOCKS_PER_SEC,
+                                      //Rcpp::Named("exec_time")=(t2-t1)/CLOCKS_PER_SEC,
                                       Rcpp::Named("prunedKim")=((double) kim / i)*100,
                                       Rcpp::Named("prunedKeogh")=((double) keogh / i)*100,
                                       Rcpp::Named("prunedKeogh2")=((double) keogh2 / i)*100,

@@ -34,8 +34,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // ucrdtw_vv
-Rcpp::List ucrdtw_vv(Rcpp::NumericVector data, Rcpp::NumericVector query, int qlength, double dtwwindow);
-RcppExport SEXP rucrdtw_ucrdtw_vv(SEXP dataSEXP, SEXP querySEXP, SEXP qlengthSEXP, SEXP dtwwindowSEXP) {
+Rcpp::List ucrdtw_vv(Rcpp::NumericVector data, Rcpp::NumericVector query, int qlength, double dtwwindow, int epoch, bool skip);
+RcppExport SEXP rucrdtw_ucrdtw_vv(SEXP dataSEXP, SEXP querySEXP, SEXP qlengthSEXP, SEXP dtwwindowSEXP, SEXP epochSEXP, SEXP skipSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -43,7 +43,9 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< Rcpp::NumericVector >::type query(querySEXP);
     Rcpp::traits::input_parameter< int >::type qlength(qlengthSEXP);
     Rcpp::traits::input_parameter< double >::type dtwwindow(dtwwindowSEXP);
-    rcpp_result_gen = Rcpp::wrap(ucrdtw_vv(data, query, qlength, dtwwindow));
+    Rcpp::traits::input_parameter< int >::type epoch(epochSEXP);
+    Rcpp::traits::input_parameter< bool >::type skip(skipSEXP);
+    rcpp_result_gen = Rcpp::wrap(ucrdtw_vv(data, query, qlength, dtwwindow, epoch, skip));
     return rcpp_result_gen;
 END_RCPP
 }
