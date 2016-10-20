@@ -1,7 +1,7 @@
 /***********************************************************************/
 /************************* DISCLAIMER **********************************/
 /***********************************************************************/
-/** This UCR Suite software is copyright protected � 2012 by          **/
+/** This UCR Suite software is copyright protected   2012 by          **/
 /** Thanawin Rakthanmanon, Bilson Campana, Abdullah Mueen,            **/
 /** Gustavo Batista and Eamonn Keogh.                                 **/
 /**                                                                   **/
@@ -216,6 +216,294 @@ Rcpp::List ucred_ff(const char * data , const char * query, int qlength)
     i++;
   }
   fclose(fp);
+  //t2 = clock();
+
+  //Rcout << "Location : " << loc << endl;
+  //Rcout << "Distance : " << sqrt(bsf) << endl;
+  //Rcout << "Total Execution Time : " << (t2-t1)/CLOCKS_PER_SEC << " sec" << endl;
+  Rcpp::List out = Rcpp::List::create(Rcpp::Named("location") = loc + 1, // convert raw data location to R's 1-based indexing
+                                      Rcpp::Named("distance") = sqrt(bsf));
+  out.attr("class") = "ucred";
+  return out;
+}
+
+//' UCR ED Algorithm file-vector method
+//'
+//' This implementation of the UCR Suite command line utility, takes a data file as input and an R numeric vector for the query.
+//'
+//' @name ucred_fv
+//' @param data char path to data file
+//' @param query numeric vector containing query
+//' @param qlength int length of query (n data points)
+//' @useDynLib rucrdtw
+//' @importFrom Rcpp sourceCpp
+//' @export
+// [[Rcpp::export]]
+Rcpp::List ucred_fv(const char * data , Rcpp::NumericVector query, int qlength)
+{
+  FILE *fp;              // the input file pointer
+  //FILE *qp;              // the query file pointer
+
+  double *Q;             // query array
+  double *T;             // array of current data
+  int *order;            // ordering of query by |z(q_i)|
+  double bsf;            // best-so-far
+  int m;                 // length of query
+  long long loc = 0;     // answer: location of the best-so-far match
+
+  double d;
+  long long i , j ;
+  double ex , ex2 , mean, std;
+
+  //double t1,t2;
+
+  //t1 = clock();
+
+  bsf = INF;
+  i = 0;
+  j = 0;
+  ex = ex2 = 0;
+
+  fp = fopen(data,"r");
+  if( fp == NULL )
+    error_ed(2);
+
+  //qp = fopen(query,"r");
+  //if( qp == NULL )
+  //  error_ed(2);
+
+  m = qlength;
+
+  /// Array for keeping the query data
+  Q = (double *)malloc(sizeof(double)*m);
+  if( Q == NULL )
+    error_ed(1);
+
+  /// Read the query data from input file and calculate its statistic such as mean, std
+  //while(fscanf(qp,"%lf",&d) != EOF && i < m)
+    for (i = 0; i < m; i++)
+    {
+      ex += query[i];
+      ex2 += query[i]*query[i];
+      Q[i] = query[i];
+    }
+  mean = ex/m;
+  std = ex2/m;
+  std = sqrt(std-mean*mean);
+  //fclose(qp);
+
+  /// Do z_normalixation on query data
+  for( i = 0 ; i < m ; i++ )
+    Q[i] = (Q[i] - mean)/std;
+
+  /// Sort the query data
+  order = (int *)malloc(sizeof(int)*m);
+  if( order == NULL )
+    error_ed(1);
+  Index *Q_tmp = (Index *)malloc(sizeof(Index)*m);
+  if( Q_tmp == NULL )
+    error_ed(1);
+  for( i = 0 ; i < m ; i++ )
+  {
+    Q_tmp[i].value = Q[i];
+    Q_tmp[i].index = i;
+  }
+  qsort(Q_tmp, m, sizeof(Index),comp_ed);
+  for( i=0; i<m; i++)
+  {   Q[i] = Q_tmp[i].value;
+    order[i] = Q_tmp[i].index;
+  }
+  free(Q_tmp);
+
+
+
+  /// Array for keeping the current data; Twice the size for removing modulo (circulation) in distance calculation
+  T = (double *)malloc(sizeof(double)*2*m);
+  if( T == NULL )
+    error_ed(1);
+
+  double dist = 0;
+  i = 0;
+  j = 0;
+  ex = ex2 = 0;
+
+  /// Read data file, one value at a time
+  while(fscanf(fp,"%lf",&d) != EOF )
+  {
+    ex += d;
+    ex2 += d*d;
+    T[i%m] = d;
+    T[(i%m)+m] = d;
+
+    /// If there is enough data in T, the ED distance can be calculated
+    if( i >= m-1 )
+    {
+      /// the current starting location of T
+      j = (i+1)%m;
+
+      /// Z_norm(T[i]) will be calculated on the fly
+      mean = ex/m;
+      std = ex2/m;
+      std = sqrt(std-mean*mean);
+
+      /// Calculate ED distance
+      dist = distance(Q,T,j,m,mean,std,order,bsf);
+      if( dist < bsf )
+      {
+        bsf = dist;
+        loc = i-m+1;
+      }
+      ex -= T[j];
+      ex2 -= T[j]*T[j];
+    }
+    i++;
+  }
+  fclose(fp);
+  //t2 = clock();
+
+  //Rcout << "Location : " << loc << endl;
+  //Rcout << "Distance : " << sqrt(bsf) << endl;
+  //Rcout << "Total Execution Time : " << (t2-t1)/CLOCKS_PER_SEC << " sec" << endl;
+  Rcpp::List out = Rcpp::List::create(Rcpp::Named("location") = loc + 1, // convert raw data location to R's 1-based indexing
+                                      Rcpp::Named("distance") = sqrt(bsf));
+  out.attr("class") = "ucred";
+  return out;
+}
+
+//' UCR ED Algorithm vector-vector method
+//'
+//' This implementation of the UCR Suite Euclidean Distance command line utility takes an R numeric vector as data input and an R numeric vector for the query.
+//'
+//' @name ucred_vv
+//' @param data numeric vector containing data
+//' @param query numeric vector containing query
+//' @param qlength int length of query (n data points)
+//' @useDynLib rucrdtw
+//' @importFrom Rcpp sourceCpp
+//' @export
+// [[Rcpp::export]]
+Rcpp::List ucred_vv(Rcpp::NumericVector data , Rcpp::NumericVector query, int qlength)
+{
+  //FILE *fp;              // the input file pointer
+  //FILE *qp;              // the query file pointer
+
+  double *Q;             // query array
+  double *T;             // array of current data
+  int *order;            // ordering of query by |z(q_i)|
+  double bsf;            // best-so-far
+  int m;                 // length of query
+  long long loc = 0;     // answer: location of the best-so-far match
+
+  //double d;
+  long long i , j , k;
+  double ex , ex2 , mean, std;
+
+  //double t1,t2;
+
+  //t1 = clock();
+
+  bsf = INF;
+  i = 0;
+  j = 0;
+  ex = ex2 = 0;
+
+ // fp = fopen(data,"r");
+ // if( fp == NULL )
+ //   error_ed(2);
+
+  //qp = fopen(query,"r");
+  //if( qp == NULL )
+  //  error_ed(2);
+
+  m = qlength;
+
+  /// Array for keeping the query data
+  Q = (double *)malloc(sizeof(double)*m);
+  if( Q == NULL )
+    error_ed(1);
+
+  /// Read the query data from input file and calculate its statistic such as mean, std
+  //while(fscanf(qp,"%lf",&d) != EOF && i < m)
+  for (i = 0; i < m; i++)
+  {
+    ex += query[i];
+    ex2 += query[i]*query[i];
+    Q[i] = query[i];
+  }
+  mean = ex/m;
+  std = ex2/m;
+  std = sqrt(std-mean*mean);
+  //fclose(qp);
+
+  /// Do z_normalixation on query data
+  for( i = 0 ; i < m ; i++ )
+    Q[i] = (Q[i] - mean)/std;
+
+  /// Sort the query data
+  order = (int *)malloc(sizeof(int)*m);
+  if( order == NULL )
+    error_ed(1);
+  Index *Q_tmp = (Index *)malloc(sizeof(Index)*m);
+  if( Q_tmp == NULL )
+    error_ed(1);
+  for( i = 0 ; i < m ; i++ )
+  {
+    Q_tmp[i].value = Q[i];
+    Q_tmp[i].index = i;
+  }
+  qsort(Q_tmp, m, sizeof(Index),comp_ed);
+  for( i=0; i<m; i++)
+  {   Q[i] = Q_tmp[i].value;
+    order[i] = Q_tmp[i].index;
+  }
+  free(Q_tmp);
+
+
+
+  /// Array for keeping the current data; Twice the size for removing modulo (circulation) in distance calculation
+  T = (double *)malloc(sizeof(double)*2*m);
+  if( T == NULL )
+    error_ed(1);
+
+  double dist = 0;
+  i = 0;
+  j = 0;
+  k = 0;
+  ex = ex2 = 0;
+
+  /// Read data file, one value at a time
+  //while(fscanf(fp,"%lf",&d) != EOF )
+  for(k=0; k < data.size(); k++)
+  {
+    ex += data[k];
+    ex2 += data[k]*data[k];
+    T[i%m] = data[k];
+    T[(i%m)+m] = data[k];
+
+    /// If there is enough data in T, the ED distance can be calculated
+    if( i >= m-1 )
+    {
+      /// the current starting location of T
+      j = (i+1)%m;
+
+      /// Z_norm(T[i]) will be calculated on the fly
+      mean = ex/m;
+      std = ex2/m;
+      std = sqrt(std-mean*mean);
+
+      /// Calculate ED distance
+      dist = distance(Q,T,j,m,mean,std,order,bsf);
+      if( dist < bsf )
+      {
+        bsf = dist;
+        loc = i-m+1;
+      }
+      ex -= T[j];
+      ex2 -= T[j]*T[j];
+    }
+    i++;
+  }
+//  fclose(fp);
   //t2 = clock();
 
   //Rcout << "Location : " << loc << endl;

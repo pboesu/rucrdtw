@@ -18,6 +18,32 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// ucred_fv
+Rcpp::List ucred_fv(const char * data, Rcpp::NumericVector query, int qlength);
+RcppExport SEXP rucrdtw_ucred_fv(SEXP dataSEXP, SEXP querySEXP, SEXP qlengthSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const char * >::type data(dataSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type query(querySEXP);
+    Rcpp::traits::input_parameter< int >::type qlength(qlengthSEXP);
+    rcpp_result_gen = Rcpp::wrap(ucred_fv(data, query, qlength));
+    return rcpp_result_gen;
+END_RCPP
+}
+// ucred_vv
+Rcpp::List ucred_vv(Rcpp::NumericVector data, Rcpp::NumericVector query, int qlength);
+RcppExport SEXP rucrdtw_ucred_vv(SEXP dataSEXP, SEXP querySEXP, SEXP qlengthSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type data(dataSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type query(querySEXP);
+    Rcpp::traits::input_parameter< int >::type qlength(qlengthSEXP);
+    rcpp_result_gen = Rcpp::wrap(ucred_vv(data, query, qlength));
+    return rcpp_result_gen;
+END_RCPP
+}
 // ucrdtw_ff
 Rcpp::List ucrdtw_ff(const char * data, const char * query, int qlength, double dtwwindow);
 RcppExport SEXP rucrdtw_ucrdtw_ff(SEXP dataSEXP, SEXP querySEXP, SEXP qlengthSEXP, SEXP dtwwindowSEXP) {

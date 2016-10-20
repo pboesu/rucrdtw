@@ -1,7 +1,7 @@
 /***********************************************************************/
 /************************* DISCLAIMER **********************************/
 /***********************************************************************/
-/** This UCR Suite software is copyright protected ? 2012 by          **/
+/** This UCR Suite software is copyright protected   2012 by          **/
 /** Thanawin Rakthanmanon, Bilson Campana, Abdullah Mueen,            **/
 /** Gustavo Batista and Eamonn Keogh.                                 **/
 /**                                                                   **/

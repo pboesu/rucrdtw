@@ -16,6 +16,36 @@ ucred_ff <- function(data, query, qlength) {
     .Call('rucrdtw_ucred_ff', PACKAGE = 'rucrdtw', data, query, qlength)
 }
 
+#' UCR ED Algorithm file-vector method
+#'
+#' This implementation of the UCR Suite command line utility, takes a data file as input and an R numeric vector for the query.
+#'
+#' @name ucred_fv
+#' @param data char path to data file
+#' @param query numeric vector containing query
+#' @param qlength int length of query (n data points)
+#' @useDynLib rucrdtw
+#' @importFrom Rcpp sourceCpp
+#' @export
+ucred_fv <- function(data, query, qlength) {
+    .Call('rucrdtw_ucred_fv', PACKAGE = 'rucrdtw', data, query, qlength)
+}
+
+#' UCR ED Algorithm vector-vector method
+#'
+#' This implementation of the UCR Suite Euclidean Distance command line utility takes an R numeric vector as data input and an R numeric vector for the query.
+#'
+#' @name ucred_vv
+#' @param data numeric vector containing data
+#' @param query numeric vector containing query
+#' @param qlength int length of query (n data points)
+#' @useDynLib rucrdtw
+#' @importFrom Rcpp sourceCpp
+#' @export
+ucred_vv <- function(data, query, qlength) {
+    .Call('rucrdtw_ucred_vv', PACKAGE = 'rucrdtw', data, query, qlength)
+}
+
 #' UCR DTW Algorithm file-file method
 #'
 #' This implementation is very close to the UCR Suite command line utility, in that it takes files as inputs for both query and data
