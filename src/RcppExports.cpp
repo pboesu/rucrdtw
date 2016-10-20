@@ -5,6 +5,18 @@
 
 using namespace Rcpp;
 
+// ucred_ff
+void ucred_ff(const char * data, const char * query, int qlength);
+RcppExport SEXP rucrdtw_ucred_ff(SEXP dataSEXP, SEXP querySEXP, SEXP qlengthSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const char * >::type data(dataSEXP);
+    Rcpp::traits::input_parameter< const char * >::type query(querySEXP);
+    Rcpp::traits::input_parameter< int >::type qlength(qlengthSEXP);
+    ucred_ff(data, query, qlength);
+    return R_NilValue;
+END_RCPP
+}
 // ucrdtw_ff
 Rcpp::List ucrdtw_ff(const char * data, const char * query, int qlength, double dtwwindow);
 RcppExport SEXP rucrdtw_ucrdtw_ff(SEXP dataSEXP, SEXP querySEXP, SEXP qlengthSEXP, SEXP dtwwindowSEXP) {

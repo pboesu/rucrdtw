@@ -50,3 +50,13 @@ test_that("vv method works with skipping", {
   expect_equal(last$location, 600)
   expect_equal(last$distance, 0)
 })
+
+test_that("ed_ff method works", {
+  first = ucred_ff(dataf, firstf, qlength)
+  expect_equal(first$location, 1)
+  expect_equal(first$distance, 0)
+  last = ucred_ff(dataf, lastf, qlength)
+  expect_equal(last$location, 36000-qlength+1)
+  expect_equal(last$distance, 0)
+})
+
