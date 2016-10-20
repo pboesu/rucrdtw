@@ -9,15 +9,12 @@ sudo: true
 cache: packages
 warnings_are_errors: false
 
-r_github_packages:
-  - jimhester/covr
-
-after_success:
-  - Rscript -e 'covr::codecov()'
 matrix:
  include:
    - os: linux
      r: release
+     r_packages: covr
+     after_success: Rscript -e 'covr::codecov()'
    - os: linux
      r: devel
    - os: osx
