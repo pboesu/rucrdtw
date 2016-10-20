@@ -21,4 +21,6 @@ matrix:
      r: release
    - os: osx
      r: devel
-     r_packages: Rcpp
+     r_packages:
+      - Rcpp
+      - testthat
