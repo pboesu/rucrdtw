@@ -7,7 +7,7 @@ dist: trusty
 language: R
 sudo: true
 cache: packages
-warnings_are_errors: false
+warnings_are_errors: true
 
 matrix:
  include:
@@ -21,3 +21,4 @@ matrix:
      r: release
    - os: osx
      r: devel
+     r_packages: Rcpp
