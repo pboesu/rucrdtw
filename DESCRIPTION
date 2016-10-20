@@ -16,6 +16,7 @@ Description: R bindings for functions from the UCR Suite (Thanawin Rakthanmanon 
 License: Apache License
 LazyData: TRUE
 LinkingTo: Rcpp
+Depends: R (>= 2.10)
 Imports:
     Rcpp
 SystemRequirements: C++11
