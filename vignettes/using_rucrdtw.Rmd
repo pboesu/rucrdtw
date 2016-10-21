@@ -4,55 +4,66 @@ author: "Philipp Boersch-Supan"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Using rucrdtw}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+bibliography: rucrdtw.bib
 ---
 
-Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format:
+`rucrdtw` provides R bindings for functions from the [UCR Suite](http://www.cs.ucr.edu/~eamonn/UCRsuite.html) [@rakthanmanon2012searching], which enables ultrafast subsequence search under both Dynamic Time Warping and Euclidean Distance.
 
-- Never uses retina figures
-- Has a smaller default figure size
-- Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style
+## Installation
+Install `rucrdtw` from GitHub:
 
-## Vignette Info
-
-Note the various macros within the `vignette` section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette.
-
-## Styles
-
-The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
-
-    output: 
-      rmarkdown::html_vignette:
-        css: mystyles.css
-
-## Figures
-
-The figure sizes have been customised so that you can easily put two images side-by-side. 
-
-```{r, fig.show='hold'}
-plot(1:10)
-plot(10:1)
+```{r eval=FALSE}
+install.packages("devtools")
+devtools::install_github("pboesu/rucrdtw")
 ```
 
-You can enable figure captions by `fig_caption: yes` in YAML:
+## Examples
 
-    output:
-      rmarkdown::html_vignette:
-        fig_caption: yes
-
-Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
-
-## More Examples
-
-You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
-
-```{r, echo=FALSE, results='asis'}
-knitr::kable(head(mtcars, 10))
+Load `rucrdtw` package:
+```{r}
+library("rucrdtw")
 ```
 
-Also a quote using `>`:
+Load the example data set.
 
-> "He who gives up [code] safety for [code] speed deserves neither."
-([via](https://twitter.com/hadleywickham/status/504368538874703872))
+```{r load-data}
+data("synthetic_control")
+```
+
+This data set contains 600 time series of length 60 from 6 classes [@alcock1999time]. The data set documentation contains further information about these data. It can be displayed using the command `?synthetic_control`. We can plot an example of each class 
+
+```{r plot-examples, fig.width=6}
+par(mfrow = c(3,2),
+    mar = c(1,1,1,1))
+classes = c("Normal", "Cyclic", "Increasing", "Decreasing", "Upward shift", "Downward shift")
+for (i in 1:6){
+  plot(synthetic_control[i*100-99,], type = "l", xaxt = "n", yaxt = "n", ylab="", xlab = "", bty="n", main=classes[i])
+}
+```
+
+`rucrdtw` provides tools to efficiently detect a pattern such as the examples given above in a longer time series. We can demonstrate this, by pasting together the 600 example series, and searching for a predetermined subsequence.
+
+```{r search-exact, fig.width=6}
+#reshape matrix into vector
+long_series <- as.vector(t(synthetic_control))
+#pick series 175 as query
+query <- synthetic_control[175,]
+#calculate starting location in the long series
+query_start <- 175*ncol(synthetic_control)-59
+
+#plot long series
+plot(long_series, type = "l")
+#overlay known position of query
+lines(seq(query_start, by=1, length.out = 60), synthetic_control[175,], col="red")
+
+#do the search using the vector-vector method
+dtw_search <- ucrdtw_vv(long_series, query, length(query), 0.05)
+
+#visualize the result
+plot(long_series, type = "l", xlim = c(query_start-100, query_start+160))
+abline(v=c(dtw_search$location, dtw_search$location+length(query)) , col="blue")
+lines(seq(query_start, by=1, length.out = 60), synthetic_control[175,], col="red")
+```

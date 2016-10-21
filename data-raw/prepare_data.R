@@ -10,3 +10,9 @@ write.table(synthetic_control[600,], "inst/extdata/last_sc.txt", row.names=F, co
 #pick a sequence from middle
 write.table(synthetic_control[173,], "inst/extdata/mid_sc.txt", row.names=F, col.names=F)
 
+
+#read large data
+synthetic_long <- matrix(scan("data-raw/synthetic.data.gz", n=100001*10), 100001, 10, byrow=TRUE)
+plot(synthetic_long[,1], type="l")
+matplot(synthetic_long, type="l")
+plot(as.vector(synthetic_long), type="l")
