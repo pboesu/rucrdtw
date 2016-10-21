@@ -5,3 +5,4 @@
 ^paper\.bib$
 ^\.travis\.yml$
 ^LICENSE$
+^README\.Rmd$
