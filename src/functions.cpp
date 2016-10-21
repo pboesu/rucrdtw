@@ -378,14 +378,6 @@ void error(int id)
         stop("ERROR : Memory can't be allocated!!!\n\n");
     else if ( id == 2 )
         stop("ERROR : File not Found!!!\n\n");
-    else if ( id == 3 )
-        stop("ERROR : Can't create Output File!!!\n\n");
-    else if ( id == 4 )
-    {
-        REprintf("ERROR : Invalid Number of Arguments!!!\n");
-        REprintf("Command Usage:  UCR_DTW.exe  data-file  query-file   m   R\n\n");
-        stop("For example  :  UCR_DTW.exe  data.txt   query.txt   128  0.05\n");
-    }
 }
 
 

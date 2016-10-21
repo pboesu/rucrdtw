@@ -72,14 +72,6 @@ void error_ed(int id)
     stop("ERROR : Memory can't be allocated!!!\n\n");
   else if ( id == 2 )
     stop("ERROR : File not Found!!!\n\n");
-  else if ( id == 3 )
-    stop("ERROR : Can't create Output File!!!\n\n");
-  else if ( id == 4 )
-  {
-    stop("ERROR: Invalid Number of Arguments!!!\n");
-    stop("Command Usage:   UCR_ED.exe  data_file  query_file   m   \n");
-    stop("For example  :   UCR_ED.exe  data.txt   query.txt   128  \n");
-  }
 }
 
 
