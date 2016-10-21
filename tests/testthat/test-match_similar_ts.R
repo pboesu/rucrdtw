@@ -12,10 +12,10 @@ data("synthetic_control")
 qlength <- length(synthetic_control[1,])
 
 test_that("ff method works", {
-  first = ucrdtw(dataf, firstf, qlength, 0.05)
+  first = ucrdtw_ff(dataf, firstf, qlength, 0.05)
   expect_equal(first$location, 1)
   expect_equal(first$distance, 0)
-  last = ucrdtw(dataf, lastf, qlength, 0.05)
+  last = ucrdtw_ff(dataf, lastf, qlength, 0.05)
   expect_equal(last$location, 36000-qlength+1)
   expect_equal(last$distance, 0)
 })
