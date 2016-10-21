@@ -10,7 +10,7 @@
      orcid: 0000-0001-6723-6833
      affiliation: Department of Geography and Emerging Pathogens Institute, University of Florida
   date: October 2016
-  bibliography: paper.bib
+  bibliography: vignettes/rucrdtw.bib
 ---
 
   # Summary
