@@ -50,6 +50,15 @@ test_that("vv method works with skipping", {
   expect_equal(last$location, 600)
   expect_equal(last$distance, 0)
 })
+
+test_that("vv method works with epoch < data", {
+  first = ucrdtw_vv(datav, synthetic_control[1,], qlength, 0.05, epoch = 10000)
+  expect_equal(first$location, 1)
+  expect_equal(first$distance, 0)
+  last = ucrdtw_vv(datav, synthetic_control[600,], qlength, 0.05, epoch = 10000)
+  expect_equal(last$location, 36000-qlength+1)
+  expect_equal(last$distance, 0)
+})
 #ed methods
 
 test_that("ed_ff method works", {
