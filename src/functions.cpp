@@ -365,11 +365,11 @@ double dtw(double* A, double* B, double *cb, int m, int r, double bsf = INF)
 }
 
 /// Print function for debugging
-void printArray(double *x, int len)
-{   for(int i=0; i<len; i++)
-        Rprintf(" %6.2lf",x[i]);
-    Rprintf("\n");
-}
+//void printArray(double *x, int len)
+//{   for(int i=0; i<len; i++)
+//        Rprintf(" %6.2lf",x[i]);
+//    Rprintf("\n");
+//}
 
 /// If expected error happens, teminated the program.
 void error(int id)
