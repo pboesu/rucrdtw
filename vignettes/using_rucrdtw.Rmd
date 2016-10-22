@@ -46,7 +46,7 @@ for (i in 1:6){
 
 `rucrdtw` provides tools to efficiently detect a pattern such as the examples given above in a longer time series. We can demonstrate this, by pasting together the 600 example series, and searching for a predetermined subsequence.
 
-```{r search-exact, fig.width=6}
+```{r search-exact1, fig.width=6}
 #reshape matrix into vector
 long_series <- as.vector(t(synthetic_control))
 #pick series 175 as query
@@ -58,12 +58,35 @@ query_start <- 175*ncol(synthetic_control)-59
 plot(long_series, type = "l")
 #overlay known position of query
 lines(seq(query_start, by=1, length.out = 60), synthetic_control[175,], col="red")
+```
 
+We can then search using both DTW and Euclidean distance measures.
+
+```{r search-exact2}
 #do the search using the vector-vector method
 dtw_search <- ucrdtw_vv(long_series, query, length(query), 0.05)
+ed_search <- ucred_vv(long_series, query, length(query))
+```
 
+And plot the search result onto the data.
+```{r search-results, fig.width=6}
 #visualize the result
 plot(long_series, type = "l", xlim = c(query_start-100, query_start+160))
 abline(v=c(dtw_search$location, dtw_search$location+length(query)) , col="blue")
+abline(v=c(ed_search$location, ed_search$location+length(query)) , col="darkgreen", lty=3, lwd=3)
 lines(seq(query_start, by=1, length.out = 60), synthetic_control[175,], col="red")
 ```
+
+Searching for an exact match, however, doesn't require an expensive similarity measure such as DTW. The real power, however, of the DTW similarity search, is finding structurally similar subsequences in complex sets of time series.
+
+We can demonstrate this by removing the query from the data set:
+```{r}
+long_series <- long_series[-c(35641:36000)]
+query <- synthetic_control[600,]
+dtw_search <- ucrdtw_vv(long_series, query, length(query), 0.05, skip=TRUE)
+ed_search <- ucred_vv(long_series, query, length(query))
+plot(synthetic_control[dtw_search$location,], type="l", ylim=c(0,55))
+lines(query, col="red", lty=2)
+lines(long_series[ed_search$location:(ed_search$location+length(query))], col="blue")
+```
+
