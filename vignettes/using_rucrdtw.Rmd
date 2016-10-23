@@ -80,13 +80,15 @@ lines(seq(query_start, by=1, length.out = 60), synthetic_control[175,], col="red
 Searching for an exact match, however, doesn't require an expensive similarity measure such as DTW. The real power, however, of the DTW similarity search, is finding structurally similar subsequences in complex sets of time series.
 
 We can demonstrate this by removing the query from the data set:
-```{r}
-long_series <- long_series[-c(35641:36000)]
-query <- synthetic_control[1,]
-dtw_search <- ucrdtw_vm(synthetic_control, query, length(query), 0.05, byrow = TRUE)
-ed_search <- ucred_vm(synthetic_control, query, length(query), byrow= TRUE)
+```{r, echo=TRUE, message=TRUE, warning=TRUE}
+index <- 600
+query <- synthetic_control[index,]
+#microbenchmark::microbenchmark(
+dtw_search = ucrdtw_vm(synthetic_control[-index,], query, length(query), 0.05, byrow = TRUE)
+ed_search = ucred_vm(synthetic_control[-index,], query, length(query), byrow= TRUE)
+#times=50)
 plot(synthetic_control[dtw_search$location,], type="l", ylim=c(0,55))
 lines(query, col="red", lty=2)
-lines(long_series[ed_search$location:(ed_search$location+length(query))], col="blue")
+lines(synthetic_control[ed_search$location,], col="blue", lty=3, lwd=3)
 ```
 

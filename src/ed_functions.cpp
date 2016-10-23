@@ -487,12 +487,13 @@ Rcpp::List ucred_vv(Rcpp::NumericVector data , Rcpp::NumericVector query, int ql
       std = ex2/m;
       std = sqrt(std-mean*mean);
 
-      if (!skip || (k % m==0)){
-        if (skip) Rcout << k << "; i " << i << endl;
+      if (!skip || (j==0)){
+        //if (skip) Rcout << k << "; i " << i << "; " << j << "; ";// for debugging
         ///check for user input in case of run-away loop
         Rcpp::checkUserInterrupt();
       /// Calculate ED distance
       dist = distance(Q,T,j,m,mean,std,order,bsf);
+      //if (skip) Rcout << dist << endl;//for debugging
       if( dist < bsf )
       {
         bsf = dist;
