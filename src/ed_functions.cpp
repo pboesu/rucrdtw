@@ -488,7 +488,7 @@ Rcpp::List ucred_vv(Rcpp::NumericVector data , Rcpp::NumericVector query, int ql
       std = sqrt(std-mean*mean);
 
       if (!skip || (k % m==0)){
-        if (skip) Rcout << k << endl;
+        if (skip) Rcout << k << "; i " << i << endl;
         ///check for user input in case of run-away loop
         Rcpp::checkUserInterrupt();
       /// Calculate ED distance
