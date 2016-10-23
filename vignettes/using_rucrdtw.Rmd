@@ -27,7 +27,28 @@ Load `rucrdtw` package:
 library("rucrdtw")
 ```
 
-Load the example data set.
+
+create a random long time series
+```{r random-walk}
+set.seed(123)
+rwalk <- cumsum(runif(1e7, min = -0.5, max = 0.5))
+```
+Pick a random subsequence of 100 elements as a query
+```{r rw-query}
+qstart <- sample(length(rwalk), 1)
+qlength <- 100
+query <- rwalk[qstart:(qstart+qlength)]
+```
+Since both query and data are R vectors, we use the vector-vector methods for the search.
+```{r rw-search}
+system.time(dtw_search <- ucrdtw_vv(data = rwalk, query = query, qlength = qlength, dtwwindow = 0.05))
+all.equal(qstart, dtw_search$location)
+system.time(ed_search <- ucred_vv(data = rwalk, query = query, qlength = qlength))
+all.equal(qstart, ed_search$location)
+```
+And in a matter of seconds we have searched 10 million data points and rediscovered our query!
+
+Searching for an exact match, however, is somewhat artificial. The real power of the similarity search is finding structurally similar subsequences in complex sets of time series. To demonstarte this we load an example data set:
 
 ```{r load-data}
 data("synthetic_control")
@@ -44,42 +65,9 @@ for (i in 1:6){
 }
 ```
 
-`rucrdtw` provides tools to efficiently detect a pattern such as the examples given above in a longer time series. We can demonstrate this, by pasting together the 600 example series, and searching for a predetermined subsequence.
+Since we are now comparing a query against a set of time series, we only need to do comparisons for non-overlapping data sequences. The vector-matrix methods `ucrdtw_vm` and `ucred_vm` provide this functionality.
 
-```{r search-exact1, fig.width=6}
-#reshape matrix into vector
-long_series <- as.vector(t(synthetic_control))
-#pick series 175 as query
-query <- synthetic_control[175,]
-#calculate starting location in the long series
-query_start <- 175*ncol(synthetic_control)-59
-
-#plot long series
-plot(long_series, type = "l")
-#overlay known position of query
-lines(seq(query_start, by=1, length.out = 60), synthetic_control[175,], col="red")
-```
-
-We can then search using both DTW and Euclidean distance measures.
-
-```{r search-exact2}
-#do the search using the vector-vector method
-dtw_search <- ucrdtw_vv(long_series, query, length(query), 0.05)
-ed_search <- ucred_vv(long_series, query, length(query))
-```
-
-And plot the search result onto the data.
-```{r search-results, fig.width=6}
-#visualize the result
-plot(long_series, type = "l", xlim = c(query_start-100, query_start+160))
-abline(v=c(dtw_search$location, dtw_search$location+length(query)) , col="blue")
-abline(v=c(ed_search$location, ed_search$location+length(query)) , col="darkgreen", lty=3, lwd=3)
-lines(seq(query_start, by=1, length.out = 60), synthetic_control[175,], col="red")
-```
-
-Searching for an exact match, however, doesn't require an expensive similarity measure such as DTW. The real power, however, of the DTW similarity search, is finding structurally similar subsequences in complex sets of time series.
-
-We can demonstrate this by removing the query from the data set:
+We can demonstrate this by removing a query from the data set, and then searching for a closest match:
 ```{r, echo=TRUE, message=TRUE, warning=TRUE}
 index <- 600
 query <- synthetic_control[index,]
@@ -87,8 +75,13 @@ query <- synthetic_control[index,]
 dtw_search = ucrdtw_vm(synthetic_control[-index,], query, length(query), 0.05, byrow = TRUE)
 ed_search = ucred_vm(synthetic_control[-index,], query, length(query), byrow= TRUE)
 #times=50)
-plot(synthetic_control[dtw_search$location,], type="l", ylim=c(0,55))
-lines(query, col="red", lty=2)
+```
+And plot the results:
+```{r plot-search, fig.width=6}
+plot(synthetic_control[dtw_search$location,], type="l", ylim=c(0,55), ylab="")
+lines(query, col="red")
 lines(synthetic_control[ed_search$location,], col="blue", lty=3, lwd=3)
+legend("topright", legend = c("query", "DTW match", "ED match"), col=c("red", "black", "blue"), lty=c(1,1,3), bty="n")
 ```
 
+## References
