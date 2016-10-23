@@ -1475,3 +1475,5 @@ Rcpp::List ucrdtw_vv(Rcpp::NumericVector data , Rcpp::NumericVector query, int q
   out.attr("class") = "ucrdtw";
   return out;
 }
+
+

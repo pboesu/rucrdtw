@@ -16,7 +16,7 @@ for (i in 1:6){
   plot(synthetic_control[i*100-99,], type = "l", xaxt = "n", yaxt = "n", ylab="", xlab = "", bty="n", main=classes[i])
 }
 
-## ----search-exact, fig.width=6-------------------------------------------
+## ----search-exact1, fig.width=6------------------------------------------
 #reshape matrix into vector
 long_series <- as.vector(t(synthetic_control))
 #pick series 175 as query
@@ -29,11 +29,15 @@ plot(long_series, type = "l")
 #overlay known position of query
 lines(seq(query_start, by=1, length.out = 60), synthetic_control[175,], col="red")
 
+## ----search-exact2-------------------------------------------------------
 #do the search using the vector-vector method
 dtw_search <- ucrdtw_vv(long_series, query, length(query), 0.05)
+ed_search <- ucred_vv(long_series, query, length(query))
 
+## ----search-results, fig.width=6-----------------------------------------
 #visualize the result
 plot(long_series, type = "l", xlim = c(query_start-100, query_start+160))
 abline(v=c(dtw_search$location, dtw_search$location+length(query)) , col="blue")
+abline(v=c(ed_search$location, ed_search$location+length(query)) , col="darkgreen", lty=3, lwd=3)
 lines(seq(query_start, by=1, length.out = 60), synthetic_control[175,], col="red")
 

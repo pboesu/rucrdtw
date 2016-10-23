@@ -83,8 +83,8 @@ We can demonstrate this by removing the query from the data set:
 ```{r}
 long_series <- long_series[-c(35641:36000)]
 query <- synthetic_control[600,]
-dtw_search <- ucrdtw_vv(long_series, query, length(query), 0.05, skip=TRUE)
-ed_search <- ucred_vv(long_series, query, length(query))
+dtw_search <- ucrdtw_vm(synthetic_control, query, length(query), 0.05, byrow = TRUE)
+ed_search <- ucred_vm(synthetic_control, query, length(query), byrow= TRUE)
 plot(synthetic_control[dtw_search$location,], type="l", ylim=c(0,55))
 lines(query, col="red", lty=2)
 lines(long_series[ed_search$location:(ed_search$location+length(query))], col="blue")

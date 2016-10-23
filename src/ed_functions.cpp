@@ -195,6 +195,8 @@ Rcpp::List ucred_ff(const char * data , const char * query, int qlength)
       std = ex2/m;
       std = sqrt(std-mean*mean);
 
+      ///check for user input in case of run-away loop
+      Rcpp::checkUserInterrupt();
       /// Calculate ED distance
       dist = distance(Q,T,j,m,mean,std,order,bsf);
       if( dist < bsf )
@@ -337,7 +339,8 @@ Rcpp::List ucred_fv(const char * data , Rcpp::NumericVector query, int qlength)
       mean = ex/m;
       std = ex2/m;
       std = sqrt(std-mean*mean);
-
+      ///check for user input in case of run-away loop
+      Rcpp::checkUserInterrupt();
       /// Calculate ED distance
       dist = distance(Q,T,j,m,mean,std,order,bsf);
       if( dist < bsf )
@@ -370,11 +373,12 @@ Rcpp::List ucred_fv(const char * data , Rcpp::NumericVector query, int qlength)
 //' @param data numeric vector containing data
 //' @param query numeric vector containing query
 //' @param qlength int length of query (n data points)
+//' @param skip bool defaults to TRUE. If TRUE bound calculations and if necessary, distance calculations, are only performed on non-overlapping segments of the data (i.e. multiples of \code{qlength}). This is useful if \code{data} is a set of multiple reference time series, each of length \code{qlength}. The location returned when skipping is the index of the subsequence.
 //' @useDynLib rucrdtw
 //' @importFrom Rcpp sourceCpp
 //' @export
 // [[Rcpp::export]]
-Rcpp::List ucred_vv(Rcpp::NumericVector data , Rcpp::NumericVector query, int qlength)
+Rcpp::List ucred_vv(Rcpp::NumericVector data , Rcpp::NumericVector query, int qlength, bool skip = false)
 {
   //FILE *fp;              // the input file pointer
   //FILE *qp;              // the query file pointer
@@ -483,12 +487,17 @@ Rcpp::List ucred_vv(Rcpp::NumericVector data , Rcpp::NumericVector query, int ql
       std = ex2/m;
       std = sqrt(std-mean*mean);
 
+      if (!skip || (k % m==0)){
+        if (skip) Rcout << k << endl;
+        ///check for user input in case of run-away loop
+        Rcpp::checkUserInterrupt();
       /// Calculate ED distance
       dist = distance(Q,T,j,m,mean,std,order,bsf);
       if( dist < bsf )
       {
         bsf = dist;
         loc = i-m+1;
+      }
       }
       ex -= T[j];
       ex2 -= T[j]*T[j];
@@ -501,7 +510,7 @@ Rcpp::List ucred_vv(Rcpp::NumericVector data , Rcpp::NumericVector query, int ql
   //Rcout << "Location : " << loc << endl;
   //Rcout << "Distance : " << sqrt(bsf) << endl;
   //Rcout << "Total Execution Time : " << (t2-t1)/CLOCKS_PER_SEC << " sec" << endl;
-  Rcpp::List out = Rcpp::List::create(Rcpp::Named("location") = loc + 1, // convert raw data location to R's 1-based indexing
+  Rcpp::List out = Rcpp::List::create(Rcpp::Named("location") = (skip) ? (loc / qlength + 1) : (loc + 1), //loc is index of subsequence if skipping, otherwise convert raw data location to R's 1-based indexing
                                       Rcpp::Named("distance") = sqrt(bsf));
   out.attr("class") = "ucred";
   return out;
