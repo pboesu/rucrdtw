@@ -1,5 +1,5 @@
 ---
-title: 'rucrdtw: Fast time series subsequence search under dynamic time warping in R'
+title: 'rucrdtw: Fast time series subsequence search in R'
 tags:
     - R
     - Rcpp
@@ -9,7 +9,7 @@ authors:
    - name: Philipp H Boersch-Supan
      orcid: 0000-0001-6723-6833
      affiliation: Department of Geography and Emerging Pathogens Institute, University of Florida
-date: October 2016
+date: 2016-10-23
 bibliography: vignettes/rucrdtw.bib
 ---
 
@@ -20,6 +20,8 @@ bibliography: vignettes/rucrdtw.bib
   
   The `rucrdtw` R package makes use of `Rcpp` [@Rcpp] to provide R bindings for the [UCR Suite](http://www.cs.ucr.edu/~eamonn/UCRsuite.html) [@rakthanmanon2012searching], a collection of C++ algorithms which enables ultrafast sliding-window subsequence search under both DTW and Euclidean Distance for queries and data stored in text files. 
   `rucrdtw` additionally implements methods for querys and/or data that are held in memory as R objects, as well as a method to do fast similarity searches against reference libraries of time series.
+  The package is available on github (https://github.com/pboesu/rucrdtw) and submission to CRAN is planned following peer review.
+   
   
 # References
   
