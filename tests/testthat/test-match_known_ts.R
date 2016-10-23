@@ -51,6 +51,16 @@ test_that("vv method works with skipping", {
   expect_equal(last$distance, 0)
 })
 
+test_that("vm method works", {
+  for (index in c(1, 234, 600)){
+  query <- synthetic_control[index,]
+  #microbenchmark::microbenchmark(
+  dtw_search = ucrdtw_vm(synthetic_control, query, length(query), 0.05, byrow = TRUE)
+  expect_equal(dtw_search$location, index)
+  expect_equal(dtw_search$distance, 0)
+  }
+})
+
 test_that("vv method works with epoch < data", {
   first = ucrdtw_vv(datav, synthetic_control[1,], qlength, 0.05, epoch = 10000)
   expect_equal(first$location, 1)
@@ -86,5 +96,15 @@ test_that("ed_vv method works", {
   last = ucred_vv(datav, synthetic_control[600,], qlength)
   expect_equal(last$location, 36000-qlength+1)
   expect_equal(last$distance, 0)
+})
+
+test_that("ed_vm method works", {
+  for (index in c(1, 234, 600)){
+    query <- synthetic_control[index,]
+    #microbenchmark::microbenchmark(
+    ed_search = ucred_vm(synthetic_control, query, length(query), byrow = TRUE)
+    expect_equal(ed_search$location, index)
+    expect_equal(ed_search$distance, 0)
+  }
 })
 
