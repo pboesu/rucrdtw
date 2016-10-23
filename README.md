@@ -18,11 +18,17 @@ devtools::install_github("pboesu/rucrdtw")
 Examples
 --------
 
-Load `rucrdtw` package:
+Examples are contained in the vignette `rucrdtw`:
 
 ``` r
 library("rucrdtw")
+vignette("using_rucrdtw")
 ```
+
+Bug reports and contributions
+-----------------------------
+
+Please file a github issue at <https://github.com/pboesu/rucrdtw/issues> if you find any problems or have feature suggestions. Contributions (via pull requests or otherwise) are welcome. If you don't like github you can contact the package maintainer at <pboesu@gmail.com>.
 
 License
 -------
