@@ -64,7 +64,7 @@ ucrdtw_vm <- function(data, query, qlength, dtwwindow, epoch = 1e5, skip=TRUE, b
 #' Instead it is designed to find a best match for a query in a reference set of time-series of the same length as the query.
 #' This is useful, for example, when comparing a time-series of undetermined class to a labelled reference set of classified time-series.
 #'
-#' @name ucrdtw_vm
+#' @name ucred_vm
 #' @param data numeric matrix containing data
 #' @param query numeric vector containing the query
 #' @param qlength int length of query (n data points)
