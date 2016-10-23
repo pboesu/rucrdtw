@@ -3,7 +3,7 @@ rucrdtw - R Bindings for the UCR Suite
 
 [![Travis-CI Build Status](https://api.travis-ci.org/pboesu/rucrdtw.svg?branch=master)](https://travis-ci.org/pboesu/rucrdtw) [![codecov](https://codecov.io/gh/pboesu/rucrdtw/branch/master/graph/badge.svg)](https://codecov.io/gh/pboesu/rucrdtw)
 
-R bindings for functions from the UCR Suite (Thanawin Rakthanmanon et al. 2012 SIGKDD), which enables ultrafast subsequence search under both Dynamic Time Warping and Euclidean Distance.
+R bindings for functions from the [UCR Suite](http://www.cs.ucr.edu/~eamonn/UCRsuite.html) (Thanawin Rakthanmanon et al. 2012 SIGKDD), which enables ultrafast subsequence search under both Dynamic Time Warping and Euclidean Distance.
 
 Installation
 ------------
