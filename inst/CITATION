@@ -1,0 +1,43 @@
+citHeader("To cite rucrdtw in publications, please use:")
+
+year <- sub("-.*", "", meta$Date)
+note <- sprintf("R package version %s", meta$Version)
+
+citEntry(entry = "Manual",
+         title = "{rucrdtw}: R Bindings for the UCR Suite",
+         author = c(person("Philipp", "Boersch-Supan")),
+         year = 2016,
+         note = note,
+         url = "https://github.com/pboesu/rucrdtw",
+
+         textVersion  =
+           paste("Boersch-Supan (2016).",
+                 "rucrdtw: R Bindings for the UCR Suite.",
+                 note,
+                 "URL https://github.com/pboesu/rucrdtw"))
+
+
+citEntry(entry = "InProceedings",
+         title        = "Searching and mining trillions of time series subsequences under dynamic time warping",
+         author       = personList(c(person("Thanawin", "Rakthanmanon"),
+                                     person("Bilson", "Campana"),
+                                     person("Abdullah", "Mueen"),
+                                     person("Gustavo", "Batista"),
+                                     person("Brandon", "Westover"),
+                                     person("Qiang", "Zhu"),
+                                     person("Jesin", "Zakaria"),
+                                     person("Eamonn", "Keogh"))),
+         booktitle    = "Proceedings of the 18th {ACM} {SIGKDD} international conference on Knowledge discovery and data mining",
+         year         = "2012",
+         pages        = "262--270",
+         organization = "ACM",
+         doi          = "10.1145/2339530.2339576",
+         url          = "http://doi.org/10.1145/2339530.2339576",
+
+         textVersion  =
+           paste("Rakthanmanon et al. (2012).",
+                 "Searching and mining trillions of time series subsequences under dynamic time warping.",
+                 "SIGKDD",
+                 "URL http://doi.org/10.1145/2339530.2339576")
+)
+
