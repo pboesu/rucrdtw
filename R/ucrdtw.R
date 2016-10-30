@@ -9,7 +9,7 @@
 #' @export
 #'
 summary.ucrdtw <- function(object, ...){
-  print(as.data.frame.list(object), row.names=F, ...)
+  print(as.data.frame.list(object), row.names=FALSE, ...)
 }
 
 #' Summarize subsequence search
@@ -23,7 +23,7 @@ summary.ucrdtw <- function(object, ...){
 #' @export
 #'
 summary.ucred <- function(object, ...){
-  print(as.data.frame.list(object), row.names=F, ...)
+  print(as.data.frame.list(object), row.names=FALSE, ...)
 }
 
 
