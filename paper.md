@@ -19,7 +19,7 @@ bibliography: vignettes/rucrdtw.bib
   DTW is widely used in time series data mining applications for tasks such as classification, clustering, and anomaly detection.
   
   The `rucrdtw` R package makes use of `Rcpp` [@Rcpp] to provide R bindings for the [UCR Suite](http://www.cs.ucr.edu/~eamonn/UCRsuite.html) [@rakthanmanon2012searching], a collection of C++ algorithms which enables ultrafast sliding-window subsequence search under both DTW and Euclidean Distance for queries and data stored in text files. 
-  `rucrdtw` additionally implements methods for querys and/or data that are held in memory as R objects, as well as a method to do fast similarity searches against reference libraries of time series.
+  `rucrdtw` additionally implements methods for queries and/or data that are held in memory as R objects, as well as a method to do fast similarity searches against reference libraries of time series.
   The package is available on github (https://github.com/pboesu/rucrdtw) and submission to CRAN is planned following peer review.
    
   
