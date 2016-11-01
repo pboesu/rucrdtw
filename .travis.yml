@@ -26,6 +26,9 @@ matrix:
       - testthat
       - knitr
       - rmarkdown
+      
+allow_failures:
+        - os: osx
 
 
 notifications:
