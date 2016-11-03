@@ -13,7 +13,9 @@ test_that("error message is displayed on unsuitable input", {
   expect_error(ucrdtw_vm(dataf, firstf, 60, 0.05), "data must be a numeric matrix")
   expect_error(ucred_vm(dataf, firstf, 60), "data must be a numeric matrix")
   expect_error(ucrdtw_ff("missing.file", firstf, 60, 0.05), "ERROR : File not Found!!!")
+  expect_error(ucrdtw_ff(dataf, "missing.file", 60, 0.05), "ERROR : File not Found!!!")
   expect_error(ucred_ff("missing.file", firstf, 60), "ERROR : File not Found!!!")
+  expect_error(ucred_ff(dataf, "missing.file", 60), "ERROR : File not Found!!!")
 })
 
 test_that("dtw vm method errors on dimension mismatch", {
