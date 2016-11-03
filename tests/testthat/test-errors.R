@@ -5,6 +5,8 @@ dataf <- system.file("extdata/col_sc.txt", package="rucrdtw")
 firstf <- system.file("extdata/first_sc.txt", package="rucrdtw")
 #load data
 data("synthetic_control")
+#get query length
+qlength <- length(synthetic_control[1,])
 #cut off some columns
 wrong_ref <- synthetic_control[,1:55]
 
@@ -16,6 +18,8 @@ test_that("error message is displayed on unsuitable input", {
   expect_error(ucrdtw_ff(dataf, "missing.file", 60, 0.05), "ERROR : File not Found!!!")
   expect_error(ucred_ff("missing.file", firstf, 60), "ERROR : File not Found!!!")
   expect_error(ucred_ff(dataf, "missing.file", 60), "ERROR : File not Found!!!")
+  expect_error(ucrdtw_fv("missing.file", synthetic_control[1,], qlength, 0.05), "ERROR : File not Found!!!")
+  expect_error(ucred_fv("missing.file", synthetic_control[1,], qlength), "ERROR : File not Found!!!")
 })
 
 test_that("dtw vm method errors on dimension mismatch", {
