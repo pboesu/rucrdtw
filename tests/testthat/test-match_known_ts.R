@@ -58,6 +58,10 @@ test_that("vm method works", {
   dtw_search = ucrdtw_vm(synthetic_control, query, length(query), 0.05, byrow = TRUE)
   expect_equal(dtw_search$location, index)
   expect_equal(dtw_search$distance, 0)
+  #same with columnwise input
+  dtw_search = ucrdtw_vm(t(synthetic_control), query, length(query), 0.05, byrow = FALSE)
+  expect_equal(dtw_search$location, index)
+  expect_equal(dtw_search$distance, 0)
   }
 })
 
@@ -103,6 +107,10 @@ test_that("ed_vm method works", {
     query <- synthetic_control[index,]
     #microbenchmark::microbenchmark(
     ed_search = ucred_vm(synthetic_control, query, length(query), byrow = TRUE)
+    expect_equal(ed_search$location, index)
+    expect_equal(ed_search$distance, 0)
+    #same with columnwise input
+    ed_search = ucred_vm(t(synthetic_control), query, length(query), byrow = FALSE)
     expect_equal(ed_search$location, index)
     expect_equal(ed_search$distance, 0)
   }
