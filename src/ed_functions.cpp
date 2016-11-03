@@ -21,6 +21,8 @@
 /***********************************************************************/
 /***********************************************************************/
 
+// [[Rcpp::interfaces(r, cpp)]]
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -28,6 +30,7 @@
 #include <iostream>
 #include <Rcpp.h>
 using namespace Rcpp;
+
 
 #define INF 1e20       //Pseudo Infitinte number for this code
 

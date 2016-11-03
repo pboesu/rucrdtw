@@ -13,3 +13,4 @@ Joss Review
 - [ ] qlength explanation
 
 ## Issue-4: Export C++ level interface
+ - [x] C++ interface for high-level functions added in 8a8b8507

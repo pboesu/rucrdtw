@@ -97,3 +97,7 @@ ucred_vv <- function(data, query, qlength, skip = FALSE) {
     .Call('rucrdtw_ucred_vv', PACKAGE = 'rucrdtw', data, query, qlength, skip)
 }
 
+# Register entry points for exported C++ functions
+methods::setLoadAction(function(ns) {
+    .Call('rucrdtw_RcppExport_registerCCallable', PACKAGE = 'rucrdtw')
+})
