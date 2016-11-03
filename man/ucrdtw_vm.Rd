@@ -27,7 +27,7 @@ a ucrdtw object, note that the field \code{location} indicates the row or column
 }
 \description{
 This implementation of the UCR Suite command line utility, takes an R numeric matrix as data input and an R numeric vector for the query.
-The default behaviour differs from the other metjods, in that it does not perform a sliding window search for a match.
+The default behaviour differs from the other methods, in that it does not perform a sliding window search for a match.
 Instead it is designed to find a best match for a query in a reference set of time-series of the same length as the query.
 This is useful, for example, when comparing a time-series of undetermined class to a labelled reference set of classified time-series.
 }
