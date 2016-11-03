@@ -24,5 +24,6 @@ SystemRequirements: C++11
 RoxygenNote: 5.0.1
 Suggests: testthat,
     knitr,
-    rmarkdown
+    rmarkdown,
+    dtw
 VignetteBuilder: knitr
