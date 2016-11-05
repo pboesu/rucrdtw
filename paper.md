@@ -20,6 +20,7 @@ Calculating a DTW alignment is computationally relatively expensive, and as a co
   
   A broad suite of DTW algorithms is implemented in R in the [`dtw` package](https://CRAN.R-project.org/package=dtw) [@giorgino2009computing]. The `rucrdtw` R package provides complementary functionality for fast similarity searches by providing R bindings for the UCR Suite via `Rcpp` [@Rcpp]. In addition to queries and data stored in text files, `rucrdtw` also implements methods for queries and/or data that are held in memory as R objects, as well as a method to do fast similarity searches against reference libraries of time series.
 
+![Figure 1: UCR DTW is approximately 3 orders of magnitude faster than a naive sliding-window search using DTW distance.](inst/img/dtw-comparison-1.png)
   
 # References
   
