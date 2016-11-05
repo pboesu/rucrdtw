@@ -36,14 +36,13 @@ rwalk <- cumsum(runif(1e7, min = -0.5, max = 0.5))
 Pick a random subsequence of 100 elements as a query
 ```{r rw-query}
 qstart <- sample(length(rwalk), 1)
-qlength <- 100
-query <- rwalk[qstart:(qstart+qlength)]
+query <- rwalk[qstart:(qstart+100)]
 ```
 Since both query and data are R vectors, we use the vector-vector methods for the search.
 ```{r rw-search}
-system.time(dtw_search <- ucrdtw_vv(data = rwalk, query = query, qlength = qlength, dtwwindow = 0.05))
+system.time(dtw_search <- ucrdtw_vv(data = rwalk, query = query, dtwwindow = 0.05))
 all.equal(qstart, dtw_search$location)
-system.time(ed_search <- ucred_vv(data = rwalk, query = query, qlength = qlength))
+system.time(ed_search <- ucred_vv(data = rwalk, query = query))
 all.equal(qstart, ed_search$location)
 ```
 And in a matter of seconds we have searched 10 million data points and rediscovered our query!
@@ -65,15 +64,15 @@ for (i in 1:6){
 }
 ```
 
-Since we are now comparing a query against a set of time series, we only need to do comparisons for non-overlapping data sequences. The vector-matrix methods `ucrdtw_vm` and `ucred_vm` provide this functionality.
+Since we are now comparing a query against a set of time series, we only need to do comparisons for non-overlapping data sequences. The matrix-vector methods `ucrdtw_mv` and `ucred_mv` provide this functionality.
 
 We can demonstrate this by removing a query from the data set, and then searching for a closest match:
 ```{r, echo=TRUE, message=TRUE, warning=TRUE}
 index <- 600
 query <- synthetic_control[index,]
 #microbenchmark::microbenchmark(
-dtw_search = ucrdtw_vm(synthetic_control[-index,], query, length(query), 0.05, byrow = TRUE)
-ed_search = ucred_vm(synthetic_control[-index,], query, length(query), byrow= TRUE)
+dtw_search = ucrdtw_mv(synthetic_control[-index,], query, 0.05, byrow = TRUE)
+ed_search = ucred_mv(synthetic_control[-index,], query, byrow= TRUE)
 #times=50)
 ```
 And plot the results:
