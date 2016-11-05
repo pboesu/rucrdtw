@@ -10,7 +10,12 @@ vignette: >
 bibliography: rucrdtw.bib
 ---
 
-`rucrdtw` provides R bindings for functions from the [UCR Suite](http://www.cs.ucr.edu/~eamonn/UCRsuite.html) [@rakthanmanon2012searching], which enables ultrafast subsequence search under both Dynamic Time Warping and Euclidean Distance.
+## Introduction
+Dynamic Time Warping (DTW) methods provide algorithms to optimally map a given time series onto all or part of another time series [@berndt1994using]. The remaining cumulative distance between the series after the alignement is a useful distance metric in time series data mining applications for tasks such as classification, clustering, and anomaly detection. 
+
+Calculating a DTW alignment is computationally relatively expensive, and as a consequence DTW is often a bottleneck in time series data mining applications. The [UCR Suite](http://www.cs.ucr.edu/~eamonn/UCRsuite.html) [@rakthanmanon2012searching] provides a highly optimized algorithm for best-match subsequence searches that avoids unnecessary distance computations and thereby enables fast DTW and Euclidean Distance queries even in data sets containing trillions of observations.
+  
+  A broad suite of DTW algorithms is implemented in R in the [`dtw` package](https://CRAN.R-project.org/package=dtw) [@giorgino2009computing]. The `rucrdtw` R package provides complementary functionality for fast similarity searches by providing R bindings for the UCR Suite via `Rcpp` [@Rcpp]. In addition to queries and data stored in text files, `rucrdtw` also implements methods for queries and/or data that are held in memory as R objects, as well as a method to do fast similarity searches against reference libraries of time series.
 
 ## Installation
 Install `rucrdtw` from GitHub:
@@ -47,7 +52,7 @@ all.equal(qstart, ed_search$location)
 ```
 And in a matter of seconds we have searched 10 million data points and rediscovered our query!
 
-Searching for an exact match, however, is somewhat artificial. The real power of the similarity search is finding structurally similar subsequences in complex sets of time series. To demonstarte this we load an example data set:
+Searching for an exact match, however, is somewhat artificial. The real power of the similarity search is finding structurally similar subsequences in complex sets of time series. To demonstrate this we load an example data set:
 
 ```{r load-data}
 data("synthetic_control")
@@ -82,5 +87,44 @@ lines(query, col="red")
 lines(synthetic_control[ed_search$location,], col="blue", lty=3, lwd=3)
 legend("topright", legend = c("query", "DTW match", "ED match"), col=c("red", "black", "blue"), lty=c(1,1,3), bty="n")
 ```
+
+## Comparison with a naive DTW sub-sequence search
+We can compare the speed-up achived with the UCR algorithm by comparing it to a naive sliding-window comparison with the `dtw` function from the [`dtw` package](https://CRAN.R-project.org/package=dtw) [@giorgino2009computing]. We create another time series and load `dtw`.
+
+```{r dtw-comparison}
+set.seed(123)
+rwalk <- cumsum(runif(5e3, min = -0.5, max = 0.5))
+qstart <- 876
+query <- rwalk[qstart:(qstart+99)]
+library(dtw)
+```
+`ucrdtw` uses a Sakoe-Chiba Band for the DTW calculation. We therefore create a small function that executes a sliding window search using the same DTW criteria.
+
+```{r naive-function}
+naive_dtw <- function(data, query){
+  n_comps <- (length(data)-length(query)+1)
+  dtw_dist <- numeric(n_comps)
+  for (i in 1:n_comps){
+    dtw_dist[i] <- dtw(query, data[i:(i+length(query)-1)], distance.only = TRUE, window.type="sakoechiba", window.size=5)$distance
+  }
+  which.min(dtw_dist)
+}
+```
+
+Finally, we run the comparison across three time-series ranging from 1000 to 5000 elements, and plot the result.
+```{r run-benchmark, fig.width=6}
+benchmark <- microbenchmark::microbenchmark(
+  naive_1000 = naive_dtw(rwalk[1:1000], query),
+  naive_2000 = naive_dtw(rwalk[1:2000], query),
+  naive_5000 = naive_dtw(rwalk, query),
+  ucrdtw_1000 = ucrdtw_vv(rwalk[1:1000], query, 0.05),
+  ucrdtw_2000 = ucrdtw_vv(rwalk[1:2000], query, 0.05),
+  ucrdtw_5000 = ucrdtw_vv(rwalk, query, 0.05),
+  times=10)
+
+boxplot(benchmark, unit = "ms", log=TRUE, boxwex = 0.5, cex.axis=0.8)
+```
+
+The speed-up is approximately 3 orders of magnitude.
 
 ## References

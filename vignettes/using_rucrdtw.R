@@ -44,3 +44,32 @@ lines(query, col="red")
 lines(synthetic_control[ed_search$location,], col="blue", lty=3, lwd=3)
 legend("topright", legend = c("query", "DTW match", "ED match"), col=c("red", "black", "blue"), lty=c(1,1,3), bty="n")
 
+## ----dtw-comparison------------------------------------------------------
+set.seed(123)
+rwalk <- cumsum(runif(5e3, min = -0.5, max = 0.5))
+qstart <- 876
+query <- rwalk[qstart:(qstart+99)]
+library(dtw)
+
+## ----naive-function------------------------------------------------------
+naive_dtw <- function(data, query){
+  n_comps <- (length(data)-length(query)+1)
+  dtw_dist <- numeric(n_comps)
+  for (i in 1:n_comps){
+    dtw_dist[i] <- dtw(query, data[i:(i+length(query)-1)], distance.only = TRUE, window.type="sakoechiba", window.size=5)$distance
+  }
+  which.min(dtw_dist)
+}
+
+## ----run-benchmark, fig.width=6------------------------------------------
+benchmark <- microbenchmark::microbenchmark(
+  naive_1000 = naive_dtw(rwalk[1:1000], query),
+  naive_2000 = naive_dtw(rwalk[1:2000], query),
+  naive_5000 = naive_dtw(rwalk, query),
+  ucrdtw_1000 = ucrdtw_vv(rwalk[1:1000], query, 0.05),
+  ucrdtw_2000 = ucrdtw_vv(rwalk[1:2000], query, 0.05),
+  ucrdtw_5000 = ucrdtw_vv(rwalk, query, 0.05),
+  times=10)
+
+boxplot(benchmark, unit = "ms", log=TRUE, boxwex = 0.5, cex.axis=0.8)
+
