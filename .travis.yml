@@ -27,6 +27,7 @@ matrix:
       - knitr
       - rmarkdown
       - dtw
+      - microbenchmark
  fast_finish: true
 
 
