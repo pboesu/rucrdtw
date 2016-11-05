@@ -20,8 +20,37 @@ knitr::opts_chunk$set(
 [![Travis-CI Build Status](https://api.travis-ci.org/pboesu/rucrdtw.svg?branch=master)](https://travis-ci.org/pboesu/rucrdtw)
 [![codecov](https://codecov.io/gh/pboesu/rucrdtw/branch/master/graph/badge.svg)](https://codecov.io/gh/pboesu/rucrdtw)
 
-R bindings for functions from the [UCR Suite](http://www.cs.ucr.edu/~eamonn/UCRsuite.html) (Thanawin Rakthanmanon et al. 2012 SIGKDD), which enables ultrafast subsequence
-      search under both Dynamic Time Warping and Euclidean Distance.
+R bindings for functions from the [UCR Suite](http://www.cs.ucr.edu/~eamonn/UCRsuite.html) (Thanawin Rakthanmanon et al. 2012 SIGKDD), which enables ultrafast subsequence search under both Dynamic Time Warping and Euclidean Distance. UCR DTW is several orders of magnitudes faster than naive DTW searches. 
+
+```{r dtw-comparison, echo=FALSE, fig.width=6}
+library("rucrdtw")
+set.seed(123)
+rwalk <- cumsum(runif(5e3, min = -0.5, max = 0.5))
+qstart <- 876
+query <- rwalk[qstart:(qstart+99)]
+library(dtw)
+#we create a small function that executes a sliding window search
+naive_dtw <- function(data, query){
+  n_comps <- (length(data)-length(query)+1)
+  dtw_dist <- numeric(n_comps)
+  for (i in 1:n_comps){
+    dtw_dist[i] <- dtw(query, data[i:(i+length(query)-1)], distance.only = TRUE, window.type="sakoechiba", window.size=5)$distance
+  }
+  which.min(dtw_dist)
+}
+
+benchmark <- microbenchmark::microbenchmark(
+  naive_1000 = naive_dtw(rwalk[1:1000], query),
+  naive_2000 = naive_dtw(rwalk[1:2000], query),
+  naive_5000 = naive_dtw(rwalk, query),
+  ucrdtw_1000 = ucrdtw_vv(rwalk[1:1000], query, 0.05),
+  ucrdtw_2000 = ucrdtw_vv(rwalk[1:2000], query, 0.05),
+  ucrdtw_5000 = ucrdtw_vv(rwalk, query, 0.05),
+  times=10)
+colors <- rep(c("#33a02c","#1f78b4"), each=3)
+boxplot(benchmark, unit = "ms", log=TRUE, boxwex = 0.5, cex.axis=0.8, medcol = colors, staplecol=colors, boxcol=colors, staplewex=0)
+legend("topright", legend = c("naive DTW", "UCR DTW"), fill = c("#33a02c","#1f78b4"), bty="n")
+```
       
 ## Installation
 Install `rucrdtw` from GitHub:
@@ -38,7 +67,7 @@ Examples are contained in the vignette `rucrdtw`:
 library("rucrdtw")
 vignette("using_rucrdtw")
 ```
-
+ 
 ## Bug reports and contributions
 
 Please file a github issue at https://github.com/pboesu/rucrdtw/issues if you find any problems or have feature suggestions. Contributions (via pull requests or otherwise) are welcome. If you don't like github you can contact the package maintainer at pboesu@gmail.com.
