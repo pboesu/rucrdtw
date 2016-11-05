@@ -4,18 +4,43 @@
 \alias{ucrdtw_fv}
 \title{UCR DTW Algorithm file-vector method}
 \usage{
-ucrdtw_fv(data, query, qlength, dtwwindow)
+ucrdtw_fv(data, query, dtwwindow)
 }
 \arguments{
-\item{data}{char path to data file}
+\item{data}{character; path to data file}
 
-\item{query}{numeric vector containing the query}
+\item{query}{numeric vector containing the query. The query length is set to the length of this object.}
 
-\item{qlength}{int length of query (n data points)}
-
-\item{dtwwindow}{double warping window size (as a proportion of query length)}
+\item{dtwwindow}{double; Size of the warping window size (as a proportion of query length). The DTW calculation in `rucrdtw` uses a symmetric Sakoe-Chiba band. See Giorgino (2009) for a general coverage of warping window constraints.}
+}
+\value{
+a ucrdtw object. A list with the following elements
+\itemize{
+  \item \strong{location:} The starting location of the nearest neighbor of the given query, of size \code{qlength}, in the data. Note that location starts from 1.
+  \item \strong{distance:} The DTW distance between the nearest neighbor and the query.
+  \item \strong{prunedKim:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
+  \item \strong{prunedKeogh:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
+  \item \strong{prunedKeogh2:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
+  \item \strong{dtwCalc:} Percentage of subsequences for which the full DTW distance was calculated.
+}
+For an explanation of the pruning criteria see Rakthanmanon et al. (2012).
 }
 \description{
 This implementation of the UCR Suite command line utility, takes a data file as input and an R numeric vector for the query
+}
+\examples{
+#locate example data file
+dataf <- system.file("extdata/col_sc.txt", package="rucrdtw")
+#load example data set
+data("synthetic_control")
+#extract first row as query
+query <- synthetic_control[1,]
+#run query
+ucrdtw_fv(dataf, query, 0.05)
+}
+\references{
+Rakthanmanon, Thanawin, Bilson Campana, Abdullah Mueen, Gustavo Batista, Brandon Westover, Qiang Zhu, Jesin Zakaria, and Eamonn Keogh. 2012. Searching and Mining Trillions of Time Series Subsequences Under Dynamic Time Warping. In Proceedings of the 18th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining, 262-70. ACM. doi:\href{http://dx.doi.org/10.1145/2339530.2339576}{10.1145/2339530.2339576}.
+
+Giorgino, Toni (2009). Computing and Visualizing Dynamic Time Warping Alignments in R: The dtw Package. Journal of Statistical Software, 31(7), 1-24, doi:\href{http://dx.doi.org/10.18637/jss.v031.i07}{10.18637/jss.v031.i07}.
 }
 

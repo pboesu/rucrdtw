@@ -10,7 +10,7 @@ Joss Review
 - [ ] more detailed argument explanations
 - [ ] performance and functionality comparison with dtw
 - [ ] Examples of practical applications
-- [ ] guide to file/vector/matrix methods
+- [x] guide to file/vector/matrix methods cd612f6
 - [ ] qlength explanation
 - [ ] figure in readme
 

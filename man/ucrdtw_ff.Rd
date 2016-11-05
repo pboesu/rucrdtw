@@ -20,7 +20,6 @@ a ucrdtw object. A list with the following elements
 \itemize{
   \item \strong{location:} The starting location of the nearest neighbor of the given query, of size \code{qlength}, in the data. Note that location starts from 1.
   \item \strong{distance:} The DTW distance between the nearest neighbor and the query.
-  \item \strong{exec_time:} Execution time of the query.
   \item \strong{prunedKim:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
   \item \strong{prunedKeogh:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
   \item \strong{prunedKeogh2:} Percentage of subsequences that were pruned based on the LB-Kim criterion.

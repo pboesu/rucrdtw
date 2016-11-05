@@ -14,7 +14,6 @@
 #' \itemize{
 #'   \item \strong{location:} The starting location of the nearest neighbor of the given query, of size \code{qlength}, in the data. Note that location starts from 1.
 #'   \item \strong{distance:} The DTW distance between the nearest neighbor and the query.
-#'   \item \strong{exec_time:} Execution time of the query.
 #'   \item \strong{prunedKim:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
 #'   \item \strong{prunedKeogh:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
 #'   \item \strong{prunedKeogh2:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
@@ -44,15 +43,35 @@ ucrdtw_ff <- function(data, query, qlength, dtwwindow) {
 #' This implementation of the UCR Suite command line utility, takes a data file as input and an R numeric vector for the query
 #'
 #' @name ucrdtw_fv
-#' @param data char path to data file
-#' @param query numeric vector containing the query
-#' @param qlength int length of query (n data points)
-#' @param dtwwindow double warping window size (as a proportion of query length)
+#' @param data character; path to data file
+#' @param query numeric vector containing the query. The query length is set to the length of this object.
+#' @param dtwwindow double; Size of the warping window size (as a proportion of query length). The DTW calculation in `rucrdtw` uses a symmetric Sakoe-Chiba band. See Giorgino (2009) for a general coverage of warping window constraints.
+#' @return a ucrdtw object. A list with the following elements
+#' \itemize{
+#'   \item \strong{location:} The starting location of the nearest neighbor of the given query, of size \code{qlength}, in the data. Note that location starts from 1.
+#'   \item \strong{distance:} The DTW distance between the nearest neighbor and the query.
+#'   \item \strong{prunedKim:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
+#'   \item \strong{prunedKeogh:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
+#'   \item \strong{prunedKeogh2:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
+#'   \item \strong{dtwCalc:} Percentage of subsequences for which the full DTW distance was calculated.
+#' }
+#' For an explanation of the pruning criteria see Rakthanmanon et al. (2012).
+#' @references Rakthanmanon, Thanawin, Bilson Campana, Abdullah Mueen, Gustavo Batista, Brandon Westover, Qiang Zhu, Jesin Zakaria, and Eamonn Keogh. 2012. Searching and Mining Trillions of Time Series Subsequences Under Dynamic Time Warping. In Proceedings of the 18th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining, 262-70. ACM. doi:\href{http://dx.doi.org/10.1145/2339530.2339576}{10.1145/2339530.2339576}.
+#' @references Giorgino, Toni (2009). Computing and Visualizing Dynamic Time Warping Alignments in R: The dtw Package. Journal of Statistical Software, 31(7), 1-24, doi:\href{http://dx.doi.org/10.18637/jss.v031.i07}{10.18637/jss.v031.i07}.
+#' @examples
+#' #locate example data file
+#' dataf <- system.file("extdata/col_sc.txt", package="rucrdtw")
+#' #load example data set
+#' data("synthetic_control")
+#' #extract first row as query
+#' query <- synthetic_control[1,]
+#' #run query
+#' ucrdtw_fv(dataf, query, 0.05)
 #' @useDynLib rucrdtw
 #' @importFrom Rcpp sourceCpp
 #' @export
-ucrdtw_fv <- function(data, query, qlength, dtwwindow) {
-    .Call('rucrdtw_ucrdtw_fv', PACKAGE = 'rucrdtw', data, query, qlength, dtwwindow)
+ucrdtw_fv <- function(data, query, dtwwindow) {
+    .Call('rucrdtw_ucrdtw_fv', PACKAGE = 'rucrdtw', data, query, dtwwindow)
 }
 
 #' UCR DTW Algorithm vector-vector method
@@ -61,16 +80,34 @@ ucrdtw_fv <- function(data, query, qlength, dtwwindow) {
 #'
 #' @name ucrdtw_vv
 #' @param data numeric vector containing data
-#' @param query numeric vector containing the query
-#' @param qlength int length of query (n data points)
-#' @param dtwwindow double warping window size (as a proportion of query length)
+#' @param query numeric vector containing the query. THe length of this vector determines the query length.
+#' @param dtwwindow double; Size of the warping window size (as a proportion of query length). The DTW calculation in `rucrdtw` uses a symmetric Sakoe-Chiba band. See Giorgino (2009) for a general coverage of warping window constraints.
 #' @param epoch int defaults to 1e5, should be \eqn{\le} 1e6. This is the size of the data chunk that is processed at once. All cumulative values in the algorithm will be restarted after \code{epoch} iterations to reduce floating point errors in these values.
 #' @param skip bool defaults to FALSE. If TRUE bound calculations and if necessary, distance calculations, are only performed on non-overlapping segments of the data (i.e. multiples of \code{qlength}). This is useful if \code{data} is a set of multiple reference time series, each of length \code{qlength}. The location returned when skipping is the index of the subsequence.
+#' @return a ucrdtw object. A list with the following elements
+#' \itemize{
+#'   \item \strong{location:} The starting location of the nearest neighbor of the given query, of size \code{qlength}, in the data. Note that location starts from 1.
+#'   \item \strong{distance:} The DTW distance between the nearest neighbor and the query.
+#'   \item \strong{prunedKim:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
+#'   \item \strong{prunedKeogh:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
+#'   \item \strong{prunedKeogh2:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
+#'   \item \strong{dtwCalc:} Percentage of subsequences for which the full DTW distance was calculated.
+#' }
+#' For an explanation of the pruning criteria see Rakthanmanon et al. (2012).
+#' @references Rakthanmanon, Thanawin, Bilson Campana, Abdullah Mueen, Gustavo Batista, Brandon Westover, Qiang Zhu, Jesin Zakaria, and Eamonn Keogh. 2012. Searching and Mining Trillions of Time Series Subsequences Under Dynamic Time Warping. In Proceedings of the 18th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining, 262-70. ACM. doi:\href{http://dx.doi.org/10.1145/2339530.2339576}{10.1145/2339530.2339576}.
+#' @references Giorgino, Toni (2009). Computing and Visualizing Dynamic Time Warping Alignments in R: The dtw Package. Journal of Statistical Software, 31(7), 1-24, doi:\href{http://dx.doi.org/10.18637/jss.v031.i07}{10.18637/jss.v031.i07}.
+#' @examples
+#' #read example data into vector
+#' datav <- scan(system.file("extdata/col_sc.txt", package="rucrdtw"))
+#' #read example query into vector
+#' query <- scan(system.file("extdata/first_sc.txt", package="rucrdtw"))
+#' #execute query
+#' ucrdtw_vv(datav, query, 0.05)
 #' @useDynLib rucrdtw
 #' @importFrom Rcpp sourceCpp
 #' @export
-ucrdtw_vv <- function(data, query, qlength, dtwwindow, epoch = 100000L, skip = FALSE) {
-    .Call('rucrdtw_ucrdtw_vv', PACKAGE = 'rucrdtw', data, query, qlength, dtwwindow, epoch, skip)
+ucrdtw_vv <- function(data, query, dtwwindow, epoch = 100000L, skip = FALSE) {
+    .Call('rucrdtw_ucrdtw_vv', PACKAGE = 'rucrdtw', data, query, dtwwindow, epoch, skip)
 }
 
 #' UCR ED Algorithm file-file method
@@ -95,12 +132,11 @@ ucred_ff <- function(data, query, qlength) {
 #' @name ucred_fv
 #' @param data char path to data file
 #' @param query numeric vector containing query
-#' @param qlength int length of query (n data points)
 #' @useDynLib rucrdtw
 #' @importFrom Rcpp sourceCpp
 #' @export
-ucred_fv <- function(data, query, qlength) {
-    .Call('rucrdtw_ucred_fv', PACKAGE = 'rucrdtw', data, query, qlength)
+ucred_fv <- function(data, query) {
+    .Call('rucrdtw_ucred_fv', PACKAGE = 'rucrdtw', data, query)
 }
 
 #' UCR ED Algorithm vector-vector method
@@ -110,13 +146,12 @@ ucred_fv <- function(data, query, qlength) {
 #' @name ucred_vv
 #' @param data numeric vector containing data
 #' @param query numeric vector containing query
-#' @param qlength int length of query (n data points)
 #' @param skip bool defaults to TRUE. If TRUE bound calculations and if necessary, distance calculations, are only performed on non-overlapping segments of the data (i.e. multiples of \code{qlength}). This is useful if \code{data} is a set of multiple reference time series, each of length \code{qlength}. The location returned when skipping is the index of the subsequence.
 #' @useDynLib rucrdtw
 #' @importFrom Rcpp sourceCpp
 #' @export
-ucred_vv <- function(data, query, qlength, skip = FALSE) {
-    .Call('rucrdtw_ucred_vv', PACKAGE = 'rucrdtw', data, query, qlength, skip)
+ucred_vv <- function(data, query, skip = FALSE) {
+    .Call('rucrdtw_ucred_vv', PACKAGE = 'rucrdtw', data, query, skip)
 }
 
 # Register entry points for exported C++ functions

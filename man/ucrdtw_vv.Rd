@@ -4,22 +4,45 @@
 \alias{ucrdtw_vv}
 \title{UCR DTW Algorithm vector-vector method}
 \usage{
-ucrdtw_vv(data, query, qlength, dtwwindow, epoch = 100000L, skip = FALSE)
+ucrdtw_vv(data, query, dtwwindow, epoch = 100000L, skip = FALSE)
 }
 \arguments{
 \item{data}{numeric vector containing data}
 
-\item{query}{numeric vector containing the query}
+\item{query}{numeric vector containing the query. THe length of this vector determines the query length.}
 
-\item{qlength}{int length of query (n data points)}
-
-\item{dtwwindow}{double warping window size (as a proportion of query length)}
+\item{dtwwindow}{double; Size of the warping window size (as a proportion of query length). The DTW calculation in `rucrdtw` uses a symmetric Sakoe-Chiba band. See Giorgino (2009) for a general coverage of warping window constraints.}
 
 \item{epoch}{int defaults to 1e5, should be \eqn{\le} 1e6. This is the size of the data chunk that is processed at once. All cumulative values in the algorithm will be restarted after \code{epoch} iterations to reduce floating point errors in these values.}
 
 \item{skip}{bool defaults to FALSE. If TRUE bound calculations and if necessary, distance calculations, are only performed on non-overlapping segments of the data (i.e. multiples of \code{qlength}). This is useful if \code{data} is a set of multiple reference time series, each of length \code{qlength}. The location returned when skipping is the index of the subsequence.}
 }
+\value{
+a ucrdtw object. A list with the following elements
+\itemize{
+  \item \strong{location:} The starting location of the nearest neighbor of the given query, of size \code{qlength}, in the data. Note that location starts from 1.
+  \item \strong{distance:} The DTW distance between the nearest neighbor and the query.
+  \item \strong{prunedKim:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
+  \item \strong{prunedKeogh:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
+  \item \strong{prunedKeogh2:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
+  \item \strong{dtwCalc:} Percentage of subsequences for which the full DTW distance was calculated.
+}
+For an explanation of the pruning criteria see Rakthanmanon et al. (2012).
+}
 \description{
 This implementation of the UCR Suite command line utility, takes an R numeric vector as data input and an R numeric vector for the query
+}
+\examples{
+#read example data into vector
+datav <- scan(system.file("extdata/col_sc.txt", package="rucrdtw"))
+#read example query into vector
+query <- scan(system.file("extdata/first_sc.txt", package="rucrdtw"))
+#execute query
+ucrdtw_vv(datav, query, 0.05)
+}
+\references{
+Rakthanmanon, Thanawin, Bilson Campana, Abdullah Mueen, Gustavo Batista, Brandon Westover, Qiang Zhu, Jesin Zakaria, and Eamonn Keogh. 2012. Searching and Mining Trillions of Time Series Subsequences Under Dynamic Time Warping. In Proceedings of the 18th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining, 262-70. ACM. doi:\href{http://dx.doi.org/10.1145/2339530.2339576}{10.1145/2339530.2339576}.
+
+Giorgino, Toni (2009). Computing and Visualizing Dynamic Time Warping Alignments in R: The dtw Package. Journal of Statistical Software, 31(7), 1-24, doi:\href{http://dx.doi.org/10.18637/jss.v031.i07}{10.18637/jss.v031.i07}.
 }
 

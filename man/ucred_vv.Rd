@@ -4,14 +4,12 @@
 \alias{ucred_vv}
 \title{UCR ED Algorithm vector-vector method}
 \usage{
-ucred_vv(data, query, qlength, skip = FALSE)
+ucred_vv(data, query, skip = FALSE)
 }
 \arguments{
 \item{data}{numeric vector containing data}
 
 \item{query}{numeric vector containing query}
-
-\item{qlength}{int length of query (n data points)}
 
 \item{skip}{bool defaults to TRUE. If TRUE bound calculations and if necessary, distance calculations, are only performed on non-overlapping segments of the data (i.e. multiples of \code{qlength}). This is useful if \code{data} is a set of multiple reference time series, each of length \code{qlength}. The location returned when skipping is the index of the subsequence.}
 }

@@ -4,14 +4,12 @@
 \alias{ucred_fv}
 \title{UCR ED Algorithm file-vector method}
 \usage{
-ucred_fv(data, query, qlength)
+ucred_fv(data, query)
 }
 \arguments{
 \item{data}{char path to data file}
 
 \item{query}{numeric vector containing query}
-
-\item{qlength}{int length of query (n data points)}
 }
 \description{
 This implementation of the UCR Suite command line utility, takes a data file as input and an R numeric vector for the query.

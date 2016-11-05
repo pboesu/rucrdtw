@@ -42,23 +42,22 @@ RcppExport SEXP rucrdtw_ucrdtw_ff(SEXP dataSEXP, SEXP querySEXP, SEXP qlengthSEX
     return rcpp_result_gen;
 }
 // ucrdtw_fv
-Rcpp::List ucrdtw_fv(const char * data, Rcpp::NumericVector query, int qlength, double dtwwindow);
-static SEXP rucrdtw_ucrdtw_fv_try(SEXP dataSEXP, SEXP querySEXP, SEXP qlengthSEXP, SEXP dtwwindowSEXP) {
+Rcpp::List ucrdtw_fv(const char * data, Rcpp::NumericVector query, double dtwwindow);
+static SEXP rucrdtw_ucrdtw_fv_try(SEXP dataSEXP, SEXP querySEXP, SEXP dtwwindowSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< const char * >::type data(dataSEXP);
     Rcpp::traits::input_parameter< Rcpp::NumericVector >::type query(querySEXP);
-    Rcpp::traits::input_parameter< int >::type qlength(qlengthSEXP);
     Rcpp::traits::input_parameter< double >::type dtwwindow(dtwwindowSEXP);
-    rcpp_result_gen = Rcpp::wrap(ucrdtw_fv(data, query, qlength, dtwwindow));
+    rcpp_result_gen = Rcpp::wrap(ucrdtw_fv(data, query, dtwwindow));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP rucrdtw_ucrdtw_fv(SEXP dataSEXP, SEXP querySEXP, SEXP qlengthSEXP, SEXP dtwwindowSEXP) {
+RcppExport SEXP rucrdtw_ucrdtw_fv(SEXP dataSEXP, SEXP querySEXP, SEXP dtwwindowSEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(rucrdtw_ucrdtw_fv_try(dataSEXP, querySEXP, qlengthSEXP, dtwwindowSEXP));
+        rcpp_result_gen = PROTECT(rucrdtw_ucrdtw_fv_try(dataSEXP, querySEXP, dtwwindowSEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
@@ -75,25 +74,24 @@ RcppExport SEXP rucrdtw_ucrdtw_fv(SEXP dataSEXP, SEXP querySEXP, SEXP qlengthSEX
     return rcpp_result_gen;
 }
 // ucrdtw_vv
-Rcpp::List ucrdtw_vv(Rcpp::NumericVector data, Rcpp::NumericVector query, int qlength, double dtwwindow, int epoch, bool skip);
-static SEXP rucrdtw_ucrdtw_vv_try(SEXP dataSEXP, SEXP querySEXP, SEXP qlengthSEXP, SEXP dtwwindowSEXP, SEXP epochSEXP, SEXP skipSEXP) {
+Rcpp::List ucrdtw_vv(Rcpp::NumericVector data, Rcpp::NumericVector query, double dtwwindow, int epoch, bool skip);
+static SEXP rucrdtw_ucrdtw_vv_try(SEXP dataSEXP, SEXP querySEXP, SEXP dtwwindowSEXP, SEXP epochSEXP, SEXP skipSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< Rcpp::NumericVector >::type data(dataSEXP);
     Rcpp::traits::input_parameter< Rcpp::NumericVector >::type query(querySEXP);
-    Rcpp::traits::input_parameter< int >::type qlength(qlengthSEXP);
     Rcpp::traits::input_parameter< double >::type dtwwindow(dtwwindowSEXP);
     Rcpp::traits::input_parameter< int >::type epoch(epochSEXP);
     Rcpp::traits::input_parameter< bool >::type skip(skipSEXP);
-    rcpp_result_gen = Rcpp::wrap(ucrdtw_vv(data, query, qlength, dtwwindow, epoch, skip));
+    rcpp_result_gen = Rcpp::wrap(ucrdtw_vv(data, query, dtwwindow, epoch, skip));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP rucrdtw_ucrdtw_vv(SEXP dataSEXP, SEXP querySEXP, SEXP qlengthSEXP, SEXP dtwwindowSEXP, SEXP epochSEXP, SEXP skipSEXP) {
+RcppExport SEXP rucrdtw_ucrdtw_vv(SEXP dataSEXP, SEXP querySEXP, SEXP dtwwindowSEXP, SEXP epochSEXP, SEXP skipSEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(rucrdtw_ucrdtw_vv_try(dataSEXP, querySEXP, qlengthSEXP, dtwwindowSEXP, epochSEXP, skipSEXP));
+        rcpp_result_gen = PROTECT(rucrdtw_ucrdtw_vv_try(dataSEXP, querySEXP, dtwwindowSEXP, epochSEXP, skipSEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
@@ -142,22 +140,21 @@ RcppExport SEXP rucrdtw_ucred_ff(SEXP dataSEXP, SEXP querySEXP, SEXP qlengthSEXP
     return rcpp_result_gen;
 }
 // ucred_fv
-Rcpp::List ucred_fv(const char * data, Rcpp::NumericVector query, int qlength);
-static SEXP rucrdtw_ucred_fv_try(SEXP dataSEXP, SEXP querySEXP, SEXP qlengthSEXP) {
+Rcpp::List ucred_fv(const char * data, Rcpp::NumericVector query);
+static SEXP rucrdtw_ucred_fv_try(SEXP dataSEXP, SEXP querySEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< const char * >::type data(dataSEXP);
     Rcpp::traits::input_parameter< Rcpp::NumericVector >::type query(querySEXP);
-    Rcpp::traits::input_parameter< int >::type qlength(qlengthSEXP);
-    rcpp_result_gen = Rcpp::wrap(ucred_fv(data, query, qlength));
+    rcpp_result_gen = Rcpp::wrap(ucred_fv(data, query));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP rucrdtw_ucred_fv(SEXP dataSEXP, SEXP querySEXP, SEXP qlengthSEXP) {
+RcppExport SEXP rucrdtw_ucred_fv(SEXP dataSEXP, SEXP querySEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(rucrdtw_ucred_fv_try(dataSEXP, querySEXP, qlengthSEXP));
+        rcpp_result_gen = PROTECT(rucrdtw_ucred_fv_try(dataSEXP, querySEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
@@ -174,23 +171,22 @@ RcppExport SEXP rucrdtw_ucred_fv(SEXP dataSEXP, SEXP querySEXP, SEXP qlengthSEXP
     return rcpp_result_gen;
 }
 // ucred_vv
-Rcpp::List ucred_vv(Rcpp::NumericVector data, Rcpp::NumericVector query, int qlength, bool skip);
-static SEXP rucrdtw_ucred_vv_try(SEXP dataSEXP, SEXP querySEXP, SEXP qlengthSEXP, SEXP skipSEXP) {
+Rcpp::List ucred_vv(Rcpp::NumericVector data, Rcpp::NumericVector query, bool skip);
+static SEXP rucrdtw_ucred_vv_try(SEXP dataSEXP, SEXP querySEXP, SEXP skipSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::traits::input_parameter< Rcpp::NumericVector >::type data(dataSEXP);
     Rcpp::traits::input_parameter< Rcpp::NumericVector >::type query(querySEXP);
-    Rcpp::traits::input_parameter< int >::type qlength(qlengthSEXP);
     Rcpp::traits::input_parameter< bool >::type skip(skipSEXP);
-    rcpp_result_gen = Rcpp::wrap(ucred_vv(data, query, qlength, skip));
+    rcpp_result_gen = Rcpp::wrap(ucred_vv(data, query, skip));
     return rcpp_result_gen;
 END_RCPP_RETURN_ERROR
 }
-RcppExport SEXP rucrdtw_ucred_vv(SEXP dataSEXP, SEXP querySEXP, SEXP qlengthSEXP, SEXP skipSEXP) {
+RcppExport SEXP rucrdtw_ucred_vv(SEXP dataSEXP, SEXP querySEXP, SEXP skipSEXP) {
     SEXP rcpp_result_gen;
     {
         Rcpp::RNGScope rcpp_rngScope_gen;
-        rcpp_result_gen = PROTECT(rucrdtw_ucred_vv_try(dataSEXP, querySEXP, qlengthSEXP, skipSEXP));
+        rcpp_result_gen = PROTECT(rucrdtw_ucred_vv_try(dataSEXP, querySEXP, skipSEXP));
     }
     Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
     if (rcpp_isInterrupt_gen) {
@@ -212,11 +208,11 @@ static int rucrdtw_RcppExport_validate(const char* sig) {
     static std::set<std::string> signatures;
     if (signatures.empty()) {
         signatures.insert("Rcpp::List(*ucrdtw_ff)(const char *,const char *,int,double)");
-        signatures.insert("Rcpp::List(*ucrdtw_fv)(const char *,Rcpp::NumericVector,int,double)");
-        signatures.insert("Rcpp::List(*ucrdtw_vv)(Rcpp::NumericVector,Rcpp::NumericVector,int,double,int,bool)");
+        signatures.insert("Rcpp::List(*ucrdtw_fv)(const char *,Rcpp::NumericVector,double)");
+        signatures.insert("Rcpp::List(*ucrdtw_vv)(Rcpp::NumericVector,Rcpp::NumericVector,double,int,bool)");
         signatures.insert("Rcpp::List(*ucred_ff)(const char *,const char *,int)");
-        signatures.insert("Rcpp::List(*ucred_fv)(const char *,Rcpp::NumericVector,int)");
-        signatures.insert("Rcpp::List(*ucred_vv)(Rcpp::NumericVector,Rcpp::NumericVector,int,bool)");
+        signatures.insert("Rcpp::List(*ucred_fv)(const char *,Rcpp::NumericVector)");
+        signatures.insert("Rcpp::List(*ucred_vv)(Rcpp::NumericVector,Rcpp::NumericVector,bool)");
     }
     return signatures.find(sig) != signatures.end();
 }

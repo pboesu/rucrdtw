@@ -22,10 +22,10 @@ test_that("ff method works", {
 
 
 test_that("fv method works", {
-    first = ucrdtw_fv(dataf, synthetic_control[1,], qlength, 0.05)
+    first = ucrdtw_fv(dataf, synthetic_control[1,], 0.05)
     expect_equal(first$location, 1)
     expect_equal(first$distance, 0)
-    last = ucrdtw_fv(dataf, synthetic_control[600,], qlength, 0.05)
+    last = ucrdtw_fv(dataf, synthetic_control[600,], 0.05)
     expect_equal(last$location, 36000-qlength+1)
     expect_equal(last$distance, 0)
 })
@@ -34,28 +34,28 @@ test_that("fv method works", {
 datav <- as.vector(t(synthetic_control))
 
 test_that("vv method works", {
-  first = ucrdtw_vv(datav, synthetic_control[1,], qlength, 0.05)
+  first = ucrdtw_vv(datav, synthetic_control[1,], 0.05)
   expect_equal(first$location, 1)
   expect_equal(first$distance, 0)
-  last = ucrdtw_vv(datav, synthetic_control[600,], qlength, 0.05)
+  last = ucrdtw_vv(datav, synthetic_control[600,], 0.05)
   expect_equal(last$location, 36000-qlength+1)
   expect_equal(last$distance, 0)
 })
 
 test_that("vv method works with skipping", {
-  first = ucrdtw_vv(datav, synthetic_control[1,], qlength, 0.05, skip = TRUE)
+  first = ucrdtw_vv(datav, synthetic_control[1,], 0.05, skip = TRUE)
   expect_equal(first$location, 1)
   expect_equal(first$distance, 0)
-  last = ucrdtw_vv(datav, synthetic_control[600,], qlength, 0.05, skip = TRUE)
+  last = ucrdtw_vv(datav, synthetic_control[600,], 0.05, skip = TRUE)
   expect_equal(last$location, 600)
   expect_equal(last$distance, 0)
 })
 
 test_that("vv method works with epoch < data", {
-  first = ucrdtw_vv(datav, synthetic_control[1,], qlength, 0.05, epoch = 10000)
+  first = ucrdtw_vv(datav, synthetic_control[1,], 0.05, epoch = 10000)
   expect_equal(first$location, 1)
   expect_equal(first$distance, 0)
-  last = ucrdtw_vv(datav, synthetic_control[600,], qlength, 0.05, epoch = 10000)
+  last = ucrdtw_vv(datav, synthetic_control[600,], 0.05, epoch = 10000)
   expect_equal(last$location, 36000-qlength+1)
   expect_equal(last$distance, 0)
 })
@@ -71,19 +71,19 @@ test_that("ed_ff method works", {
 })
 
 test_that("ed_fv method works", {
-  first = ucred_fv(dataf, synthetic_control[1,], qlength)
+  first = ucred_fv(dataf, synthetic_control[1,])
   expect_equal(first$location, 1)
   expect_equal(first$distance, 0)
-  last = ucred_fv(dataf, synthetic_control[600,], qlength)
+  last = ucred_fv(dataf, synthetic_control[600,])
   expect_equal(last$location, 36000-qlength+1)
   expect_equal(last$distance, 0)
 })
 
 test_that("ed_vv method works", {
-  first = ucred_vv(datav, synthetic_control[1,], qlength)
+  first = ucred_vv(datav, synthetic_control[1,])
   expect_equal(first$location, 1)
   expect_equal(first$distance, 0)
-  last = ucred_vv(datav, synthetic_control[600,], qlength)
+  last = ucred_vv(datav, synthetic_control[600,])
   expect_equal(last$location, 36000-qlength+1)
   expect_equal(last$distance, 0)
 })

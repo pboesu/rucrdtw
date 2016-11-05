@@ -399,7 +399,6 @@ void error(int id)
 //' \itemize{
 //'   \item \strong{location:} The starting location of the nearest neighbor of the given query, of size \code{qlength}, in the data. Note that location starts from 1.
 //'   \item \strong{distance:} The DTW distance between the nearest neighbor and the query.
-//'   \item \strong{exec_time:} Execution time of the query.
 //'   \item \strong{prunedKim:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
 //'   \item \strong{prunedKeogh:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
 //'   \item \strong{prunedKeogh2:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
@@ -436,7 +435,7 @@ Rcpp::List ucrdtw_ff(const char * data , const char * query, int qlength, double
   double ex , ex2 , mean, std;
   int m=-1, r=-1;
   rcpp_long_long_type loc = 0;
-  double t1,t2;
+  //double t1,t2;
   int kim = 0,keogh = 0, keogh2 = 0;
   double dist=0, lb_kim=0, lb_k=0, lb_k2=0;
   double *buffer, *u_buff, *l_buff;
@@ -469,7 +468,7 @@ Rcpp::List ucrdtw_ff(const char * data , const char * query, int qlength, double
     error(2);
 
   /// start the clock
-  t1 = clock();
+  //t1 = clock();
 
 
   /// malloc everything here
@@ -749,13 +748,13 @@ Rcpp::List ucrdtw_ff(const char * data , const char * query, int qlength, double
   free(l_buff);
   free(u_buff);
 
-  t2 = clock();
+  //t2 = clock();
   //Rprintf("\n");
 
   /// Note that loc and i are rcpp_long_long_type.
   Rcpp::List out = Rcpp::List::create(Rcpp::Named("location") = loc + 1, //convert to R's 1-based indexing
                                       Rcpp::Named("distance") = sqrt(bsf),
-                                      Rcpp::Named("exec_time")=(t2-t1)/CLOCKS_PER_SEC,
+                                      //Rcpp::Named("exec_time")=(t2-t1)/CLOCKS_PER_SEC,
                                       Rcpp::Named("prunedKim")=((double) kim / i)*100,
                                       Rcpp::Named("prunedKeogh")=((double) keogh / i)*100,
                                       Rcpp::Named("prunedKeogh2")=((double) keogh2 / i)*100,
@@ -770,15 +769,35 @@ Rcpp::List ucrdtw_ff(const char * data , const char * query, int qlength, double
 //' This implementation of the UCR Suite command line utility, takes a data file as input and an R numeric vector for the query
 //'
 //' @name ucrdtw_fv
-//' @param data char path to data file
-//' @param query numeric vector containing the query
-//' @param qlength int length of query (n data points)
-//' @param dtwwindow double warping window size (as a proportion of query length)
+//' @param data character; path to data file
+//' @param query numeric vector containing the query. The query length is set to the length of this object.
+//' @param dtwwindow double; Size of the warping window size (as a proportion of query length). The DTW calculation in `rucrdtw` uses a symmetric Sakoe-Chiba band. See Giorgino (2009) for a general coverage of warping window constraints.
+//' @return a ucrdtw object. A list with the following elements
+//' \itemize{
+//'   \item \strong{location:} The starting location of the nearest neighbor of the given query, of size \code{qlength}, in the data. Note that location starts from 1.
+//'   \item \strong{distance:} The DTW distance between the nearest neighbor and the query.
+//'   \item \strong{prunedKim:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
+//'   \item \strong{prunedKeogh:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
+//'   \item \strong{prunedKeogh2:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
+//'   \item \strong{dtwCalc:} Percentage of subsequences for which the full DTW distance was calculated.
+//' }
+//' For an explanation of the pruning criteria see Rakthanmanon et al. (2012).
+//' @references Rakthanmanon, Thanawin, Bilson Campana, Abdullah Mueen, Gustavo Batista, Brandon Westover, Qiang Zhu, Jesin Zakaria, and Eamonn Keogh. 2012. Searching and Mining Trillions of Time Series Subsequences Under Dynamic Time Warping. In Proceedings of the 18th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining, 262-70. ACM. doi:\href{http://dx.doi.org/10.1145/2339530.2339576}{10.1145/2339530.2339576}.
+//' @references Giorgino, Toni (2009). Computing and Visualizing Dynamic Time Warping Alignments in R: The dtw Package. Journal of Statistical Software, 31(7), 1-24, doi:\href{http://dx.doi.org/10.18637/jss.v031.i07}{10.18637/jss.v031.i07}.
+//' @examples
+//' #locate example data file
+//' dataf <- system.file("extdata/col_sc.txt", package="rucrdtw")
+//' #load example data set
+//' data("synthetic_control")
+//' #extract first row as query
+//' query <- synthetic_control[1,]
+//' #run query
+//' ucrdtw_fv(dataf, query, 0.05)
 //' @useDynLib rucrdtw
 //' @importFrom Rcpp sourceCpp
 //' @export
 // [[Rcpp::export]]
-Rcpp::List ucrdtw_fv(const char * data , Rcpp::NumericVector query, int qlength, double dtwwindow)
+Rcpp::List ucrdtw_fv(const char * data , Rcpp::NumericVector query, double dtwwindow)
 {
   FILE *fp;            /// data file pointer
   //FILE *qp;            /// query file pointer
@@ -793,7 +812,7 @@ Rcpp::List ucrdtw_fv(const char * data , Rcpp::NumericVector query, int qlength,
   double ex , ex2 , mean, std;
   int m=-1, r=-1;
   rcpp_long_long_type loc = 0;
-  double t1,t2;
+  //double t1,t2;
   int kim = 0,keogh = 0, keogh2 = 0;
   double dist=0, lb_kim=0, lb_k=0, lb_k2=0;
   double *buffer, *u_buff, *l_buff;
@@ -807,7 +826,7 @@ Rcpp::List ucrdtw_fv(const char * data , Rcpp::NumericVector query, int qlength,
   //  error(4);
 
   /// read size of the query
-  m = qlength;
+  m = query.size();
 
   /// read warping windows
   {   double R = dtwwindow;
@@ -827,7 +846,7 @@ Rcpp::List ucrdtw_fv(const char * data , Rcpp::NumericVector query, int qlength,
   //error(2);
 
   /// start the clock
-  t1 = clock();
+  //t1 = clock();
 
 
   /// malloc everything here
@@ -1109,13 +1128,13 @@ Rcpp::List ucrdtw_fv(const char * data , Rcpp::NumericVector query, int qlength,
   free(l_buff);
   free(u_buff);
 
-  t2 = clock();
+  //t2 = clock();
   //Rprintf("\n");
 
   /// Note that loc and i are rcpp_long_long_type.
   Rcpp::List out = Rcpp::List::create(Rcpp::Named("location") = loc + 1, //convert to R's 1-based indexing
                                       Rcpp::Named("distance") = sqrt(bsf),
-                                      Rcpp::Named("exec_time")=(t2-t1)/CLOCKS_PER_SEC,
+                                      //Rcpp::Named("exec_time")=(t2-t1)/CLOCKS_PER_SEC,
                                       Rcpp::Named("prunedKim")=((double) kim / i)*100,
                                       Rcpp::Named("prunedKeogh")=((double) keogh / i)*100,
                                       Rcpp::Named("prunedKeogh2")=((double) keogh2 / i)*100,
@@ -1131,16 +1150,34 @@ Rcpp::List ucrdtw_fv(const char * data , Rcpp::NumericVector query, int qlength,
 //'
 //' @name ucrdtw_vv
 //' @param data numeric vector containing data
-//' @param query numeric vector containing the query
-//' @param qlength int length of query (n data points)
-//' @param dtwwindow double warping window size (as a proportion of query length)
+//' @param query numeric vector containing the query. THe length of this vector determines the query length.
+//' @param dtwwindow double; Size of the warping window size (as a proportion of query length). The DTW calculation in `rucrdtw` uses a symmetric Sakoe-Chiba band. See Giorgino (2009) for a general coverage of warping window constraints.
 //' @param epoch int defaults to 1e5, should be \eqn{\le} 1e6. This is the size of the data chunk that is processed at once. All cumulative values in the algorithm will be restarted after \code{epoch} iterations to reduce floating point errors in these values.
 //' @param skip bool defaults to FALSE. If TRUE bound calculations and if necessary, distance calculations, are only performed on non-overlapping segments of the data (i.e. multiples of \code{qlength}). This is useful if \code{data} is a set of multiple reference time series, each of length \code{qlength}. The location returned when skipping is the index of the subsequence.
+//' @return a ucrdtw object. A list with the following elements
+//' \itemize{
+//'   \item \strong{location:} The starting location of the nearest neighbor of the given query, of size \code{qlength}, in the data. Note that location starts from 1.
+//'   \item \strong{distance:} The DTW distance between the nearest neighbor and the query.
+//'   \item \strong{prunedKim:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
+//'   \item \strong{prunedKeogh:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
+//'   \item \strong{prunedKeogh2:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
+//'   \item \strong{dtwCalc:} Percentage of subsequences for which the full DTW distance was calculated.
+//' }
+//' For an explanation of the pruning criteria see Rakthanmanon et al. (2012).
+//' @references Rakthanmanon, Thanawin, Bilson Campana, Abdullah Mueen, Gustavo Batista, Brandon Westover, Qiang Zhu, Jesin Zakaria, and Eamonn Keogh. 2012. Searching and Mining Trillions of Time Series Subsequences Under Dynamic Time Warping. In Proceedings of the 18th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining, 262-70. ACM. doi:\href{http://dx.doi.org/10.1145/2339530.2339576}{10.1145/2339530.2339576}.
+//' @references Giorgino, Toni (2009). Computing and Visualizing Dynamic Time Warping Alignments in R: The dtw Package. Journal of Statistical Software, 31(7), 1-24, doi:\href{http://dx.doi.org/10.18637/jss.v031.i07}{10.18637/jss.v031.i07}.
+//' @examples
+//' #read example data into vector
+//' datav <- scan(system.file("extdata/col_sc.txt", package="rucrdtw"))
+//' #read example query into vector
+//' query <- scan(system.file("extdata/first_sc.txt", package="rucrdtw"))
+//' #execute query
+//' ucrdtw_vv(datav, query, 0.05)
 //' @useDynLib rucrdtw
 //' @importFrom Rcpp sourceCpp
 //' @export
 // [[Rcpp::export]]
-Rcpp::List ucrdtw_vv(Rcpp::NumericVector data , Rcpp::NumericVector query, int qlength, double dtwwindow, int epoch = 100000, bool skip = false)
+Rcpp::List ucrdtw_vv(Rcpp::NumericVector data , Rcpp::NumericVector query, double dtwwindow, int epoch = 100000, bool skip = false)
 {
   //FILE *fp;            /// data file pointer
   //FILE *qp;            /// query file pointer
@@ -1173,7 +1210,7 @@ Rcpp::List ucrdtw_vv(Rcpp::NumericVector data , Rcpp::NumericVector query, int q
   //  error(4);
 
   /// read size of the query
-  m = qlength;
+  m = query.size();
 
   /// read warping windows
   {   double R = dtwwindow;
@@ -1396,7 +1433,7 @@ Rcpp::List ucrdtw_vv(Rcpp::NumericVector data , Rcpp::NumericVector query, int q
           //calculate current position in the data and only do bound calculations etc for non-overlapping sections of data
           if (skip)
             loc2 = (it)*(EPOCH-m+1) + i-m+1;
-          if (!skip || (skip & (loc2 % qlength == 0))){
+          if (!skip || (skip & (loc2 % m == 0))){
 
           /// Use a constant lower bound to prune the obvious subsequence
           lb_kim = lb_kim_hierarchy(t, q, j, m, mean, std, bsf);
@@ -1490,7 +1527,7 @@ Rcpp::List ucrdtw_vv(Rcpp::NumericVector data , Rcpp::NumericVector query, int q
 
   /// Note that loc and i are rcpp_long_long_type.
   // convert location to
-  Rcpp::List out = Rcpp::List::create(Rcpp::Named("location") = (skip) ? (loc / qlength + 1) : (loc + 1), //loc is index of subsequence if skipping, otherwise convert raw data location to R's 1-based indexing
+  Rcpp::List out = Rcpp::List::create(Rcpp::Named("location") = (skip) ? (loc / m + 1) : (loc + 1), //loc is index of subsequence if skipping, otherwise convert raw data location to R's 1-based indexing
                                       Rcpp::Named("distance") = sqrt(bsf),
                                       //Rcpp::Named("exec_time")=(t2-t1)/CLOCKS_PER_SEC,
                                       Rcpp::Named("prunedKim")=((double) kim / i)*100,
