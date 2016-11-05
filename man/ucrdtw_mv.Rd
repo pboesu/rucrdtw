@@ -40,6 +40,6 @@ This is useful, for example, when comparing a time-series of undetermined class 
 \examples{
 #load example data
 data("synthetic_control")
-query <- synthetic_control[index,]
+query <- synthetic_control[5,]
 }
 

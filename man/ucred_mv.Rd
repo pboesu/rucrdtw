@@ -9,13 +9,11 @@ ucred_mv(data, query, skip = TRUE, byrow = FALSE)
 \arguments{
 \item{data}{numeric matrix containing data}
 
-\item{query}{numeric vector containing the query}
+\item{query}{numeric vector containing the query. This determines the query length.}
 
 \item{skip}{bool defaults to TRUE. If TRUE bound calculations and if necessary, distance calculations, are only performed on non-overlapping segments of the data (i.e. multiples of \code{qlength}). This is useful if \code{data} is a set of multiple reference time series, each of length \code{qlength}. The location returned when skipping is the index of the subsequence.}
 
 \item{byrow}{logical If TRUE rows represent time-series, columns time-points}
-
-\item{qlength}{int length of query (n data points)}
 }
 \description{
 This implementation of the UCR Suite command line utility, takes an R numeric matrix as data input and an R numeric vector for the query.

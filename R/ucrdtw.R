@@ -53,7 +53,7 @@ summary.ucred <- function(object, ...){
 #' @examples
 #' #load example data
 #' data("synthetic_control")
-#' query <- synthetic_control[index,]
+#' query <- synthetic_control[5,]
 # ucrdtw_mv(synthetic_control, query, 0.05, byrow = TRUE)
 #' @export
 ucrdtw_mv <- function(data, query, dtwwindow, epoch = 1e5, skip=TRUE, byrow=FALSE){
@@ -78,8 +78,7 @@ ucrdtw_mv <- function(data, query, dtwwindow, epoch = 1e5, skip=TRUE, byrow=FALS
 #'
 #' @name ucred_mv
 #' @param data numeric matrix containing data
-#' @param query numeric vector containing the query
-#' @param qlength int length of query (n data points)
+#' @param query numeric vector containing the query. This determines the query length.
 #' @param skip bool defaults to TRUE. If TRUE bound calculations and if necessary, distance calculations, are only performed on non-overlapping segments of the data (i.e. multiples of \code{qlength}). This is useful if \code{data} is a set of multiple reference time series, each of length \code{qlength}. The location returned when skipping is the index of the subsequence.
 #' @param byrow logical If TRUE rows represent time-series, columns time-points
 #' @export
