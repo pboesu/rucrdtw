@@ -10,7 +10,15 @@ Dynamic Time Warping (DTW) methods provide algorithms to optimally map a given t
 
 Calculating a DTW alignment is computationally relatively expensive, and as a consequence DTW is often a bottleneck in time series data mining applications. The UCR Suite (Rakthanmanon et al. 2012) provides a highly optimized algorithm for best-match subsequence searches that avoids unnecessary distance computations and thereby enables fast DTW and Euclidean Distance queries even in data sets containing trillions of observations.
 
-The \strong{rucrdtw} package provides R bindings for the UCR Suite. In addition to queries and data stored in text files, rucrdtw also implements methods for queries and/or data that are held in memory as R objects, as well as a method to do fast similarity searches against reference libraries of time series.
+The \strong{rucrdtw} package provides R bindings for the UCR Suite. In addition to queries and data stored in text files, rucrdtw also implements methods for queries and/or data that are held in memory as R objects, as well as a method to do fast similarity searches against reference libraries of time series. The following table gives a quick overview over the different methods provided by \code{rucrdtw}:
+
+\tabular{lllll}{
+  \strong{DTW method} \tab \strong{ED method} \tab \strong{data format} \tab \strong{query format} \tab \strong{Use case}\cr
+  \code{\link{ucrdtw_ff}} \tab \code{\link{ucred_ff}} \tab text file \tab text file \tab data sets that are too large to keep in memory \cr
+  \code{\link{ucrdtw_fv}} \tab \code{\link{ucred_fv}} \tab text file \tab  numeric vector \tab data sets that are too large to keep in memory\cr
+  \code{\link{ucrdtw_vv}} \tab \code{\link{ucred_vv}} \tab numeric vector \tab numeric vector \tab data sets that fit into memory\cr
+  \code{\link{ucrdtw_mv}} \tab \code{\link{ucred_mv}} \tab numeric matrix \tab numeric vector \tab compare query to a set of reference sequences of equal length
+}
 
 Examples of the functionality in this package are provided in the rucrdtw vignette:
 
