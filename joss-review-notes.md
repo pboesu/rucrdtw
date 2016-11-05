@@ -6,13 +6,13 @@ Joss Review
 ## Issue-3: Documentation
 
 - [x] package-level docs: added in a89f4e003c7cda844bd3fa0dd9cd082c8c068335
-- [ ] function-level docs - add @value, @examples
-- [ ] more detailed argument explanations
-- [ ] performance and functionality comparison with dtw
+- [x] function-level docs - add @return, @examples
+- [x] more detailed argument explanations
+- [x] performance and functionality comparison with dtw
 - [ ] Examples of practical applications
 - [x] guide to file/vector/matrix methods cd612f6
-- [ ] qlength explanation
-- [ ] figure in readme
+- [x] qlength explanation
+- [x] figure in readme
 
 ## Issue-4: Export C++ level interface
  - [x] C++ interface for high-level functions added in 8a8b8507
