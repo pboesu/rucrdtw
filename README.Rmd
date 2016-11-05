@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
 
 R bindings for functions from the [UCR Suite](http://www.cs.ucr.edu/~eamonn/UCRsuite.html) (Thanawin Rakthanmanon et al. 2012 SIGKDD), which enables ultrafast subsequence search under both Dynamic Time Warping and Euclidean Distance. UCR DTW is several orders of magnitudes faster than naive DTW searches. 
 
-```{r dtw-comparison, echo=FALSE, fig.width=6}
+```{r dtw-comparison, echo=FALSE, fig.width=7}
 library("rucrdtw")
 set.seed(123)
 rwalk <- cumsum(runif(5e3, min = -0.5, max = 0.5))
