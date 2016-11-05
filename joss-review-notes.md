@@ -12,6 +12,7 @@ Joss Review
 - [ ] Examples of practical applications
 - [ ] guide to file/vector/matrix methods
 - [ ] qlength explanation
+- [ ] figure in readme
 
 ## Issue-4: Export C++ level interface
  - [x] C++ interface for high-level functions added in 8a8b8507

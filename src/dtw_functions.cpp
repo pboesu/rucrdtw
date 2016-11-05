@@ -391,10 +391,32 @@ void error(int id)
 //' This implementation is very close to the UCR Suite command line utility, in that it takes files as inputs for both query and data
 //'
 //' @name ucrdtw_ff
-//' @param data char path to data file
-//' @param query char path to query file
-//' @param qlength int length of query (n data points)
-//' @param dtwwindow double warping window size (as a proportion of query length)
+//' @param data character; path to data file
+//' @param query character; path to query file
+//' @param qlength integer; length of the query (number of data points), usually this should be equivalent to length(query), but it can be shorter.
+//' @param dtwwindow double; Size of the warping window size (as a proportion of query length). The DTW calculation in `rucrdtw` uses a symmetric Sakoe-Chiba band. See Giorgino (2009) for a general coverage of warping window constraints.
+//' @return a ucrdtw object. A list with the following elements
+//' \itemize{
+//'   \item \strong{location:} The starting location of the nearest neighbor of the given query, of size \code{qlength}, in the data. Note that location starts from 1.
+//'   \item \strong{distance:} The DTW distance between the nearest neighbor and the query.
+//'   \item \strong{exec_time:} Execution time of the query.
+//'   \item \strong{prunedKim:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
+//'   \item \strong{prunedKeogh:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
+//'   \item \strong{prunedKeogh2:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
+//'   \item \strong{dtwCalc:} Percentage of subsequences for which the full DTW distance was calculated.
+//' }
+//' For an explanation of the pruning criteria see Rakthanmanon et al. (2012).
+//' @references Rakthanmanon, Thanawin, Bilson Campana, Abdullah Mueen, Gustavo Batista, Brandon Westover, Qiang Zhu, Jesin Zakaria, and Eamonn Keogh. 2012. Searching and Mining Trillions of Time Series Subsequences Under Dynamic Time Warping. In Proceedings of the 18th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining, 262-70. ACM. doi:\href{http://dx.doi.org/10.1145/2339530.2339576}{10.1145/2339530.2339576}.
+//' @references Giorgino, Toni (2009). Computing and Visualizing Dynamic Time Warping Alignments in R: The dtw Package. Journal of Statistical Software, 31(7), 1-24, doi:\href{http://dx.doi.org/10.18637/jss.v031.i07}{10.18637/jss.v031.i07}.
+//' @examples
+//' #locate example data file
+//' dataf <- system.file("extdata/col_sc.txt", package="rucrdtw")
+//' #locate example query file
+//' queryf <- system.file("extdata/mid_sc.txt", package="rucrdtw")
+//' #determine length of query file
+//' qlength <- length(scan(queryf))
+//' #run query
+//' ucrdtw_ff(dataf, queryf, qlength, 0.05)
 //' @useDynLib rucrdtw
 //' @importFrom Rcpp sourceCpp
 //' @export
