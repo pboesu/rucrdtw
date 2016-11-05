@@ -81,12 +81,26 @@ void error_ed(int id)
 
 //' UCR ED Algorithm file-file method
 //'
-//' This implementation is very close to the UCR Suite command line utility, in that it takes files as inputs for both query and data
+//' Sliding-window similarity search using euclidean distance. This implementation is very close to the UCR Suite command line utility, in that it takes files as inputs for both query and data
 //'
 //' @name ucred_ff
-//' @param data char path to data file
-//' @param query char path to query file
-//' @param qlength int length of query (n data points)
+//' @param data character; path to data file
+//' @param query character; path to query file
+//' @param qlength integer; length of query (n data points). Usually the length of the data contained in \code{query}, but it can be shorter.
+//' @return a ucred object. A list with the following elements
+//' \itemize{
+//'   \item \strong{location:} The starting location of the nearest neighbor of the given query, of size \code{qlength}, in the data. Note that location starts from 1.
+//'   \item \strong{distance:} The euclidean distance between the nearest neighbor and the query.
+//' }
+//' @examples
+//' #locate example data file
+//' dataf <- system.file("extdata/col_sc.txt", package="rucrdtw")
+//' #locate example query file
+//' queryf <- system.file("extdata/mid_sc.txt", package="rucrdtw")
+//' #determine length of query file
+//' qlength <- length(scan(queryf))
+//' #run query
+//' ucred_ff(dataf, queryf, qlength)
 //' @useDynLib rucrdtw
 //' @importFrom Rcpp sourceCpp
 //' @export
@@ -226,11 +240,23 @@ Rcpp::List ucred_ff(const char * data , const char * query, int qlength)
 
 //' UCR ED Algorithm file-vector method
 //'
-//' This implementation of the UCR Suite command line utility, takes a data file as input and an R numeric vector for the query.
+//' Sliding-window similarity search using Euclidean Distance. This implementation of the UCR Suite command line utility, takes a data file as input and an R numeric vector for the query.
 //'
 //' @name ucred_fv
-//' @param data char path to data file
+//' @param data character; path to data file
 //' @param query numeric vector containing query
+//' @return a ucred object. A list with the following elements
+//' \itemize{
+//'   \item \strong{location:} The starting location of the nearest neighbor of the given query, of size \code{length(query)}, in the data. Note that location starts from 1.
+//'   \item \strong{distance:} The Euclidean Distance between the nearest neighbor and the query.
+//' }
+//' @examples
+//' #locate example data file
+//' dataf <- system.file("extdata/col_sc.txt", package="rucrdtw")
+//' #read example query file into vector
+//' query <- scan(system.file("extdata/mid_sc.txt", package="rucrdtw"))
+//' #run query
+//' ucred_fv(dataf, query)
 //' @useDynLib rucrdtw
 //' @importFrom Rcpp sourceCpp
 //' @export
@@ -369,12 +395,24 @@ Rcpp::List ucred_fv(const char * data , Rcpp::NumericVector query)
 
 //' UCR ED Algorithm vector-vector method
 //'
-//' This implementation of the UCR Suite Euclidean Distance command line utility takes an R numeric vector as data input and an R numeric vector for the query.
+//' Sliding-window similarity search using Euclidean Distance. This implementation of the UCR Suite Euclidean Distance command line utility takes an R numeric vector as data input and an R numeric vector for the query.
 //'
 //' @name ucred_vv
 //' @param data numeric vector containing data
 //' @param query numeric vector containing query
-//' @param skip bool defaults to TRUE. If TRUE bound calculations and if necessary, distance calculations, are only performed on non-overlapping segments of the data (i.e. multiples of \code{qlength}). This is useful if \code{data} is a set of multiple reference time series, each of length \code{qlength}. The location returned when skipping is the index of the subsequence.
+//' @param skip bool defaults to TRUE. If TRUE bound calculations and if necessary, distance calculations, are only performed on non-overlapping segments of the data (i.e. multiples of \code{length(query)}). This is useful if \code{data} is a set of multiple reference time series, each of length \code{length(query)}. The location returned when skipping is the index of the subsequence.
+//' @return a ucred object. A list with the following elements
+//' \itemize{
+//'   \item \strong{location:} The starting location of the nearest neighbor of the given query, of size \code{length(query)}, in the data. Note that location starts from 1.
+//'   \item \strong{distance:} The Euclidean Distance between the nearest neighbor and the query.
+//' }
+//' @examples
+//' #read example file into vector
+//' dataf <- scan(system.file("extdata/col_sc.txt", package="rucrdtw"))
+//' #read example query file into vector
+//' query <- scan(system.file("extdata/mid_sc.txt", package="rucrdtw"))
+//' #run query
+//' ucred_vv(dataf, query)
 //' @useDynLib rucrdtw
 //' @importFrom Rcpp sourceCpp
 //' @export

@@ -3,7 +3,7 @@
 
 #' UCR DTW Algorithm file-file method
 #'
-#' This implementation is very close to the UCR Suite command line utility, in that it takes files as inputs for both query and data
+#' Sliding-window similarity search using DTW distance. This implementation is very close to the UCR Suite command line utility, in that it takes files as inputs for both query and data
 #'
 #' @name ucrdtw_ff
 #' @param data character; path to data file
@@ -12,7 +12,7 @@
 #' @param dtwwindow double; Size of the warping window size (as a proportion of query length). The DTW calculation in `rucrdtw` uses a symmetric Sakoe-Chiba band. See Giorgino (2009) for a general coverage of warping window constraints.
 #' @return a ucrdtw object. A list with the following elements
 #' \itemize{
-#'   \item \strong{location:} The starting location of the nearest neighbor of the given query, of size \code{qlength}, in the data. Note that location starts from 1.
+#'   \item \strong{location:} The starting location of the nearest neighbor of the given query, of size \code{length(query)}, in the data. Note that location starts from 1.
 #'   \item \strong{distance:} The DTW distance between the nearest neighbor and the query.
 #'   \item \strong{prunedKim:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
 #'   \item \strong{prunedKeogh:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
@@ -40,7 +40,7 @@ ucrdtw_ff <- function(data, query, qlength, dtwwindow) {
 
 #' UCR DTW Algorithm file-vector method
 #'
-#' This implementation of the UCR Suite command line utility, takes a data file as input and an R numeric vector for the query
+#' Sliding-window similarity search using DTW distance. This implementation of the UCR Suite command line utility, takes a data file as input and an R numeric vector for the query
 #'
 #' @name ucrdtw_fv
 #' @param data character; path to data file
@@ -48,7 +48,7 @@ ucrdtw_ff <- function(data, query, qlength, dtwwindow) {
 #' @param dtwwindow double; Size of the warping window size (as a proportion of query length). The DTW calculation in `rucrdtw` uses a symmetric Sakoe-Chiba band. See Giorgino (2009) for a general coverage of warping window constraints.
 #' @return a ucrdtw object. A list with the following elements
 #' \itemize{
-#'   \item \strong{location:} The starting location of the nearest neighbor of the given query, of size \code{qlength}, in the data. Note that location starts from 1.
+#'   \item \strong{location:} The starting location of the nearest neighbor of the given query, of size \code{length(query)}, in the data. Note that location starts from 1.
 #'   \item \strong{distance:} The DTW distance between the nearest neighbor and the query.
 #'   \item \strong{prunedKim:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
 #'   \item \strong{prunedKeogh:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
@@ -76,17 +76,17 @@ ucrdtw_fv <- function(data, query, dtwwindow) {
 
 #' UCR DTW Algorithm vector-vector method
 #'
-#' This implementation of the UCR Suite command line utility, takes an R numeric vector as data input and an R numeric vector for the query
+#' Sliding-window similarity search using DTW distance. This implementation of the UCR Suite command line utility, takes an R numeric vector as data input and an R numeric vector for the query
 #'
 #' @name ucrdtw_vv
 #' @param data numeric vector containing data
-#' @param query numeric vector containing the query. THe length of this vector determines the query length.
+#' @param query numeric vector containing the query. The length of this vector determines the query length.
 #' @param dtwwindow double; Size of the warping window size (as a proportion of query length). The DTW calculation in `rucrdtw` uses a symmetric Sakoe-Chiba band. See Giorgino (2009) for a general coverage of warping window constraints.
 #' @param epoch int defaults to 1e5, should be \eqn{\le} 1e6. This is the size of the data chunk that is processed at once. All cumulative values in the algorithm will be restarted after \code{epoch} iterations to reduce floating point errors in these values.
 #' @param skip bool defaults to FALSE. If TRUE bound calculations and if necessary, distance calculations, are only performed on non-overlapping segments of the data (i.e. multiples of \code{qlength}). This is useful if \code{data} is a set of multiple reference time series, each of length \code{qlength}. The location returned when skipping is the index of the subsequence.
 #' @return a ucrdtw object. A list with the following elements
 #' \itemize{
-#'   \item \strong{location:} The starting location of the nearest neighbor of the given query, of size \code{qlength}, in the data. Note that location starts from 1.
+#'   \item \strong{location:} The starting location of the nearest neighbor of the given query, of size \code{length(query)}, in the data. Note that location starts from 1.
 #'   \item \strong{distance:} The DTW distance between the nearest neighbor and the query.
 #'   \item \strong{prunedKim:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
 #'   \item \strong{prunedKeogh:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
@@ -112,12 +112,26 @@ ucrdtw_vv <- function(data, query, dtwwindow, epoch = 100000L, skip = FALSE) {
 
 #' UCR ED Algorithm file-file method
 #'
-#' This implementation is very close to the UCR Suite command line utility, in that it takes files as inputs for both query and data
+#' Sliding-window similarity search using euclidean distance. This implementation is very close to the UCR Suite command line utility, in that it takes files as inputs for both query and data
 #'
 #' @name ucred_ff
-#' @param data char path to data file
-#' @param query char path to query file
-#' @param qlength int length of query (n data points)
+#' @param data character; path to data file
+#' @param query character; path to query file
+#' @param qlength integer; length of query (n data points). Usually the length of the data contained in \code{query}, but it can be shorter.
+#' @return a ucred object. A list with the following elements
+#' \itemize{
+#'   \item \strong{location:} The starting location of the nearest neighbor of the given query, of size \code{qlength}, in the data. Note that location starts from 1.
+#'   \item \strong{distance:} The euclidean distance between the nearest neighbor and the query.
+#' }
+#' @examples
+#' #locate example data file
+#' dataf <- system.file("extdata/col_sc.txt", package="rucrdtw")
+#' #locate example query file
+#' queryf <- system.file("extdata/mid_sc.txt", package="rucrdtw")
+#' #determine length of query file
+#' qlength <- length(scan(queryf))
+#' #run query
+#' ucred_ff(dataf, queryf, qlength)
 #' @useDynLib rucrdtw
 #' @importFrom Rcpp sourceCpp
 #' @export
@@ -127,11 +141,23 @@ ucred_ff <- function(data, query, qlength) {
 
 #' UCR ED Algorithm file-vector method
 #'
-#' This implementation of the UCR Suite command line utility, takes a data file as input and an R numeric vector for the query.
+#' Sliding-window similarity search using Euclidean Distance. This implementation of the UCR Suite command line utility, takes a data file as input and an R numeric vector for the query.
 #'
 #' @name ucred_fv
-#' @param data char path to data file
+#' @param data character; path to data file
 #' @param query numeric vector containing query
+#' @return a ucred object. A list with the following elements
+#' \itemize{
+#'   \item \strong{location:} The starting location of the nearest neighbor of the given query, of size \code{length(query)}, in the data. Note that location starts from 1.
+#'   \item \strong{distance:} The Euclidean Distance between the nearest neighbor and the query.
+#' }
+#' @examples
+#' #locate example data file
+#' dataf <- system.file("extdata/col_sc.txt", package="rucrdtw")
+#' #read example query file into vector
+#' query <- scan(system.file("extdata/mid_sc.txt", package="rucrdtw"))
+#' #run query
+#' ucred_fv(dataf, query)
 #' @useDynLib rucrdtw
 #' @importFrom Rcpp sourceCpp
 #' @export
@@ -141,12 +167,24 @@ ucred_fv <- function(data, query) {
 
 #' UCR ED Algorithm vector-vector method
 #'
-#' This implementation of the UCR Suite Euclidean Distance command line utility takes an R numeric vector as data input and an R numeric vector for the query.
+#' Sliding-window similarity search using Euclidean Distance. This implementation of the UCR Suite Euclidean Distance command line utility takes an R numeric vector as data input and an R numeric vector for the query.
 #'
 #' @name ucred_vv
 #' @param data numeric vector containing data
 #' @param query numeric vector containing query
-#' @param skip bool defaults to TRUE. If TRUE bound calculations and if necessary, distance calculations, are only performed on non-overlapping segments of the data (i.e. multiples of \code{qlength}). This is useful if \code{data} is a set of multiple reference time series, each of length \code{qlength}. The location returned when skipping is the index of the subsequence.
+#' @param skip bool defaults to TRUE. If TRUE bound calculations and if necessary, distance calculations, are only performed on non-overlapping segments of the data (i.e. multiples of \code{length(query)}). This is useful if \code{data} is a set of multiple reference time series, each of length \code{length(query)}. The location returned when skipping is the index of the subsequence.
+#' @return a ucred object. A list with the following elements
+#' \itemize{
+#'   \item \strong{location:} The starting location of the nearest neighbor of the given query, of size \code{length(query)}, in the data. Note that location starts from 1.
+#'   \item \strong{distance:} The Euclidean Distance between the nearest neighbor and the query.
+#' }
+#' @examples
+#' #read example file into vector
+#' dataf <- scan(system.file("extdata/col_sc.txt", package="rucrdtw"))
+#' #read example query file into vector
+#' query <- scan(system.file("extdata/mid_sc.txt", package="rucrdtw"))
+#' #run query
+#' ucred_vv(dataf, query)
 #' @useDynLib rucrdtw
 #' @importFrom Rcpp sourceCpp
 #' @export

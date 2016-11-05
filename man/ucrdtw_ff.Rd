@@ -18,7 +18,7 @@ ucrdtw_ff(data, query, qlength, dtwwindow)
 \value{
 a ucrdtw object. A list with the following elements
 \itemize{
-  \item \strong{location:} The starting location of the nearest neighbor of the given query, of size \code{qlength}, in the data. Note that location starts from 1.
+  \item \strong{location:} The starting location of the nearest neighbor of the given query, of size \code{length(query)}, in the data. Note that location starts from 1.
   \item \strong{distance:} The DTW distance between the nearest neighbor and the query.
   \item \strong{prunedKim:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
   \item \strong{prunedKeogh:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
@@ -28,7 +28,7 @@ a ucrdtw object. A list with the following elements
 For an explanation of the pruning criteria see Rakthanmanon et al. (2012).
 }
 \description{
-This implementation is very close to the UCR Suite command line utility, in that it takes files as inputs for both query and data
+Sliding-window similarity search using DTW distance. This implementation is very close to the UCR Suite command line utility, in that it takes files as inputs for both query and data
 }
 \examples{
 #locate example data file

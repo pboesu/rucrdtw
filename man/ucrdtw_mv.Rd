@@ -10,15 +10,15 @@ ucrdtw_mv(data, query, dtwwindow, epoch = 1e+05, skip = TRUE,
 \arguments{
 \item{data}{numeric matrix containing data}
 
-\item{query}{numeric vector containing the query}
+\item{query}{numeric vector containing the query. This determines the query length.}
 
-\item{dtwwindow}{double warping window size (as a proportion of query length)}
+\item{dtwwindow}{double; Size of the warping window size (as a proportion of query length). The DTW calculation in `rucrdtw` uses a symmetric Sakoe-Chiba band. See Giorgino (2009) for a general coverage of warping window constraints.}
 
 \item{epoch}{int defaults to 1e5, should be \eqn{\le} 1e6. This is the size of the data chunk that is processed at once. All cumulative values in the algorithm will be restarted after \code{epoch} iterations to reduce floating point errors in these values.}
 
-\item{skip}{bool defaults to TRUE. If TRUE bound calculations and if necessary, distance calculations, are only performed on non-overlapping segments of the data (i.e. multiples of \code{qlength}). This is useful if \code{data} is a set of multiple reference time series, each of length \code{qlength}. The location returned when skipping is the index of the subsequence.}
+\item{skip}{boolean; defaults to TRUE. If TRUE bound calculations and if necessary, distance calculations, are only performed on non-overlapping segments of the data (i.e. multiples of \code{length(query)}). This is useful if \code{data} is a set of multiple reference time series, each of length \code{length(query)}. The location returned when skipping is the index of the subsequence.}
 
-\item{byrow}{logical If TRUE rows represent time-series, columns time-points}
+\item{byrow}{logical; If TRUE rows in \code{data} represent time-series, columns time-points}
 }
 \value{
 a ucrdtw object. A list containing the following elements
@@ -41,5 +41,8 @@ This is useful, for example, when comparing a time-series of undetermined class 
 #load example data
 data("synthetic_control")
 query <- synthetic_control[5,]
+}
+\references{
+Giorgino, Toni (2009). Computing and Visualizing Dynamic Time Warping Alignments in R: The dtw Package. Journal of Statistical Software, 31(7), 1-24, doi:\href{http://dx.doi.org/10.18637/jss.v031.i07}{10.18637/jss.v031.i07}.
 }
 

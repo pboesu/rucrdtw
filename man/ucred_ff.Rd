@@ -7,13 +7,30 @@
 ucred_ff(data, query, qlength)
 }
 \arguments{
-\item{data}{char path to data file}
+\item{data}{character; path to data file}
 
-\item{query}{char path to query file}
+\item{query}{character; path to query file}
 
-\item{qlength}{int length of query (n data points)}
+\item{qlength}{integer; length of query (n data points). Usually the length of the data contained in \code{query}, but it can be shorter.}
+}
+\value{
+a ucred object. A list with the following elements
+\itemize{
+  \item \strong{location:} The starting location of the nearest neighbor of the given query, of size \code{qlength}, in the data. Note that location starts from 1.
+  \item \strong{distance:} The euclidean distance between the nearest neighbor and the query.
+}
 }
 \description{
-This implementation is very close to the UCR Suite command line utility, in that it takes files as inputs for both query and data
+Sliding-window similarity search using euclidean distance. This implementation is very close to the UCR Suite command line utility, in that it takes files as inputs for both query and data
+}
+\examples{
+#locate example data file
+dataf <- system.file("extdata/col_sc.txt", package="rucrdtw")
+#locate example query file
+queryf <- system.file("extdata/mid_sc.txt", package="rucrdtw")
+#determine length of query file
+qlength <- length(scan(queryf))
+#run query
+ucred_ff(dataf, queryf, qlength)
 }
 

@@ -11,9 +11,24 @@ ucred_vv(data, query, skip = FALSE)
 
 \item{query}{numeric vector containing query}
 
-\item{skip}{bool defaults to TRUE. If TRUE bound calculations and if necessary, distance calculations, are only performed on non-overlapping segments of the data (i.e. multiples of \code{qlength}). This is useful if \code{data} is a set of multiple reference time series, each of length \code{qlength}. The location returned when skipping is the index of the subsequence.}
+\item{skip}{bool defaults to TRUE. If TRUE bound calculations and if necessary, distance calculations, are only performed on non-overlapping segments of the data (i.e. multiples of \code{length(query)}). This is useful if \code{data} is a set of multiple reference time series, each of length \code{length(query)}. The location returned when skipping is the index of the subsequence.}
+}
+\value{
+a ucred object. A list with the following elements
+\itemize{
+  \item \strong{location:} The starting location of the nearest neighbor of the given query, of size \code{length(query)}, in the data. Note that location starts from 1.
+  \item \strong{distance:} The Euclidean Distance between the nearest neighbor and the query.
+}
 }
 \description{
-This implementation of the UCR Suite Euclidean Distance command line utility takes an R numeric vector as data input and an R numeric vector for the query.
+Sliding-window similarity search using Euclidean Distance. This implementation of the UCR Suite Euclidean Distance command line utility takes an R numeric vector as data input and an R numeric vector for the query.
+}
+\examples{
+#read example file into vector
+dataf <- scan(system.file("extdata/col_sc.txt", package="rucrdtw"))
+#read example query file into vector
+query <- scan(system.file("extdata/mid_sc.txt", package="rucrdtw"))
+#run query
+ucred_vv(dataf, query)
 }
 

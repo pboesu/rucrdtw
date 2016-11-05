@@ -9,7 +9,7 @@ ucrdtw_vv(data, query, dtwwindow, epoch = 100000L, skip = FALSE)
 \arguments{
 \item{data}{numeric vector containing data}
 
-\item{query}{numeric vector containing the query. THe length of this vector determines the query length.}
+\item{query}{numeric vector containing the query. The length of this vector determines the query length.}
 
 \item{dtwwindow}{double; Size of the warping window size (as a proportion of query length). The DTW calculation in `rucrdtw` uses a symmetric Sakoe-Chiba band. See Giorgino (2009) for a general coverage of warping window constraints.}
 
@@ -20,7 +20,7 @@ ucrdtw_vv(data, query, dtwwindow, epoch = 100000L, skip = FALSE)
 \value{
 a ucrdtw object. A list with the following elements
 \itemize{
-  \item \strong{location:} The starting location of the nearest neighbor of the given query, of size \code{qlength}, in the data. Note that location starts from 1.
+  \item \strong{location:} The starting location of the nearest neighbor of the given query, of size \code{length(query)}, in the data. Note that location starts from 1.
   \item \strong{distance:} The DTW distance between the nearest neighbor and the query.
   \item \strong{prunedKim:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
   \item \strong{prunedKeogh:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
@@ -30,7 +30,7 @@ a ucrdtw object. A list with the following elements
 For an explanation of the pruning criteria see Rakthanmanon et al. (2012).
 }
 \description{
-This implementation of the UCR Suite command line utility, takes an R numeric vector as data input and an R numeric vector for the query
+Sliding-window similarity search using DTW distance. This implementation of the UCR Suite command line utility, takes an R numeric vector as data input and an R numeric vector for the query
 }
 \examples{
 #read example data into vector

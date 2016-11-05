@@ -388,7 +388,7 @@ void error(int id)
 /// Just the main function adapted for Rcpp export
 //' UCR DTW Algorithm file-file method
 //'
-//' This implementation is very close to the UCR Suite command line utility, in that it takes files as inputs for both query and data
+//' Sliding-window similarity search using DTW distance. This implementation is very close to the UCR Suite command line utility, in that it takes files as inputs for both query and data
 //'
 //' @name ucrdtw_ff
 //' @param data character; path to data file
@@ -397,7 +397,7 @@ void error(int id)
 //' @param dtwwindow double; Size of the warping window size (as a proportion of query length). The DTW calculation in `rucrdtw` uses a symmetric Sakoe-Chiba band. See Giorgino (2009) for a general coverage of warping window constraints.
 //' @return a ucrdtw object. A list with the following elements
 //' \itemize{
-//'   \item \strong{location:} The starting location of the nearest neighbor of the given query, of size \code{qlength}, in the data. Note that location starts from 1.
+//'   \item \strong{location:} The starting location of the nearest neighbor of the given query, of size \code{length(query)}, in the data. Note that location starts from 1.
 //'   \item \strong{distance:} The DTW distance between the nearest neighbor and the query.
 //'   \item \strong{prunedKim:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
 //'   \item \strong{prunedKeogh:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
@@ -766,7 +766,7 @@ Rcpp::List ucrdtw_ff(const char * data , const char * query, int qlength, double
 /// Just the main function adapted for Rcpp export
 //' UCR DTW Algorithm file-vector method
 //'
-//' This implementation of the UCR Suite command line utility, takes a data file as input and an R numeric vector for the query
+//' Sliding-window similarity search using DTW distance. This implementation of the UCR Suite command line utility, takes a data file as input and an R numeric vector for the query
 //'
 //' @name ucrdtw_fv
 //' @param data character; path to data file
@@ -774,7 +774,7 @@ Rcpp::List ucrdtw_ff(const char * data , const char * query, int qlength, double
 //' @param dtwwindow double; Size of the warping window size (as a proportion of query length). The DTW calculation in `rucrdtw` uses a symmetric Sakoe-Chiba band. See Giorgino (2009) for a general coverage of warping window constraints.
 //' @return a ucrdtw object. A list with the following elements
 //' \itemize{
-//'   \item \strong{location:} The starting location of the nearest neighbor of the given query, of size \code{qlength}, in the data. Note that location starts from 1.
+//'   \item \strong{location:} The starting location of the nearest neighbor of the given query, of size \code{length(query)}, in the data. Note that location starts from 1.
 //'   \item \strong{distance:} The DTW distance between the nearest neighbor and the query.
 //'   \item \strong{prunedKim:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
 //'   \item \strong{prunedKeogh:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
@@ -1146,17 +1146,17 @@ Rcpp::List ucrdtw_fv(const char * data , Rcpp::NumericVector query, double dtwwi
 /// Just the main function adapted for Rcpp export
 //' UCR DTW Algorithm vector-vector method
 //'
-//' This implementation of the UCR Suite command line utility, takes an R numeric vector as data input and an R numeric vector for the query
+//' Sliding-window similarity search using DTW distance. This implementation of the UCR Suite command line utility, takes an R numeric vector as data input and an R numeric vector for the query
 //'
 //' @name ucrdtw_vv
 //' @param data numeric vector containing data
-//' @param query numeric vector containing the query. THe length of this vector determines the query length.
+//' @param query numeric vector containing the query. The length of this vector determines the query length.
 //' @param dtwwindow double; Size of the warping window size (as a proportion of query length). The DTW calculation in `rucrdtw` uses a symmetric Sakoe-Chiba band. See Giorgino (2009) for a general coverage of warping window constraints.
 //' @param epoch int defaults to 1e5, should be \eqn{\le} 1e6. This is the size of the data chunk that is processed at once. All cumulative values in the algorithm will be restarted after \code{epoch} iterations to reduce floating point errors in these values.
 //' @param skip bool defaults to FALSE. If TRUE bound calculations and if necessary, distance calculations, are only performed on non-overlapping segments of the data (i.e. multiples of \code{qlength}). This is useful if \code{data} is a set of multiple reference time series, each of length \code{qlength}. The location returned when skipping is the index of the subsequence.
 //' @return a ucrdtw object. A list with the following elements
 //' \itemize{
-//'   \item \strong{location:} The starting location of the nearest neighbor of the given query, of size \code{qlength}, in the data. Note that location starts from 1.
+//'   \item \strong{location:} The starting location of the nearest neighbor of the given query, of size \code{length(query)}, in the data. Note that location starts from 1.
 //'   \item \strong{distance:} The DTW distance between the nearest neighbor and the query.
 //'   \item \strong{prunedKim:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
 //'   \item \strong{prunedKeogh:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
