@@ -8,3 +8,4 @@
 ^README\.Rmd$
 ^joss-review-notes\.md$
 ^reviewer-response\.md$
+^cran-comments\.md$
