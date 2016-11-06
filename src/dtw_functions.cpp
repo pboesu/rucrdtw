@@ -400,8 +400,8 @@ void error(int id)
 //'   \item \strong{location:} The starting location of the nearest neighbor of the given query, of size \code{length(query)}, in the data. Note that location starts from 1.
 //'   \item \strong{distance:} The DTW distance between the nearest neighbor and the query.
 //'   \item \strong{prunedKim:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
-//'   \item \strong{prunedKeogh:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
-//'   \item \strong{prunedKeogh2:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
+//'   \item \strong{prunedKeogh:} Percentage of subsequences that were pruned based on the LB-Keogh-EQ criterion.
+//'   \item \strong{prunedKeogh2:} Percentage of subsequences that were pruned based on the LB-Keogh-EC criterion.
 //'   \item \strong{dtwCalc:} Percentage of subsequences for which the full DTW distance was calculated.
 //' }
 //' For an explanation of the pruning criteria see Rakthanmanon et al. (2012).
@@ -777,8 +777,8 @@ Rcpp::List ucrdtw_ff(const char * data , const char * query, int qlength, double
 //'   \item \strong{location:} The starting location of the nearest neighbor of the given query, of size \code{length(query)}, in the data. Note that location starts from 1.
 //'   \item \strong{distance:} The DTW distance between the nearest neighbor and the query.
 //'   \item \strong{prunedKim:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
-//'   \item \strong{prunedKeogh:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
-//'   \item \strong{prunedKeogh2:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
+//'   \item \strong{prunedKeogh:} Percentage of subsequences that were pruned based on the LB-Keogh-EQ criterion.
+//'   \item \strong{prunedKeogh2:} Percentage of subsequences that were pruned based on the LB-Keogh-EC criterion.
 //'   \item \strong{dtwCalc:} Percentage of subsequences for which the full DTW distance was calculated.
 //' }
 //' For an explanation of the pruning criteria see Rakthanmanon et al. (2012).
@@ -1159,8 +1159,8 @@ Rcpp::List ucrdtw_fv(const char * data , Rcpp::NumericVector query, double dtwwi
 //'   \item \strong{location:} The starting location of the nearest neighbor of the given query, of size \code{length(query)}, in the data. Note that location starts from 1.
 //'   \item \strong{distance:} The DTW distance between the nearest neighbor and the query.
 //'   \item \strong{prunedKim:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
-//'   \item \strong{prunedKeogh:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
-//'   \item \strong{prunedKeogh2:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
+//'   \item \strong{prunedKeogh:} Percentage of subsequences that were pruned based on the LB-Keogh-EQ criterion.
+//'   \item \strong{prunedKeogh2:} Percentage of subsequences that were pruned based on the LB-Keogh-EC criterion.
 //'   \item \strong{dtwCalc:} Percentage of subsequences for which the full DTW distance was calculated.
 //' }
 //' For an explanation of the pruning criteria see Rakthanmanon et al. (2012).

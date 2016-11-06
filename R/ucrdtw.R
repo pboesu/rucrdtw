@@ -46,8 +46,8 @@ summary.ucred <- function(object, ...){
 #'   \item \strong{location:} The row or column number of the nearest neighbor of the given query in the data set.
 #'   \item \strong{distance:} The DTW distance between the nearest neighbor and the query.
 #'   \item \strong{prunedKim:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
-#'   \item \strong{prunedKeogh:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
-#'   \item \strong{prunedKeogh2:} Percentage of subsequences that were pruned based on the LB-Kim criterion.
+#'   \item \strong{prunedKeogh:} Percentage of subsequences that were pruned based on the LB-Keogh-EQ criterion.
+#'   \item \strong{prunedKeogh2:} Percentage of subsequences that were pruned based on the LB-Keogh-EC criterion.
 #'   \item \strong{dtwCalc:} Percentage of subsequences for which the full DTW distance was calculated.
 #' }
 #' @references Giorgino, Toni (2009). Computing and Visualizing Dynamic Time Warping Alignments in R: The dtw Package. Journal of Statistical Software, 31(7), 1-24, doi:\href{http://dx.doi.org/10.18637/jss.v031.i07}{10.18637/jss.v031.i07}.
