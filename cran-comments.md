@@ -21,17 +21,15 @@ There was 1 NOTE on win-builder:
 
 * New submission
 
-  Possibly mis-spelled words in DESCRIPTION:
-  Rakthanmanon (15:68)
-  SIGKDD (15:93)
-  Thanawin (15:59)
+Possibly mis-spelled words in DESCRIPTION:
+  Rakthanmanon (15:61)
   UCR (3:27, 15:48)
-  al (15:84)
-  et (15:81)
-  subsequence (15:126)
-  ultrafast (15:116)
+  al (15:77)
+  et (15:74)
+  subsequence (15:143)
+  ultrafast (15:133)
 
 
 
 * The note was for the package being a first-time submission.
-  Furthermore eight words were highlighted as possibly mis-spelled. The first six result from an in text citation to the C++ library that this submission provides R bindings for, the second two stem from the terminology that is used by the original authors of the C++ library.
+  Furthermore six words were highlighted as possibly mis-spelled. The first four result from an in text citation to the C++ library that this submission provides R bindings for, the second two stem from the terminology that is used by the original authors of the C++ library.
