@@ -1,6 +1,13 @@
+## Resubmission
+This is a re-submission. In this version I have:
+
+* Changed the format of the in-text citation in the DESCRIPTION to "Rakthanmanon et al. (2012) <DOI:10.1145/2339530.2339576>".
+* Increased version number to 0.1.1
+
 ## Release summary
 
-This is the first attempted CRAN release of rucrdtw, and my second package submitted to CRAN.
+This is a re-submission of the first CRAN release of deBInfer.
+
 
 ## Test environments
 * OS X 10.11.6 (on travis-ci) R 3.3.2 and R-devel (2016-10-26 r71594)
