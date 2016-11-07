@@ -12,7 +12,7 @@ Authors@R: c(person("Philipp", "Boersch-Supan", email = "pboesu@gmail.com", role
              )
 BugReports: https://github.com/pboesu/rucrdtw/issues
 URL: https://github.com/pboesu/rucrdtw
-Description: R bindings for functions from the UCR Suite (Thanawin Rakthanmanon et al. 2012 SIGKDD, DOI:10.1145/2339530.2339576), which enables ultrafast subsequence
+Description: R bindings for functions from the UCR Suite by Rakthanmanon et al. (2012) <DOI:10.1145/2339530.2339576>, which enables ultrafast subsequence
       search for a best match under Dynamic Time Warping and Euclidean Distance.
 License: Apache License
 LazyData: TRUE
