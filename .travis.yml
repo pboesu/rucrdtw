@@ -28,7 +28,7 @@ matrix:
       - rmarkdown
       - dtw
       - microbenchmark
-   - allow_failures:
+ allow_failures:
      - os: osx
  fast_finish: true
 
