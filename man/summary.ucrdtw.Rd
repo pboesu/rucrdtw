@@ -17,4 +17,3 @@ An unlisted version of the object is returned.
 \description{
 Summary method for class ucrdtw
 }
-

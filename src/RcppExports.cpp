@@ -107,6 +107,40 @@ RcppExport SEXP rucrdtw_ucrdtw_vv(SEXP dataSEXP, SEXP querySEXP, SEXP dtwwindowS
     UNPROTECT(1);
     return rcpp_result_gen;
 }
+// ucrdtw_vm
+Rcpp::List ucrdtw_vm(Rcpp::NumericVector data, Rcpp::NumericMatrix query, double dtwwindow, int epoch, bool skip);
+static SEXP rucrdtw_ucrdtw_vm_try(SEXP dataSEXP, SEXP querySEXP, SEXP dtwwindowSEXP, SEXP epochSEXP, SEXP skipSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type data(dataSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type query(querySEXP);
+    Rcpp::traits::input_parameter< double >::type dtwwindow(dtwwindowSEXP);
+    Rcpp::traits::input_parameter< int >::type epoch(epochSEXP);
+    Rcpp::traits::input_parameter< bool >::type skip(skipSEXP);
+    rcpp_result_gen = Rcpp::wrap(ucrdtw_vm(data, query, dtwwindow, epoch, skip));
+    return rcpp_result_gen;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP rucrdtw_ucrdtw_vm(SEXP dataSEXP, SEXP querySEXP, SEXP dtwwindowSEXP, SEXP epochSEXP, SEXP skipSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(rucrdtw_ucrdtw_vm_try(dataSEXP, querySEXP, dtwwindowSEXP, epochSEXP, skipSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        Rf_error(CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
 // ucred_ff
 Rcpp::List ucred_ff(const char * data, const char * query, int qlength);
 static SEXP rucrdtw_ucred_ff_try(SEXP dataSEXP, SEXP querySEXP, SEXP qlengthSEXP) {
@@ -210,6 +244,7 @@ static int rucrdtw_RcppExport_validate(const char* sig) {
         signatures.insert("Rcpp::List(*ucrdtw_ff)(const char *,const char *,int,double)");
         signatures.insert("Rcpp::List(*ucrdtw_fv)(const char *,Rcpp::NumericVector,double)");
         signatures.insert("Rcpp::List(*ucrdtw_vv)(Rcpp::NumericVector,Rcpp::NumericVector,double,int,bool)");
+        signatures.insert("Rcpp::List(*ucrdtw_vm)(Rcpp::NumericVector,Rcpp::NumericMatrix,double,int,bool)");
         signatures.insert("Rcpp::List(*ucred_ff)(const char *,const char *,int)");
         signatures.insert("Rcpp::List(*ucred_fv)(const char *,Rcpp::NumericVector)");
         signatures.insert("Rcpp::List(*ucred_vv)(Rcpp::NumericVector,Rcpp::NumericVector,bool)");
@@ -222,6 +257,7 @@ RcppExport SEXP rucrdtw_RcppExport_registerCCallable() {
     R_RegisterCCallable("rucrdtw", "rucrdtw_ucrdtw_ff", (DL_FUNC)rucrdtw_ucrdtw_ff_try);
     R_RegisterCCallable("rucrdtw", "rucrdtw_ucrdtw_fv", (DL_FUNC)rucrdtw_ucrdtw_fv_try);
     R_RegisterCCallable("rucrdtw", "rucrdtw_ucrdtw_vv", (DL_FUNC)rucrdtw_ucrdtw_vv_try);
+    R_RegisterCCallable("rucrdtw", "rucrdtw_ucrdtw_vm", (DL_FUNC)rucrdtw_ucrdtw_vm_try);
     R_RegisterCCallable("rucrdtw", "rucrdtw_ucred_ff", (DL_FUNC)rucrdtw_ucred_ff_try);
     R_RegisterCCallable("rucrdtw", "rucrdtw_ucred_fv", (DL_FUNC)rucrdtw_ucred_fv_try);
     R_RegisterCCallable("rucrdtw", "rucrdtw_ucred_vv", (DL_FUNC)rucrdtw_ucred_vv_try);

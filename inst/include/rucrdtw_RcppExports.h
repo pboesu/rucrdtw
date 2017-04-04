@@ -81,6 +81,25 @@ namespace rucrdtw {
         return Rcpp::as<Rcpp::List >(rcpp_result_gen);
     }
 
+    inline Rcpp::List ucrdtw_vm(Rcpp::NumericVector data, Rcpp::NumericMatrix query, double dtwwindow, int epoch = 100000, bool skip = false) {
+        typedef SEXP(*Ptr_ucrdtw_vm)(SEXP,SEXP,SEXP,SEXP,SEXP);
+        static Ptr_ucrdtw_vm p_ucrdtw_vm = NULL;
+        if (p_ucrdtw_vm == NULL) {
+            validateSignature("Rcpp::List(*ucrdtw_vm)(Rcpp::NumericVector,Rcpp::NumericMatrix,double,int,bool)");
+            p_ucrdtw_vm = (Ptr_ucrdtw_vm)R_GetCCallable("rucrdtw", "rucrdtw_ucrdtw_vm");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_ucrdtw_vm(Rcpp::wrap(data), Rcpp::wrap(query), Rcpp::wrap(dtwwindow), Rcpp::wrap(epoch), Rcpp::wrap(skip));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<Rcpp::List >(rcpp_result_gen);
+    }
+
     inline Rcpp::List ucred_ff(const char * data, const char * query, int qlength) {
         typedef SEXP(*Ptr_ucred_ff)(SEXP,SEXP,SEXP);
         static Ptr_ucred_ff p_ucred_ff = NULL;
