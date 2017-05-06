@@ -34,4 +34,3 @@ UCR Suite Website: \url{http://www.cs.ucr.edu/~eamonn/UCRsuite.html}
 \seealso{
 \link[dtw]{dtw-package}
 }
-

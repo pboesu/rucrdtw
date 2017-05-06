@@ -33,4 +33,3 @@ qlength <- length(scan(queryf))
 #run query
 ucred_ff(dataf, queryf, qlength)
 }
-

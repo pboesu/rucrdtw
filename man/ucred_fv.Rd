@@ -29,4 +29,3 @@ query <- scan(system.file("extdata/mid_sc.txt", package="rucrdtw"))
 #run query
 ucred_fv(dataf, query)
 }
-

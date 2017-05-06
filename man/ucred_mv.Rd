@@ -36,4 +36,3 @@ query <- synthetic_control[5,]
 #run query
 ucred_mv(synthetic_control, query, byrow=TRUE)
 }
-
