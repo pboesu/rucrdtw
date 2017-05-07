@@ -1,7 +1,8 @@
-# rucrdtw 0.1.1.9000
+# rucrdtw 0.1.2
 
 * Added a `NEWS.md` file to track changes to the package.
 * Updated CITATION to reflect publication in JOSS
-* Native routines are registered now
+* C++ routines are registered now
+* vignette now uses the rbenchmark package instead of microbenchmark
 
 
