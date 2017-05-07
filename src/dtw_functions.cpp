@@ -416,7 +416,7 @@ void error(int id)
 //' qlength <- length(scan(queryf))
 //' #run query
 //' ucrdtw_ff(dataf, queryf, qlength, 0.05)
-//' @useDynLib rucrdtw
+//' @useDynLib rucrdtw, .registration=TRUE
 //' @importFrom Rcpp sourceCpp
 //' @export
 // [[Rcpp::export]]
@@ -793,7 +793,7 @@ Rcpp::List ucrdtw_ff(const char * data , const char * query, int qlength, double
 //' query <- synthetic_control[1,]
 //' #run query
 //' ucrdtw_fv(dataf, query, 0.05)
-//' @useDynLib rucrdtw
+//' @useDynLib rucrdtw, .registration=TRUE
 //' @importFrom Rcpp sourceCpp
 //' @export
 // [[Rcpp::export]]
@@ -1173,7 +1173,7 @@ Rcpp::List ucrdtw_fv(const char * data , Rcpp::NumericVector query, double dtwwi
 //' query <- scan(system.file("extdata/first_sc.txt", package="rucrdtw"))
 //' #execute query
 //' ucrdtw_vv(datav, query, 0.05)
-//' @useDynLib rucrdtw
+//' @useDynLib rucrdtw, .registration=TRUE
 //' @importFrom Rcpp sourceCpp
 //' @export
 // [[Rcpp::export]]

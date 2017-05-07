@@ -31,7 +31,7 @@
 #' qlength <- length(scan(queryf))
 #' #run query
 #' ucrdtw_ff(dataf, queryf, qlength, 0.05)
-#' @useDynLib rucrdtw
+#' @useDynLib rucrdtw, .registration=TRUE
 #' @importFrom Rcpp sourceCpp
 #' @export
 ucrdtw_ff <- function(data, query, qlength, dtwwindow) {
@@ -67,7 +67,7 @@ ucrdtw_ff <- function(data, query, qlength, dtwwindow) {
 #' query <- synthetic_control[1,]
 #' #run query
 #' ucrdtw_fv(dataf, query, 0.05)
-#' @useDynLib rucrdtw
+#' @useDynLib rucrdtw, .registration=TRUE
 #' @importFrom Rcpp sourceCpp
 #' @export
 ucrdtw_fv <- function(data, query, dtwwindow) {
@@ -103,7 +103,7 @@ ucrdtw_fv <- function(data, query, dtwwindow) {
 #' query <- scan(system.file("extdata/first_sc.txt", package="rucrdtw"))
 #' #execute query
 #' ucrdtw_vv(datav, query, 0.05)
-#' @useDynLib rucrdtw
+#' @useDynLib rucrdtw, .registration=TRUE
 #' @importFrom Rcpp sourceCpp
 #' @export
 ucrdtw_vv <- function(data, query, dtwwindow, epoch = 100000L, skip = FALSE) {
@@ -132,7 +132,7 @@ ucrdtw_vv <- function(data, query, dtwwindow, epoch = 100000L, skip = FALSE) {
 #' qlength <- length(scan(queryf))
 #' #run query
 #' ucred_ff(dataf, queryf, qlength)
-#' @useDynLib rucrdtw
+#' @useDynLib rucrdtw, .registration=TRUE
 #' @importFrom Rcpp sourceCpp
 #' @export
 ucred_ff <- function(data, query, qlength) {
@@ -158,7 +158,7 @@ ucred_ff <- function(data, query, qlength) {
 #' query <- scan(system.file("extdata/mid_sc.txt", package="rucrdtw"))
 #' #run query
 #' ucred_fv(dataf, query)
-#' @useDynLib rucrdtw
+#' @useDynLib rucrdtw, .registration=TRUE
 #' @importFrom Rcpp sourceCpp
 #' @export
 ucred_fv <- function(data, query) {
@@ -185,7 +185,7 @@ ucred_fv <- function(data, query) {
 #' query <- scan(system.file("extdata/mid_sc.txt", package="rucrdtw"))
 #' #run query
 #' ucred_vv(dataf, query)
-#' @useDynLib rucrdtw
+#' @useDynLib rucrdtw, .registration=TRUE
 #' @importFrom Rcpp sourceCpp
 #' @export
 ucred_vv <- function(data, query, skip = FALSE) {

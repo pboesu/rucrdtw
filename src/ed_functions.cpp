@@ -101,7 +101,7 @@ void error_ed(int id)
 //' qlength <- length(scan(queryf))
 //' #run query
 //' ucred_ff(dataf, queryf, qlength)
-//' @useDynLib rucrdtw
+//' @useDynLib rucrdtw, .registration=TRUE
 //' @importFrom Rcpp sourceCpp
 //' @export
 // [[Rcpp::export]]
@@ -257,7 +257,7 @@ Rcpp::List ucred_ff(const char * data , const char * query, int qlength)
 //' query <- scan(system.file("extdata/mid_sc.txt", package="rucrdtw"))
 //' #run query
 //' ucred_fv(dataf, query)
-//' @useDynLib rucrdtw
+//' @useDynLib rucrdtw, .registration=TRUE
 //' @importFrom Rcpp sourceCpp
 //' @export
 // [[Rcpp::export]]
@@ -413,7 +413,7 @@ Rcpp::List ucred_fv(const char * data , Rcpp::NumericVector query)
 //' query <- scan(system.file("extdata/mid_sc.txt", package="rucrdtw"))
 //' #run query
 //' ucred_vv(dataf, query)
-//' @useDynLib rucrdtw
+//' @useDynLib rucrdtw, .registration=TRUE
 //' @importFrom Rcpp sourceCpp
 //' @export
 // [[Rcpp::export]]
