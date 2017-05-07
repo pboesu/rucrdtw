@@ -24,14 +24,12 @@ test_that("error message is displayed on unsuitable input", {
 
 test_that("dtw vm method errors on dimension mismatch", {
     query <- synthetic_control[123,]
-    #microbenchmark::microbenchmark(
     expect_error(ucrdtw_mv(wrong_ref, query, 0.05, byrow = TRUE), "data series length must match query length")
     expect_error(ucrdtw_mv(wrong_ref, query, 0.05, byrow = FALSE), "data series length must match query length")
 })
 
 test_that("dtw ed method works errors on dimension mismatch", {
   query <- synthetic_control[123,]
-  #microbenchmark::microbenchmark(
   expect_error(ucred_mv(wrong_ref, query, byrow = TRUE), "data series length must match query length")
   expect_error(ucred_mv(wrong_ref, query, byrow = FALSE), "data series length must match query length")
 })

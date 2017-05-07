@@ -26,5 +26,5 @@ Suggests: testthat,
     knitr,
     rmarkdown,
     dtw,
-    microbenchmark
+    rbenchmark
 VignetteBuilder: knitr

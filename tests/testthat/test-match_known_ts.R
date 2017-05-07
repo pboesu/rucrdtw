@@ -54,11 +54,9 @@ test_that("vv method works with skipping", {
 test_that("vm method works", {
   for (index in c(1, 234, 600)){
   query <- synthetic_control[index,]
-  #microbenchmark::microbenchmark(
   dtw_search = ucrdtw_mv(synthetic_control, query, 0.05, byrow = TRUE)
   expect_equal(dtw_search$location, index)
   expect_equal(dtw_search$distance, 0)
-  #same with columnwise input
   dtw_search = ucrdtw_mv(t(synthetic_control), query, 0.05, byrow = FALSE)
   expect_equal(dtw_search$location, index)
   expect_equal(dtw_search$distance, 0)

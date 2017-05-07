@@ -33,10 +33,10 @@ for (i in 1:6){
 ## ---- echo=TRUE, message=TRUE, warning=TRUE------------------------------
 index <- 600
 query <- synthetic_control[index,]
-#microbenchmark::microbenchmark(
-dtw_search = ucrdtw_mv(synthetic_control[-index,], query, 0.05, byrow = TRUE)
-ed_search = ucred_mv(synthetic_control[-index,], query, byrow= TRUE)
-#times=50)
+
+dtw_search <- ucrdtw_mv(synthetic_control[-index,], query, 0.05, byrow = TRUE)
+ed_search <- ucred_mv(synthetic_control[-index,], query, byrow= TRUE)
+
 
 ## ----plot-search, fig.width=6--------------------------------------------
 plot(synthetic_control[dtw_search$location,], type="l", ylim=c(0,55), ylab="")
@@ -44,7 +44,7 @@ lines(query, col="red")
 lines(synthetic_control[ed_search$location,], col="blue", lty=3, lwd=3)
 legend("topright", legend = c("query", "DTW match", "ED match"), col=c("red", "black", "blue"), lty=c(1,1,3), bty="n")
 
-## ----dtw-comparison------------------------------------------------------
+## ----dtw-comparison, message=FALSE---------------------------------------
 set.seed(123)
 rwalk <- cumsum(runif(5e3, min = -0.5, max = 0.5))
 qstart <- 876
@@ -62,14 +62,19 @@ naive_dtw <- function(data, query){
 }
 
 ## ----run-benchmark, fig.width=6------------------------------------------
-benchmark <- microbenchmark::microbenchmark(
+if(require(rbenchmark)){
+benchmarks <- rbenchmark::benchmark(
   naive_1000 = naive_dtw(rwalk[1:1000], query),
   naive_2000 = naive_dtw(rwalk[1:2000], query),
   naive_5000 = naive_dtw(rwalk, query),
   ucrdtw_1000 = ucrdtw_vv(rwalk[1:1000], query, 0.05),
   ucrdtw_2000 = ucrdtw_vv(rwalk[1:2000], query, 0.05),
   ucrdtw_5000 = ucrdtw_vv(rwalk, query, 0.05),
-  times=10)
+  replications = 5)
 
-boxplot(benchmark, unit = "ms", log=TRUE, boxwex = 0.5, cex.axis=0.8)
+colors <- rep(c("#33a02c","#1f78b4"), each=3)
+plot(log10(benchmarks$elapsed*200) ~ benchmarks$test, cex.axis=0.7, las = 2, yaxt = "n", xlab = "", ylab = "execution time [ms]", ylim = c(0,5), medcol = colors, staplecol=colors, boxcol=colors)
+axis(2, at = c(0:4), labels = 10^(0:4), cex.axis = 0.7)
+legend("topright", legend = c("naive DTW", "UCR DTW"), fill = c("#33a02c","#1f78b4"), bty="n")
+}
 

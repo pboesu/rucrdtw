@@ -39,16 +39,18 @@ naive_dtw <- function(data, query){
   which.min(dtw_dist)
 }
 
-benchmark <- microbenchmark::microbenchmark(
+benchmarks <- rbenchmark::benchmark(
   naive_1000 = naive_dtw(rwalk[1:1000], query),
   naive_2000 = naive_dtw(rwalk[1:2000], query),
   naive_5000 = naive_dtw(rwalk, query),
   ucrdtw_1000 = ucrdtw_vv(rwalk[1:1000], query, 0.05),
   ucrdtw_2000 = ucrdtw_vv(rwalk[1:2000], query, 0.05),
   ucrdtw_5000 = ucrdtw_vv(rwalk, query, 0.05),
-  times=10)
+  replications = 5)
+
 colors <- rep(c("#33a02c","#1f78b4"), each=3)
-boxplot(benchmark, unit = "ms", log=TRUE, boxwex = 0.5, cex.axis=0.8, medcol = colors, staplecol=colors, boxcol=colors, staplewex=0)
+plot(log10(benchmarks$elapsed*200) ~ benchmarks$test, cex.axis=0.7, las = 2, yaxt = "n", xlab = "", ylab = "execution time [ms]", ylim = c(0,5), medcol = colors, staplecol=colors, boxcol=colors)
+axis(2, at = c(0:4), labels = 10^(0:4), cex.axis = 0.7)
 legend("topright", legend = c("naive DTW", "UCR DTW"), fill = c("#33a02c","#1f78b4"), bty="n")
 ```
       
