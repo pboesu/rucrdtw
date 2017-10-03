@@ -35,7 +35,7 @@
 #' @importFrom Rcpp sourceCpp
 #' @export
 ucrdtw_ff <- function(data, query, qlength, dtwwindow) {
-    .Call('rucrdtw_ucrdtw_ff', PACKAGE = 'rucrdtw', data, query, qlength, dtwwindow)
+    .Call(`_rucrdtw_ucrdtw_ff`, data, query, qlength, dtwwindow)
 }
 
 #' UCR DTW Algorithm file-vector method
@@ -71,7 +71,7 @@ ucrdtw_ff <- function(data, query, qlength, dtwwindow) {
 #' @importFrom Rcpp sourceCpp
 #' @export
 ucrdtw_fv <- function(data, query, dtwwindow) {
-    .Call('rucrdtw_ucrdtw_fv', PACKAGE = 'rucrdtw', data, query, dtwwindow)
+    .Call(`_rucrdtw_ucrdtw_fv`, data, query, dtwwindow)
 }
 
 #' UCR DTW Algorithm vector-vector method
@@ -107,7 +107,7 @@ ucrdtw_fv <- function(data, query, dtwwindow) {
 #' @importFrom Rcpp sourceCpp
 #' @export
 ucrdtw_vv <- function(data, query, dtwwindow, epoch = 100000L, skip = FALSE) {
-    .Call('rucrdtw_ucrdtw_vv', PACKAGE = 'rucrdtw', data, query, dtwwindow, epoch, skip)
+    .Call(`_rucrdtw_ucrdtw_vv`, data, query, dtwwindow, epoch, skip)
 }
 
 #' UCR ED Algorithm file-file method
@@ -136,7 +136,7 @@ ucrdtw_vv <- function(data, query, dtwwindow, epoch = 100000L, skip = FALSE) {
 #' @importFrom Rcpp sourceCpp
 #' @export
 ucred_ff <- function(data, query, qlength) {
-    .Call('rucrdtw_ucred_ff', PACKAGE = 'rucrdtw', data, query, qlength)
+    .Call(`_rucrdtw_ucred_ff`, data, query, qlength)
 }
 
 #' UCR ED Algorithm file-vector method
@@ -162,7 +162,7 @@ ucred_ff <- function(data, query, qlength) {
 #' @importFrom Rcpp sourceCpp
 #' @export
 ucred_fv <- function(data, query) {
-    .Call('rucrdtw_ucred_fv', PACKAGE = 'rucrdtw', data, query)
+    .Call(`_rucrdtw_ucred_fv`, data, query)
 }
 
 #' UCR ED Algorithm vector-vector method
@@ -189,10 +189,10 @@ ucred_fv <- function(data, query) {
 #' @importFrom Rcpp sourceCpp
 #' @export
 ucred_vv <- function(data, query, skip = FALSE) {
-    .Call('rucrdtw_ucred_vv', PACKAGE = 'rucrdtw', data, query, skip)
+    .Call(`_rucrdtw_ucred_vv`, data, query, skip)
 }
 
 # Register entry points for exported C++ functions
 methods::setLoadAction(function(ns) {
-    .Call('rucrdtw_RcppExport_registerCCallable', PACKAGE = 'rucrdtw')
+    .Call('_rucrdtw_RcppExport_registerCCallable', PACKAGE = 'rucrdtw')
 })
