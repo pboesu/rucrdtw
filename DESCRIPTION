@@ -1,7 +1,7 @@
 Package: rucrdtw
 Type: Package
 Title: R Bindings for the UCR Suite
-Version: 0.1.2
+Version: 0.1.2.9000
 Date: 2017-05-06
 Authors@R: c(person("Philipp", "Boersch-Supan", email = "pboesu@gmail.com", role = c("aut", "cre")),
              person("Thanawin", "Rakthanmanon", role = "aut"),
