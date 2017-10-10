@@ -3,7 +3,7 @@ Type: Package
 Title: R Bindings for the UCR Suite
 Version: 0.1.2.9000
 Date: 2017-05-06
-Authors@R: c(person("Philipp", "Boersch-Supan", email = "pboesu@gmail.com", role = c("aut", "cre")),
+Authors@R: c(person("Philipp", "Boersch-Supan", email = "pboesu@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0001-6723-6833")),
              person("Thanawin", "Rakthanmanon", role = "aut"),
              person("Bilson", "Campana", role = "aut"),
              person("Abdullah", "Mueen", role = "aut"),
