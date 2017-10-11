@@ -1521,6 +1521,7 @@ Rcpp::List ucrdtw_vv(Rcpp::NumericVector data , Rcpp::NumericVector query, doubl
   free(u_d);
   free(l_buff);
   free(u_buff);
+  free(order);
 
   //t2 = clock();
   //Rprintf("\n");
