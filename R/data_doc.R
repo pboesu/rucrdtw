@@ -16,6 +16,6 @@
 #' @docType data
 #' @format A matrix with 600 rows (series) and 60 columns (timepoints)
 #'
-#' @references Alcock R.J. and Manolopoulos Y. Time-Series Similarity Queries Employing a Feature-Based Approach. 7th Hellenic Conference on Informatics. August 27-29. Ioannina, Greece 1999. \url{http://rexa.info/paper/3a312d0efa97cce988eecfe0645eac5b241c839e}
+#' @references Alcock R.J. and Manolopoulos Y. Time-Series Similarity Queries Employing a Feature-Based Approach. 7th Hellenic Conference on Informatics. August 27-29. Ioannina, Greece 1999.
 #' @keywords data
 NULL
