@@ -747,6 +747,8 @@ Rcpp::List ucrdtw_ff(const char * data , const char * query, int qlength, double
   free(u_d);
   free(l_buff);
   free(u_buff);
+  free(order);
+  free(buffer);
 
   //t2 = clock();
   //Rprintf("\n");
@@ -1127,6 +1129,8 @@ Rcpp::List ucrdtw_fv(const char * data , Rcpp::NumericVector query, double dtwwi
   free(u_d);
   free(l_buff);
   free(u_buff);
+  free(order);
+  free(buffer);
 
   //t2 = clock();
   //Rprintf("\n");

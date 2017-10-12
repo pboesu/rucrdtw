@@ -229,12 +229,17 @@ Rcpp::List ucred_ff(const char * data , const char * query, int qlength)
   fclose(fp);
   //t2 = clock();
 
+
+
   //Rcout << "Location : " << loc << endl;
   //Rcout << "Distance : " << sqrt(bsf) << endl;
   //Rcout << "Total Execution Time : " << (t2-t1)/CLOCKS_PER_SEC << " sec" << endl;
   Rcpp::List out = Rcpp::List::create(Rcpp::Named("location") = loc + 1, // convert raw data location to R's 1-based indexing
                                       Rcpp::Named("distance") = sqrt(bsf));
   out.attr("class") = "ucred";
+  free(Q);
+  free(T);
+  free(order);
   return out;
 }
 
@@ -390,6 +395,9 @@ Rcpp::List ucred_fv(const char * data , Rcpp::NumericVector query)
   Rcpp::List out = Rcpp::List::create(Rcpp::Named("location") = loc + 1, // convert raw data location to R's 1-based indexing
                                       Rcpp::Named("distance") = sqrt(bsf));
   out.attr("class") = "ucred";
+  free(Q);
+  free(T);
+  free(order);
   return out;
 }
 
@@ -553,5 +561,8 @@ Rcpp::List ucred_vv(Rcpp::NumericVector data , Rcpp::NumericVector query, bool s
   Rcpp::List out = Rcpp::List::create(Rcpp::Named("location") = (skip) ? (loc / m + 1) : (loc + 1), //loc is index of subsequence if skipping, otherwise convert raw data location to R's 1-based indexing
                                       Rcpp::Named("distance") = sqrt(bsf));
   out.attr("class") = "ucred";
+  free(Q);
+  free(T);
+  free(order);
   return out;
 }
