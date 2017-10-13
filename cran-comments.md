@@ -1,8 +1,8 @@
 
 ## Test environments
+* win-builder (devel and release)
 * OS X 10.11.6 (on travis-ci) R 3.4.2 and R-devel (2017-03-23 r72389)
 * Ubuntu 14.04.5 LTS (on travis-ci) R 3.4.1 and R-devel (2017-10-12 r73546)
-* win-builder (devel and release)
 
 ## R CMD check results
 There were no ERRORs or WARNINGs.

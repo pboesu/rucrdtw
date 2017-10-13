@@ -20,6 +20,6 @@ There are six different classes of control charts:
      }
 }
 \references{
-Alcock R.J. and Manolopoulos Y. Time-Series Similarity Queries Employing a Feature-Based Approach. 7th Hellenic Conference on Informatics. August 27-29. Ioannina, Greece 1999. \url{http://rexa.info/paper/3a312d0efa97cce988eecfe0645eac5b241c839e}
+Alcock R.J. and Manolopoulos Y. Time-Series Similarity Queries Employing a Feature-Based Approach. 7th Hellenic Conference on Informatics. August 27-29. Ioannina, Greece 1999.
 }
 \keyword{data}
