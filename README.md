@@ -1,7 +1,7 @@
 rucrdtw - R Bindings for the UCR Suite
 ======================================
 
-[![Travis-CI Build Status](https://api.travis-ci.org/pboesu/rucrdtw.svg?branch=master)](https://travis-ci.org/pboesu/rucrdtw) [![codecov](https://codecov.io/gh/pboesu/rucrdtw/branch/master/graph/badge.svg)](https://codecov.io/gh/pboesu/rucrdtw)
+[![Travis-CI Build Status](https://api.travis-ci.org/pboesu/rucrdtw.svg?branch=master)](https://travis-ci.org/pboesu/rucrdtw) [![codecov](https://codecov.io/gh/pboesu/rucrdtw/branch/master/graph/badge.svg)](https://codecov.io/gh/pboesu/rucrdtw) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/deBInfer)](https://cran.r-project.org/package=deBInfer) ![Peer Reviewed Software](https://img.shields.io/badge/Peer%20Reviewed-%E2%9C%93-green.svg) [![DOI:10.1111/2041-210X.12679](https://img.shields.io/badge/DOI-10.1111%2F2041--210X.12679-blue.svg)](http://doi.org/10.1111/2041-210X.12679)
 
 R bindings for functions from the [UCR Suite](http://www.cs.ucr.edu/~eamonn/UCRsuite.html) (Thanawin Rakthanmanon et al. 2012 SIGKDD), which enables ultrafast subsequence search under both Dynamic Time Warping and Euclidean Distance. UCR DTW is several orders of magnitudes faster than naive DTW searches.
 
