@@ -4,8 +4,7 @@
 \alias{ucrdtw_mv}
 \title{UCR DTW Algorithm matrix-vector method}
 \usage{
-ucrdtw_mv(data, query, dtwwindow, epoch = 1e+05, skip = TRUE,
-  byrow = FALSE)
+ucrdtw_mv(data, query, dtwwindow, epoch = 1e+05, skip = TRUE, byrow = FALSE)
 }
 \arguments{
 \item{data}{numeric matrix containing data}

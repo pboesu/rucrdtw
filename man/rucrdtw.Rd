@@ -3,7 +3,6 @@
 \docType{package}
 \name{rucrdtw}
 \alias{rucrdtw}
-\alias{rucrdtw-package}
 \title{rucrdtw: Fast time series subsequence search in R}
 \description{
 Dynamic Time Warping (DTW) methods provide algorithms to optimally map a given time series onto all or part of another time series. The remaining cumulative distance between the series after the alignement is a useful distance metric in time series data mining applications for tasks such as classification, clustering, and anomaly detection. A broad suite of DTW algorithms is implemented in R in the \strong{dtw} package (Giorgino 2009).
