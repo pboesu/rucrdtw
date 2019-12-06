@@ -49,10 +49,11 @@ benchmarks <- rbenchmark::benchmark(
   ucrdtw_1000 = ucrdtw_vv(rwalk[1:1000], query, 0.05),
   ucrdtw_2000 = ucrdtw_vv(rwalk[1:2000], query, 0.05),
   ucrdtw_5000 = ucrdtw_vv(rwalk, query, 0.05),
-  replications = 5)
+  replications = 20)
 
 colors <- rep(c("#33a02c","#1f78b4"), each=3)
-plot(log10(benchmarks$elapsed*200) ~ benchmarks$test, cex.axis=0.7, las = 2, yaxt = "n", xlab = "", ylab = "execution time [ms]", ylim = c(0,5), medcol = colors, staplecol=colors, boxcol=colors)
+#convert to milliseconds and divide by number of replicates to get average time for a single search
+plot(log10(benchmarks$elapsed*50) ~ benchmarks$test, cex.axis=0.7, las = 2, yaxt = "n", xlab = "", ylab = "execution time [ms]", ylim = c(0,5), medcol = colors, staplecol=colors, boxcol=colors)
 axis(2, at = c(0:4), labels = 10^(0:4), cex.axis = 0.7)
 legend("topright", legend = c("naive DTW", "UCR DTW"), fill = c("#33a02c","#1f78b4"), bty="n")
 ```
