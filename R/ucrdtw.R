@@ -59,7 +59,7 @@ summary.ucred <- function(object, ...){
 #' ucrdtw_mv(synthetic_control, query, 0.05, byrow = TRUE)
 #' @export
 ucrdtw_mv <- function(data, query, dtwwindow, epoch = 1e5, skip=TRUE, byrow=FALSE){
-  if (class(data)!="matrix" && class(data[1])!="numeric") stop("data must be a numeric matrix")
+  if (!is.matrix(data) && !is.numeric(data)) stop("data must be a numeric matrix")
   if(byrow){
     if(ncol(data)!=length(query)) stop("data series length must match query length")
     datav <- as.vector(t(data))
@@ -97,7 +97,7 @@ ucrdtw_mv <- function(data, query, dtwwindow, epoch = 1e5, skip=TRUE, byrow=FALS
 #' ucred_mv(synthetic_control, query, byrow=TRUE)
 #' @export
 ucred_mv <- function(data, query, skip=TRUE, byrow=FALSE){
-  if (class(data)!="matrix" && class(data[1])!="numeric") stop("data must be a numeric matrix")
+  if (!is.matrix(data) && !is.numeric(data)) stop("data must be a numeric matrix")
   if(byrow){
     if(ncol(data)!=length(query)) stop("data series length must match query length")
     datav <- as.vector(t(data))
