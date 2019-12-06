@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 
 [![Travis-CI Build Status](https://api.travis-ci.org/pboesu/rucrdtw.svg?branch=master)](https://travis-ci.org/pboesu/rucrdtw)
 [![codecov](https://codecov.io/gh/pboesu/rucrdtw/branch/master/graph/badge.svg)](https://codecov.io/gh/pboesu/rucrdtw)
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/deBInfer)](https://cran.r-project.org/package=deBInfer)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/rucrdtw)](https://cran.r-project.org/package=rucrdtw)
 [![Peer_Reviewed_Software](https://img.shields.io/badge/Peer%20Reviewed-%E2%9C%93-green.svg)](http://doi.org/10.21105/joss.00100)
 [![DOI:10.21105/joss.00100](https://img.shields.io/badge/DOI-10.21105%2Fjoss.00100-blue.svg)](http://doi.org/10.21105/joss.00100)
 
