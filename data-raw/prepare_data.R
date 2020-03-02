@@ -1,7 +1,7 @@
 #prepare package data
-synthetic_control <- read.table("data-raw/synthetic_control.data")
+synthetic_control <- read.table("data-raw/synthetic_control.data", stringsAsFactors = FALSE)
 synthetic_control <- as.matrix(synthetic_control)
-devtools::use_data(synthetic_control)
+usethis::use_data(synthetic_control, overwrite = TRUE)
 #write out data file as one long line
 write.table(as.vector(t(synthetic_control)), "inst/extdata/col_sc.txt", row.names=FALSE, col.names=FALSE)
 #write out query files
