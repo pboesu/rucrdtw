@@ -51,10 +51,14 @@ benchmarks <- rbenchmark::benchmark(
   ucrdtw_5000 = ucrdtw_vv(rwalk, query, 0.05),
   replications = 20)
 
+#ensure benchmark test column is of type factor for compatibility with r-devel
+benchmarks$test <- as.factor(benchmarks$test)
+
 colors <- rep(c("#33a02c","#1f78b4"), each=3)
-#convert to milliseconds and divide by number of replicates to get average time for a single search
-plot(log10(benchmarks$elapsed*50) ~ benchmarks$test, cex.axis=0.7, las = 2, yaxt = "n", xlab = "", ylab = "execution time [ms]", ylim = c(0,5), medcol = colors, staplecol=colors, boxcol=colors)
-axis(2, at = c(0:4), labels = 10^(0:4), cex.axis = 0.7)
+
+#plot with log1p transformed axes, as some execution times may be numerically zero
+plot(log1p(benchmarks$elapsed*50) ~ benchmarks$test, cex.axis=0.7, las = 2, yaxt = "n", xlab = "", ylab = "execution time [ms]", ylim = c(0,10), medcol = colors, staplecol=colors, boxcol=colors)
+axis(2, at = log1p(c(1,10,100,1000,10000)), labels = c(1,10,100,1000,10000), cex.axis = 0.7)
 legend("topright", legend = c("naive DTW", "UCR DTW"), fill = c("#33a02c","#1f78b4"), bty="n")
 ```
       
@@ -87,7 +91,7 @@ To cite rucrdtw in publications, please use:
  
 ## Bug reports and contributions
 
-Please file a github issue at https://github.com/pboesu/rucrdtw/issues if you find any problems or have feature suggestions. Contributions (via pull requests or otherwise) are welcome. If you don't like github you can contact the package maintainer at pboesu@gmail.com.
+Please file a github issue at https://github.com/pboesu/rucrdtw/issues if you find any problems or have feature suggestions. Contributions (via pull requests or otherwise) are welcome. Read more about how to contribute and the code of conduct for contributions [here](https://github.com/pboesu/rucrdtw/blob/master/CONTRIBUTING.md). If you don't like github you can contact the package maintainer at pboesu@gmail.com.
 
 ## License
 COPYRIGHT 2012: Thanawin Rakthanmanon, Bilson Campana, Abdullah Mueen, Gustavo Batista and Eamonn Keogh. (UCR Suite source code)
