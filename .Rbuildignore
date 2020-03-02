@@ -9,3 +9,5 @@
 ^joss-review-notes\.md$
 ^reviewer-response\.md$
 ^cran-comments\.md$
+^CONTRIBUTING\.md$
+^CODE_OF_CONDUCT\.md$
