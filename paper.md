@@ -14,7 +14,7 @@ bibliography: vignettes/rucrdtw.bib
 ---
 
 # Summary
-Dynamic Time Warping (DTW) methods provide algorithms to optimally map a given time series onto all or part of another time series [@berndt1994using]. The remaining cumulative distance between the series after the alignement is a useful distance metric in time series data mining applications for tasks such as classification, clustering, and anomaly detection. 
+Dynamic Time Warping (DTW) methods provide algorithms to optimally map a given time series onto all or part of another time series [@berndt1994using]. The remaining cumulative distance between the series after the alignment is a useful distance metric in time series data mining applications for tasks such as classification, clustering, and anomaly detection. 
 
 Calculating a DTW alignment is computationally relatively expensive, and as a consequence DTW is often a bottleneck in time series data mining applications. The [UCR Suite](http://www.cs.ucr.edu/~eamonn/UCRsuite.html) [@rakthanmanon2012searching] provides a highly optimized algorithm for best-match subsequence searches that avoids unnecessary distance computations and thereby enables fast DTW and Euclidean Distance queries even in data sets containing trillions of observations.
   
