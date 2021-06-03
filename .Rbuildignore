@@ -3,7 +3,6 @@
 ^data-raw$
 ^paper\.md$
 ^paper\.bib$
-^\.travis\.yml$
 ^LICENSE$
 ^README\.Rmd$
 ^joss-review-notes\.md$
@@ -11,3 +10,4 @@
 ^cran-comments\.md$
 ^CONTRIBUTING\.md$
 ^CODE_OF_CONDUCT\.md$
+^\.github$
