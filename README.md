@@ -1,10 +1,14 @@
 rucrdtw - R Bindings for the UCR Suite
 ======================================
 
+<!-- badges: start -->
+
+[![R-CMD-check](https://github.com/pboesu/rucrdtw/workflows/R-CMD-check/badge.svg)](https://github.com/pboesu/rucrdtw/actions)
 [![codecov](https://codecov.io/gh/pboesu/rucrdtw/branch/master/graph/badge.svg)](https://codecov.io/gh/pboesu/rucrdtw)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/rucrdtw)](https://cran.r-project.org/package=rucrdtw)
 [![Peer\_Reviewed\_Software](https://img.shields.io/badge/Peer%20Reviewed-%E2%9C%93-green.svg)](http://doi.org/10.21105/joss.00100)
 [![DOI:10.21105/joss.00100](https://img.shields.io/badge/DOI-10.21105%2Fjoss.00100-blue.svg)](http://doi.org/10.21105/joss.00100)
+<!-- badges: end -->
 
 R bindings for functions from the [UCR
 Suite](http://www.cs.ucr.edu/~eamonn/UCRsuite.html) (Thanawin
