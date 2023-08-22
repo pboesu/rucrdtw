@@ -20,8 +20,8 @@
 #'   \item \strong{dtwCalc:} Percentage of subsequences for which the full DTW distance was calculated.
 #' }
 #' For an explanation of the pruning criteria see Rakthanmanon et al. (2012).
-#' @references Rakthanmanon, Thanawin, Bilson Campana, Abdullah Mueen, Gustavo Batista, Brandon Westover, Qiang Zhu, Jesin Zakaria, and Eamonn Keogh. 2012. Searching and Mining Trillions of Time Series Subsequences Under Dynamic Time Warping. In Proceedings of the 18th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining, 262-70. ACM. doi:\href{http://dx.doi.org/10.1145/2339530.2339576}{10.1145/2339530.2339576}.
-#' @references Giorgino, Toni (2009). Computing and Visualizing Dynamic Time Warping Alignments in R: The dtw Package. Journal of Statistical Software, 31(7), 1-24, doi:\href{http://dx.doi.org/10.18637/jss.v031.i07}{10.18637/jss.v031.i07}.
+#' @references Rakthanmanon, Thanawin, Bilson Campana, Abdullah Mueen, Gustavo Batista, Brandon Westover, Qiang Zhu, Jesin Zakaria, and Eamonn Keogh. 2012. Searching and Mining Trillions of Time Series Subsequences Under Dynamic Time Warping. In Proceedings of the 18th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining, 262-70. ACM. doi:\doi{10.1145/2339530.2339576}.
+#' @references Giorgino, Toni (2009). Computing and Visualizing Dynamic Time Warping Alignments in R: The dtw Package. Journal of Statistical Software, 31(7), 1-24, doi:\doi{10.18637/jss.v031.i07}.
 #' @examples
 #' #locate example data file
 #' dataf <- system.file("extdata/col_sc.txt", package="rucrdtw")
@@ -56,8 +56,8 @@ ucrdtw_ff <- function(data, query, qlength, dtwwindow) {
 #'   \item \strong{dtwCalc:} Percentage of subsequences for which the full DTW distance was calculated.
 #' }
 #' For an explanation of the pruning criteria see Rakthanmanon et al. (2012).
-#' @references Rakthanmanon, Thanawin, Bilson Campana, Abdullah Mueen, Gustavo Batista, Brandon Westover, Qiang Zhu, Jesin Zakaria, and Eamonn Keogh. 2012. Searching and Mining Trillions of Time Series Subsequences Under Dynamic Time Warping. In Proceedings of the 18th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining, 262-70. ACM. doi:\href{http://dx.doi.org/10.1145/2339530.2339576}{10.1145/2339530.2339576}.
-#' @references Giorgino, Toni (2009). Computing and Visualizing Dynamic Time Warping Alignments in R: The dtw Package. Journal of Statistical Software, 31(7), 1-24, doi:\href{http://dx.doi.org/10.18637/jss.v031.i07}{10.18637/jss.v031.i07}.
+#' @references Rakthanmanon, Thanawin, Bilson Campana, Abdullah Mueen, Gustavo Batista, Brandon Westover, Qiang Zhu, Jesin Zakaria, and Eamonn Keogh. 2012. Searching and Mining Trillions of Time Series Subsequences Under Dynamic Time Warping. In Proceedings of the 18th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining, 262-70. ACM. doi:\doi{10.1145/2339530.2339576}.
+#' @references Giorgino, Toni (2009). Computing and Visualizing Dynamic Time Warping Alignments in R: The dtw Package. Journal of Statistical Software, 31(7), 1-24, doi:\doi{10.18637/jss.v031.i07}.
 #' @examples
 #' #locate example data file
 #' dataf <- system.file("extdata/col_sc.txt", package="rucrdtw")
@@ -94,8 +94,8 @@ ucrdtw_fv <- function(data, query, dtwwindow) {
 #'   \item \strong{dtwCalc:} Percentage of subsequences for which the full DTW distance was calculated.
 #' }
 #' For an explanation of the pruning criteria see Rakthanmanon et al. (2012).
-#' @references Rakthanmanon, Thanawin, Bilson Campana, Abdullah Mueen, Gustavo Batista, Brandon Westover, Qiang Zhu, Jesin Zakaria, and Eamonn Keogh. 2012. Searching and Mining Trillions of Time Series Subsequences Under Dynamic Time Warping. In Proceedings of the 18th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining, 262-70. ACM. doi:\href{http://dx.doi.org/10.1145/2339530.2339576}{10.1145/2339530.2339576}.
-#' @references Giorgino, Toni (2009). Computing and Visualizing Dynamic Time Warping Alignments in R: The dtw Package. Journal of Statistical Software, 31(7), 1-24, doi:\href{http://dx.doi.org/10.18637/jss.v031.i07}{10.18637/jss.v031.i07}.
+#' @references Rakthanmanon, Thanawin, Bilson Campana, Abdullah Mueen, Gustavo Batista, Brandon Westover, Qiang Zhu, Jesin Zakaria, and Eamonn Keogh. 2012. Searching and Mining Trillions of Time Series Subsequences Under Dynamic Time Warping. In Proceedings of the 18th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining, 262-70. ACM. doi:\doi{10.1145/2339530.2339576}.
+#' @references Giorgino, Toni (2009). Computing and Visualizing Dynamic Time Warping Alignments in R: The dtw Package. Journal of Statistical Software, 31(7), 1-24, doi:\doi{10.18637/jss.v031.i07}.
 #' @examples
 #' #read example data into vector
 #' datav <- scan(system.file("extdata/col_sc.txt", package="rucrdtw"))
