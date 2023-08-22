@@ -8,6 +8,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // ucrdtw_ff
 Rcpp::List ucrdtw_ff(const char * data, const char * query, int qlength, double dtwwindow);
 static SEXP _rucrdtw_ucrdtw_ff_try(SEXP dataSEXP, SEXP querySEXP, SEXP qlengthSEXP, SEXP dtwwindowSEXP) {
