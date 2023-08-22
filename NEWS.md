@@ -1,3 +1,8 @@
+# rucrdtw 0.1.5
+
+* updated documentation to address breaking change in roxygen2
+* require R >= 3.6 to ensure C++11 standard
+
 # rucrdtw 0.1.4
 
 * updated code in anticipation of stringsAsFactors = FALSE in forthcoming R versions

@@ -1,8 +1,8 @@
 Package: rucrdtw
 Type: Package
 Title: R Bindings for the UCR Suite
-Version: 0.1.4
-Date: 2020-03-02
+Version: 0.1.5
+Date: 2023-08-22
 Authors@R: c(person("Philipp", "Boersch-Supan", email = "pboesu@gmail.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0001-6723-6833")),
              person("Thanawin", "Rakthanmanon", role = "aut"),
              person("Bilson", "Campana", role = "aut"),
@@ -17,10 +17,9 @@ Description: R bindings for functions from the UCR Suite by Rakthanmanon et al. 
 License: Apache License
 LazyData: TRUE
 LinkingTo: Rcpp
-Depends: R (>= 2.10)
+Depends: R (>= 3.6)
 Imports:
     Rcpp
-SystemRequirements: C++11
 RoxygenNote: 7.2.3
 Suggests: testthat,
     knitr,
