@@ -44,5 +44,5 @@ query <- synthetic_control[5,]
 ucrdtw_mv(synthetic_control, query, 0.05, byrow = TRUE)
 }
 \references{
-Giorgino, Toni (2009). Computing and Visualizing Dynamic Time Warping Alignments in R: The dtw Package. Journal of Statistical Software, 31(7), 1-24, doi:\href{http://dx.doi.org/10.18637/jss.v031.i07}{10.18637/jss.v031.i07}.
+Giorgino, Toni (2009). Computing and Visualizing Dynamic Time Warping Alignments in R: The dtw Package. Journal of Statistical Software, 31(7), 1-24, doi:\doi{10.18637/jss.v031.i07}.
 }

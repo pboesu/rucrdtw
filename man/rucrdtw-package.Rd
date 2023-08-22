@@ -25,9 +25,9 @@ Examples of the functionality in this package are provided in the rucrdtw vignet
 \code{vignette("using_rucrdtw", package = "rucrdtw")}
 }
 \references{
-Rakthanmanon, Thanawin, Bilson Campana, Abdullah Mueen, Gustavo Batista, Brandon Westover, Qiang Zhu, Jesin Zakaria, and Eamonn Keogh. 2012. Searching and Mining Trillions of Time Series Subsequences Under Dynamic Time Warping. In Proceedings of the 18th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining, 262-70. ACM. doi:\href{http://dx.doi.org/10.1145/2339530.2339576}{10.1145/2339530.2339576}.
+Rakthanmanon, Thanawin, Bilson Campana, Abdullah Mueen, Gustavo Batista, Brandon Westover, Qiang Zhu, Jesin Zakaria, and Eamonn Keogh. 2012. Searching and Mining Trillions of Time Series Subsequences Under Dynamic Time Warping. In Proceedings of the 18th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining, 262-70. ACM. doi:\doi{10.1145/2339530.2339576}.
 
-Giorgino, Toni (2009). Computing and Visualizing Dynamic Time Warping Alignments in R: The dtw Package. Journal of Statistical Software, 31(7), 1-24, doi:\href{http://dx.doi.org/10.18637/jss.v031.i07}{10.18637/jss.v031.i07}.
+Giorgino, Toni (2009). Computing and Visualizing Dynamic Time Warping Alignments in R: The dtw Package. Journal of Statistical Software, 31(7), 1-24, \doi{10.18637/jss.v031.i07}.
 
 UCR Suite Website: \url{http://www.cs.ucr.edu/~eamonn/UCRsuite.html}
 }

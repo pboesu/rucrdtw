@@ -1,3 +1,6 @@
+## Release summary
+This is a minor update of the previous version it addresses a breaking change in roxygen2 that resulted in missing aliases for the package overview help file. 
+It also addresses CRAN check notes about removing an explicit C++11 specification.
 
 ## Test environments
 * Windows Server 2022 x64 (build 20348; on github-actions) R version 4.3.1 (2023-06-16 ucrt)
