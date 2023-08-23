@@ -1,12 +1,11 @@
-rucrdtw - R Bindings for the UCR Suite
-======================================
+# rucrdtw - R Bindings for the UCR Suite
 
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/pboesu/rucrdtw/workflows/R-CMD-check/badge.svg)](https://github.com/pboesu/rucrdtw/actions)
-[![codecov](https://codecov.io/gh/pboesu/rucrdtw/branch/master/graph/badge.svg)](https://codecov.io/gh/pboesu/rucrdtw)
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/rucrdtw)](https://cran.r-project.org/package=rucrdtw)
-[![Peer\_Reviewed\_Software](https://img.shields.io/badge/Peer%20Reviewed-%E2%9C%93-green.svg)](http://doi.org/10.21105/joss.00100)
+[![codecov](https://codecov.io/gh/pboesu/rucrdtw/branch/master/graph/badge.svg)](https://app.codecov.io/gh/pboesu/rucrdtw)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/rucrdtw)](https://cran.r-project.org/package=rucrdtw)
+[![Peer_Reviewed_Software](https://img.shields.io/badge/Peer%20Reviewed-%E2%9C%93-green.svg)](http://doi.org/10.21105/joss.00100)
 [![DOI:10.21105/joss.00100](https://img.shields.io/badge/DOI-10.21105%2Fjoss.00100-blue.svg)](http://doi.org/10.21105/joss.00100)
 <!-- badges: end -->
 
@@ -18,8 +17,7 @@ is several orders of magnitudes faster than naive DTW searches.
 
 ![](inst/img/dtw-comparison-1.png)
 
-Installation
-------------
+## Installation
 
 Install `rucrdtw` from GitHub:
 
@@ -28,8 +26,7 @@ install.packages("devtools")
 devtools::install_github("pboesu/rucrdtw")
 ```
 
-Examples
---------
+## Examples
 
 Examples are contained in the vignette `rucrdtw`:
 
@@ -38,33 +35,28 @@ library("rucrdtw")
 vignette("using_rucrdtw")
 ```
 
-Citation
---------
+## Citation
 
 To cite rucrdtw in publications, please use:
 
 Boersch-Supan (2016). rucrdtw: Fast time series subsequence search in R.
-The Journal of Open Source Software
-<a href="http://doi.org/10.21105/joss.00100" class="uri">http://doi.org/10.21105/joss.00100</a>
+The Journal of Open Source Software <http://doi.org/10.21105/joss.00100>
 
 Rakthanmanon et al. (2012). Searching and mining trillions of time
 series subsequences under dynamic time warping. SIGKDD
-<a href="http://doi.org/10.1145/2339530.2339576" class="uri">http://doi.org/10.1145/2339530.2339576</a>
+<http://doi.org/10.1145/2339530.2339576>
 
-Bug reports and contributions
------------------------------
+## Bug reports and contributions
 
-Please file a github issue at
-<a href="https://github.com/pboesu/rucrdtw/issues" class="uri">https://github.com/pboesu/rucrdtw/issues</a>
+Please file a github issue at <https://github.com/pboesu/rucrdtw/issues>
 if you find any problems or have feature suggestions. Contributions (via
 pull requests or otherwise) are welcome. Read more about how to
 contribute and the code of conduct for contributions
 [here](https://github.com/pboesu/rucrdtw/blob/master/CONTRIBUTING.md).
 If you don’t like github you can contact the package maintainer at
-<a href="mailto:pboesu@gmail.com" class="email">pboesu@gmail.com</a>.
+<pboesu@gmail.com>.
 
-License
--------
+## License
 
 COPYRIGHT 2012: Thanawin Rakthanmanon, Bilson Campana, Abdullah Mueen,
 Gustavo Batista and Eamonn Keogh. (UCR Suite source code)
@@ -75,7 +67,7 @@ Licensed under the Apache License, Version 2.0 (the “License”); you may
 not use this file except in compliance with the License. You may obtain
 a copy of the License at
 
-<a href="http://www.apache.org/licenses/LICENSE-2.0" class="uri">http://www.apache.org/licenses/LICENSE-2.0</a>
+<https://www.apache.org/licenses/LICENSE-2.0>
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an “AS IS” BASIS,
