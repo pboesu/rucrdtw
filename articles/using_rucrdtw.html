@@ -143,14 +143,14 @@ methods for the search.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time</a></span><span class="op">(</span><span class="va">dtw_search</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ucrdtw_vv.html">ucrdtw_vv</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">rwalk</span>, query <span class="op">=</span> <span class="va">query</span>, dtwwindow <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##    user  system elapsed </span></span>
-<span><span class="co">##   1.671   0.000   1.671</span></span></code></pre>
+<span><span class="co">##   1.821   0.000   1.822</span></span></code></pre>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span><span class="va">qstart</span>, <span class="va">dtw_search</span><span class="op">$</span><span class="va">location</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] TRUE</span></span></code></pre>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/system.time.html" class="external-link">system.time</a></span><span class="op">(</span><span class="va">ed_search</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ucred_vv.html">ucred_vv</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">rwalk</span>, query <span class="op">=</span> <span class="va">query</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##    user  system elapsed </span></span>
-<span><span class="co">##   0.866   0.000   0.867</span></span></code></pre>
+<span><span class="co">##   0.969   0.000   0.969</span></span></code></pre>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span><span class="va">qstart</span>, <span class="va">ed_search</span><span class="op">$</span><span class="va">location</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] TRUE</span></span></code></pre>
