@@ -7,3 +7,4 @@ src/*.dll
 inst/doc
 /doc/
 /Meta/
+/revdep/
