@@ -1,3 +1,7 @@
+# rucrdtw 0.1.6
+
+* updated to Rcpp 1.0.11.6 to address -Wformat-security issue
+
 # rucrdtw 0.1.5
 
 * updated documentation to address breaking change in roxygen2
