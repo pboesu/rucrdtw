@@ -1,5 +1,5 @@
 ## Release summary
-This is a minor update of the previous version it addresses a CRAN check warning about -Wformat-security issues in the Rcpp generated code.
+This is a minor update of the previous version it addresses a request by the Rcpp maintainers to protect Rf_error calls from macro expansion.
 
 ## Test environments
 * Windows Server 2022 x64 (build 20348) R version 4.3.2 (2023-10-31 ucrt), R-devel (2023-12-09 r85665 ucrt)

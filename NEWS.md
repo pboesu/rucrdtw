@@ -1,3 +1,7 @@
+# rucrdtw 0.1.7
+
+* updated to Rcpp 1.1.1 to protect Rf_error calls
+
 # rucrdtw 0.1.6
 
 * updated to Rcpp 1.0.11.6 to address -Wformat-security issue
