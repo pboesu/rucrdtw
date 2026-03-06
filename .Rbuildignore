@@ -15,3 +15,5 @@
 ^Meta$
 ^revdep$
 ^CRAN-SUBMISSION$
+^\.positai$
+^\.claude$
