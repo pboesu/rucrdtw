@@ -91,18 +91,14 @@ void destroy(deque2 *d)
 void push_back(struct deque2 *d, int v)
 {
     d->dq[d->r] = v;
-    d->r--;
-    if (d->r < 0)
-        d->r = d->capacity-1;
+    d->r = (d->r - 1 + d->capacity) % d->capacity;
     d->size++;
 }
 
 /// Delete the current (front) element from queue
 void pop_front(struct deque2 *d)
 {
-    d->f--;
-    if (d->f < 0)
-        d->f = d->capacity-1;
+    d->f = (d->f - 1 + d->capacity) % d->capacity;
     d->size--;
 }
 
